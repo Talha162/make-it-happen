@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
 
@@ -36,8 +36,11 @@ class MentorshipSessionsView extends StatelessWidget {
                 subtitle: session.time,
                 chipText: session.status,
                 chipColor: session.isCompleted
-                    ? AppColors.success
-                    : AppColors.accent,
+                    ? AppColors.statusCompletedText
+                    : AppColors.statusScheduledText,
+                chipBackground: session.isCompleted
+                    ? AppColors.statusCompletedBg
+                    : AppColors.statusScheduledBg,
                 leading: Container(
                   height: 28,
                   width: 28,
@@ -112,3 +115,4 @@ final _sessions = <_Session>[
     isCompleted: false,
   ),
 ];
+

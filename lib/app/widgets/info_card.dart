@@ -13,6 +13,7 @@ class InfoCard extends StatelessWidget {
     this.trailing,
     this.chipText,
     this.chipColor = AppColors.primary,
+    this.chipBackground,
   });
 
   final String title;
@@ -21,6 +22,7 @@ class InfoCard extends StatelessWidget {
   final Widget? trailing;
   final String? chipText;
   final Color chipColor;
+  final Color? chipBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class InfoCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: chipColor.withOpacity(0.18),
+                      color: chipBackground ?? chipColor.withOpacity(0.18),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(

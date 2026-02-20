@@ -31,7 +31,7 @@ class OtpController extends GetxController {
 
   void onVerify() {
     showError.value = false;
-    Get.offAllNamed(AppRoutes.profile);
+    Get.offAllNamed(AppRoutes.home);
   }
 
   void onResend() {

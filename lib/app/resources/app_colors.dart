@@ -23,5 +23,12 @@ class AppColors {
   static const Color divider = Color(0xFF2A2A2A);
   static const Color chipFill = Color(0xFF4A2B8A);
   static const Color chipBorder = Color(0xFF6C45C4);
+  static const Color statusCompletedBg = Color(0xFF1F3A2B);
+  static const Color statusCompletedText = Color(0xFF4CD964);
+  static const Color statusScheduledBg = Color(0xFF2D1B44);
+  static const Color statusScheduledText = Color(0xFFB06CFF);
+  static const Color statusPaidBg = Color(0xFF2A1C3B);
+  static const Color statusPaidText = Color(0xFFB991FF);
+  static const Color eventTagBorder = Color(0xFF3A3A3A);
   static const Color transparent = Color(0x00000000);
 }

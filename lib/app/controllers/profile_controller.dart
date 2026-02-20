@@ -7,6 +7,17 @@ class ProfileController extends GetxController {
 
   void onNavTap(int index) {
     navIndex.value = index;
+    if (index == 0) {
+      Get.toNamed(AppRoutes.home);
+    } else if (index == 1) {
+      Get.toNamed(AppRoutes.learn);
+    } else if (index == 3) {
+      Get.toNamed(AppRoutes.eventEmpty);
+    } else if (index == 2) {
+      Get.toNamed(AppRoutes.matchSuggestionsBlocked);
+    } else if (index == 4) {
+      Get.toNamed(AppRoutes.profile);
+    }
   }
 
   void openLocation() => Get.toNamed(AppRoutes.locationDetails);
@@ -17,4 +28,6 @@ class ProfileController extends GetxController {
   void openSubscription() => Get.toNamed(AppRoutes.activePlan);
   void openSupport() => Get.toNamed(AppRoutes.supportSafety);
   void openAccount() => Get.toNamed(AppRoutes.accountSettings);
+  void openEditProfile() => Get.toNamed(AppRoutes.editProfile);
+  void openTerms() => Get.toNamed(AppRoutes.terms);
 }

@@ -50,7 +50,7 @@ class LoginController extends GetxController {
 
   void onLogin() {
     if (formKey.currentState?.validate() ?? false) {
-      Get.offAllNamed(AppRoutes.profile);
+      Get.offAllNamed(AppRoutes.home);
     }
   }
 

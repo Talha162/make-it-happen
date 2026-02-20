@@ -58,9 +58,12 @@ class ProfileView extends GetView<ProfileController> {
                         ],
                       ),
                     ),
-                    Text(
-                      'Edit',
-                      style: AppTextStyles.body.copyWith(color: AppColors.primary),
+                    GestureDetector(
+                      onTap: controller.openEditProfile,
+                      child: Text(
+                        'Edit',
+                        style: AppTextStyles.body.copyWith(color: AppColors.primary),
+                      ),
                     ),
                   ],
                 ),
@@ -113,7 +116,7 @@ class ProfileView extends GetView<ProfileController> {
               ProfileMenuTile(
                 icon: LucideIcons.fileText,
                 label: 'Terms & Conditions',
-                onTap: () {},
+                onTap: controller.openTerms,
               ),
               const SizedBox(height: AppDimens.spacing10),
               ProfileMenuTile(

@@ -26,41 +26,46 @@ class ProfileBottomNav extends StatelessWidget {
     ];
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimens.spacing12,
-        vertical: AppDimens.spacing8,
-      ),
       decoration: const BoxDecoration(
         color: AppColors.surface,
         border: Border(top: BorderSide(color: AppColors.border)),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (var i = 0; i < items.length; i++)
-            Expanded(
-              child: GestureDetector(
-                onTap: () => onTap(i),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      items[i].icon,
-                      size: 20,
-                      color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDimens.spacing12,
+            vertical: AppDimens.spacing8,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (var i = 0; i < items.length; i++)
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => onTap(i),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          items[i].icon,
+                          size: 20,
+                          color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          items[i].label,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      items[i].label,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }

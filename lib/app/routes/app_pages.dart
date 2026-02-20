@@ -3,6 +3,11 @@
 import '../bindings/app_bindings.dart';
 import '../routes/app_routes.dart';
 import '../views/additional_questions_view.dart';
+import '../views/event_booking_confirm_view.dart';
+import '../views/event_booking_success_view.dart';
+import '../views/event_detail_view.dart';
+import '../views/event_empty_view.dart';
+import '../views/events_view.dart';
 import '../views/forgot_password_view.dart';
 import '../views/intention_view.dart';
 import '../views/login_view.dart';
@@ -15,6 +20,27 @@ import '../views/notifications_view.dart';
 import '../views/preferences_view.dart';
 import '../views/profile_view.dart';
 import '../views/relationship_view.dart';
+import '../views/edit_profile_view.dart';
+import '../views/terms_view.dart';
+import '../views/match_requested_view.dart';
+import '../views/match_cancelled_view.dart';
+import '../views/match_matched_view.dart';
+import '../views/match_suggestions_view.dart';
+import '../views/match_suggestions_blocked_view.dart';
+import '../views/match_search_view.dart';
+import '../views/match_detail_available_view.dart';
+import '../views/match_detail_matched_view.dart';
+import '../views/match_detail_requested_view.dart';
+import '../views/match_detail_cancelled_view.dart';
+import '../views/match_congratulations_view.dart';
+import '../views/match_marriage_status_view.dart';
+import '../views/home_view.dart';
+import '../views/home_notifications_view.dart';
+import '../views/mentorship_guided_view.dart';
+import '../views/mentorship_confirmed_view.dart';
+import '../views/learn_view.dart';
+import '../views/learn_lesson_detail_view.dart';
+import '../views/learn_video_lesson_view.dart';
 import '../views/reset_password_view.dart';
 import '../views/signup_view.dart';
 import '../views/splash_view.dart';
@@ -117,6 +143,196 @@ class AppPages {
     GetPage(
       name: AppRoutes.preferences,
       page: () => const PreferencesView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.editProfile,
+      page: () => const EditProfileView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.terms,
+      page: () => const TermsView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.events,
+      page: () => const EventsView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventEmpty,
+      page: () => const EventEmptyView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventDetail,
+      page: () => const EventDetailView(mode: EventDetailMode.available),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventDetailRegistered,
+      page: () => const EventDetailView(mode: EventDetailMode.registered),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventDetailFull,
+      page: () => const EventDetailView(mode: EventDetailMode.full),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventConfirm,
+      page: () => const EventBookingConfirmView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.eventSuccess,
+      page: () => const EventBookingSuccessView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchRequested,
+      page: () => const MatchRequestedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchCancelled,
+      page: () => const MatchCancelledView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchMatched,
+      page: () => const MatchMatchedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchSuggestions,
+      page: () => const MatchSuggestionsView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchSuggestionsBlocked,
+      page: () => const MatchSuggestionsBlockedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchSearch,
+      page: () => const MatchSearchView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchDetailAvailable,
+      page: () => const MatchDetailAvailableView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchDetailMatched,
+      page: () => const MatchDetailMatchedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchDetailRequested,
+      page: () => const MatchDetailRequestedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchDetailCancelled,
+      page: () => const MatchDetailCancelledView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchCongratulations,
+      page: () => const MatchCongratulationsView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchMarriageStatus,
+      page: () => const MatchMarriageStatusView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.home,
+      page: () => const HomeView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.homeNotifications,
+      page: () => const HomeNotificationsView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.mentorshipGuided,
+      page: () => const MentorshipGuidedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.mentorshipConfirmed,
+      page: () => const MentorshipConfirmedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learn,
+      page: () => const LearnView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnDetailNotStarted,
+      page: () => const LearnLessonDetailView(
+        statusLabel: 'Not started',
+        progress: 0.0,
+        actionLabel: 'Start Lesson',
+        completionLabel: null,
+      ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnDetailInProgress,
+      page: () => const LearnLessonDetailView(
+        statusLabel: 'In Progress',
+        progress: 0.1,
+        actionLabel: 'Resume Lesson',
+        completionLabel: null,
+      ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnDetailCompleted,
+      page: () => const LearnLessonDetailView(
+        statusLabel: 'Completed',
+        progress: 1.0,
+        actionLabel: 'Continue Learning',
+        completionLabel: 'You have completed this lesson item.',
+      ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnVideoNotStarted,
+      page: () => const LearnVideoLessonView(
+        statusLabel: 'Not Started',
+        progress: 0.0,
+        actionLabel: 'Start Lesson',
+        completionLabel: null,
+      ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnVideoInProgress,
+      page: () => const LearnVideoLessonView(
+        statusLabel: 'In Progress',
+        progress: 0.1,
+        actionLabel: 'Resume Lesson',
+        completionLabel: null,
+      ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnVideoCompleted,
+      page: () => const LearnVideoLessonView(
+        statusLabel: 'Completed',
+        progress: 1.0,
+        actionLabel: 'Continue Learning',
+        completionLabel: 'You have completed this lesson item.',
+      ),
       binding: AppBindings(),
     ),
   ];
