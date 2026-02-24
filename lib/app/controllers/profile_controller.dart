@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../routes/bottom_nav.dart';
 import '../routes/app_routes.dart';
 
 class ProfileController extends GetxController {
@@ -7,17 +8,12 @@ class ProfileController extends GetxController {
 
   void onNavTap(int index) {
     navIndex.value = index;
-    if (index == 0) {
-      Get.toNamed(AppRoutes.home);
-    } else if (index == 1) {
-      Get.toNamed(AppRoutes.learn);
-    } else if (index == 3) {
-      Get.toNamed(AppRoutes.eventEmpty);
-    } else if (index == 2) {
-      Get.toNamed(AppRoutes.matchSuggestionsBlocked);
-    } else if (index == 4) {
-      Get.toNamed(AppRoutes.profile);
-    }
+    BottomNav.onTap(
+      index: index,
+      currentRoute: AppRoutes.profile,
+      matchRoute: AppRoutes.matchSuggestionsBlocked,
+      eventsRoute: AppRoutes.eventEmpty,
+    );
   }
 
   void openLocation() => Get.toNamed(AppRoutes.locationDetails);

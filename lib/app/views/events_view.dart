@@ -6,6 +6,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
+import '../routes/bottom_nav.dart';
 import '../widgets/profile_bottom_nav.dart';
 
 class EventsView extends StatelessWidget {
@@ -112,18 +113,12 @@ class EventsView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ProfileBottomNav(
-        currentIndex: 3,
-        onTap: (index) {
-          if (index == 0) {
-            Get.toNamed(AppRoutes.home);
-          }
-          if (index == 2) {
-            Get.toNamed(AppRoutes.matchSuggestionsBlocked);
-          }
-          if (index == 4) {
-            Get.toNamed(AppRoutes.profile);
-          }
-        },
+        currentIndex: BottomNav.eventsIndex,
+        onTap: (index) => BottomNav.onTap(
+          index: index,
+          currentRoute: AppRoutes.events,
+          matchRoute: AppRoutes.matchSuggestionsBlocked,
+        ),
       ),
     );
   }
