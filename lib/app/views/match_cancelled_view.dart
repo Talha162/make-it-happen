@@ -6,6 +6,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
+import '../routes/bottom_nav.dart';
 import '../widgets/match_profile_card.dart';
 import '../widgets/match_tab_bar.dart';
 import '../widgets/profile_bottom_nav.dart';
@@ -15,7 +16,7 @@ class MatchCancelledView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tabs = ['Suggestions', 'Matched', 'Cancelled', 'Requested'];
+    final tabs = ['Suggestions', 'Matched', 'Requested', 'Cancelled'];
     final profiles = [
       _MatchItem(
         name: 'Alexa K.',
@@ -57,12 +58,12 @@ class MatchCancelledView extends StatelessWidget {
             ),
             MatchTabBar(
               tabs: tabs,
-              selectedIndex: 2,
+              selectedIndex: 3,
               onTap: (index) {
                 if (index == 0) Get.toNamed(AppRoutes.matchSuggestions);
                 if (index == 1) Get.toNamed(AppRoutes.matchMatched);
-                if (index == 2) Get.toNamed(AppRoutes.matchCancelled);
-                if (index == 3) Get.toNamed(AppRoutes.matchRequested);
+                if (index == 2) Get.toNamed(AppRoutes.matchRequested);
+                if (index == 3) Get.toNamed(AppRoutes.matchCancelled);
               },
             ),
             const SizedBox(height: AppDimens.spacing16),
@@ -89,13 +90,13 @@ class MatchCancelledView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ProfileBottomNav(
-        currentIndex: 2,
-        onTap: (index) {
-          if (index == 0) Get.toNamed(AppRoutes.home);
-          if (index == 2) Get.toNamed(AppRoutes.matchCancelled);
-          if (index == 3) Get.toNamed(AppRoutes.eventEmpty);
-          if (index == 4) Get.toNamed(AppRoutes.profile);
-        },
+        currentIndex: BottomNav.matchIndex,
+        onTap: (index) => BottomNav.onTap(
+          index: index,
+          currentRoute: AppRoutes.matchCancelled,
+          matchRoute: AppRoutes.matchCancelled,
+          eventsRoute: AppRoutes.eventEmpty,
+        ),
       ),
     );
   }

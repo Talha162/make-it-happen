@@ -7,6 +7,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
+import '../routes/bottom_nav.dart';
 import '../widgets/profile_bottom_nav.dart';
 
 class LearnView extends StatelessWidget {
@@ -92,14 +93,13 @@ class LearnView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ProfileBottomNav(
-        currentIndex: 1,
-        onTap: (index) {
-          if (index == 0) Get.toNamed(AppRoutes.home);
-          if (index == 1) Get.toNamed(AppRoutes.learn);
-          if (index == 2) Get.toNamed(AppRoutes.matchSuggestionsBlocked);
-          if (index == 3) Get.toNamed(AppRoutes.eventEmpty);
-          if (index == 4) Get.toNamed(AppRoutes.profile);
-        },
+        currentIndex: BottomNav.learnIndex,
+        onTap: (index) => BottomNav.onTap(
+          index: index,
+          currentRoute: AppRoutes.learn,
+          matchRoute: AppRoutes.matchSuggestionsBlocked,
+          eventsRoute: AppRoutes.eventEmpty,
+        ),
       ),
     );
   }

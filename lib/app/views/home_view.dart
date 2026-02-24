@@ -6,6 +6,7 @@ import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
+import '../routes/bottom_nav.dart';
 import '../routes/app_routes.dart';
 import '../widgets/match_profile_card.dart';
 import '../widgets/profile_bottom_nav.dart';
@@ -110,13 +111,13 @@ class HomeView extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: ProfileBottomNav(
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 0) Get.toNamed(AppRoutes.home);
-          if (index == 2) Get.toNamed(AppRoutes.matchSuggestionsBlocked);
-          if (index == 3) Get.toNamed(AppRoutes.eventEmpty);
-          if (index == 4) Get.toNamed(AppRoutes.profile);
-        },
+        currentIndex: BottomNav.homeIndex,
+        onTap: (index) => BottomNav.onTap(
+          index: index,
+          currentRoute: AppRoutes.home,
+          matchRoute: AppRoutes.matchSuggestionsBlocked,
+          eventsRoute: AppRoutes.eventEmpty,
+        ),
       ),
     );
   }
@@ -217,26 +218,29 @@ class _EventTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.border),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(image, width: 40, height: 40, fit: BoxFit.cover),
-          ),
-          const SizedBox(width: AppDimens.spacing10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
-                const SizedBox(height: 4),
-                Text(time, style: AppTextStyles.bodySmall),
-              ],
+      child: InkWell(
+        onTap: ()=>Get.toNamed(AppRoutes.eventDetail),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(image, width: 40, height: 40, fit: BoxFit.cover),
             ),
-          ),
-          Text(price, style: AppTextStyles.body.copyWith(color: AppColors.accent)),
-        ],
+            const SizedBox(width: AppDimens.spacing10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+                  const SizedBox(height: 4),
+                  Text(time, style: AppTextStyles.bodySmall),
+                ],
+              ),
+            ),
+            Text(price, style: AppTextStyles.body.copyWith(color: AppColors.accent)),
+          ],
+        ),
       ),
     );
   }
