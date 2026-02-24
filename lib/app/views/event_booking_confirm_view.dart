@@ -16,7 +16,7 @@ class EventBookingConfirmView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -112,3 +112,4 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
+

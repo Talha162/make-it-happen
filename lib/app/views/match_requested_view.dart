@@ -56,7 +56,7 @@ class MatchRequestedView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,3 +142,4 @@ class _MatchItem {
   final String location;
   final String image;
 }
+

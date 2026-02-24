@@ -29,7 +29,7 @@ class ProfileScaffold extends StatelessWidget {
         ? (AppDimens.buttonHeight + AppDimens.spacing24)
         : 0.0;
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Stack(
           children: [
@@ -56,3 +56,4 @@ class ProfileScaffold extends StatelessWidget {
     );
   }
 }
+

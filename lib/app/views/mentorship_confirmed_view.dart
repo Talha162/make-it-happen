@@ -12,7 +12,7 @@ class MentorshipConfirmedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Column(
           children: [
@@ -105,3 +105,4 @@ class _Row extends StatelessWidget {
     );
   }
 }
+

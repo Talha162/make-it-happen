@@ -17,7 +17,7 @@ class MatchMatchedView extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabs = ['Suggestions', 'Matched', 'Requested', 'Cancelled'];
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,3 +69,4 @@ class MatchMatchedView extends StatelessWidget {
     );
   }
 }
+

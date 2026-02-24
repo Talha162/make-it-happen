@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(
@@ -270,65 +270,69 @@ class _LessonCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.border),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              image,
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.center,
-            ),
-          ),
-          const SizedBox(height: AppDimens.spacing8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.surfaceElevated,
-                borderRadius: BorderRadius.circular(10),
+      child: InkWell(
+        onTap: () => Get.toNamed(AppRoutes.learnDetailInProgress),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                image,
+                height: 120,
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.center,
               ),
-              child: Text(status, style: AppTextStyles.bodySmall),
             ),
-          ),
-          const SizedBox(height: AppDimens.spacing6),
-          Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
-          const SizedBox(height: 4),
-          Text(subtitle, style: AppTextStyles.bodySmall),
-          const SizedBox(height: AppDimens.spacing8),
-          if (progress != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    backgroundColor: AppColors.surfaceElevated,
-                    valueColor: const AlwaysStoppedAnimation(AppColors.primaryDark),
-                    minHeight: 6,
-                  ),
+            const SizedBox(height: AppDimens.spacing8),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceElevated,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                const SizedBox(height: 6),
+                child: Text(status, style: AppTextStyles.bodySmall),
+              ),
+            ),
+            const SizedBox(height: AppDimens.spacing6),
+            Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+            const SizedBox(height: 4),
+            Text(subtitle, style: AppTextStyles.bodySmall),
+            const SizedBox(height: AppDimens.spacing8),
+            if (progress != null)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      backgroundColor: AppColors.surfaceElevated,
+                      valueColor: const AlwaysStoppedAnimation(AppColors.primaryDark),
+                      minHeight: 6,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                ],
+              ),
+            Row(
+              children: [
+                const Icon(LucideIcons.headphones, size: 14, color: AppColors.primaryDark),
+                const SizedBox(width: 6),
+                Text(type, style: AppTextStyles.bodySmall),
+                const Spacer(),
+                const Icon(LucideIcons.clock, size: 14, color: AppColors.primaryDark),
+                const SizedBox(width: 6),
+                Text(duration, style: AppTextStyles.bodySmall),
               ],
             ),
-          Row(
-            children: [
-              const Icon(LucideIcons.headphones, size: 14, color: AppColors.primaryDark),
-              const SizedBox(width: 6),
-              Text(type, style: AppTextStyles.bodySmall),
-              const Spacer(),
-              const Icon(LucideIcons.clock, size: 14, color: AppColors.primaryDark),
-              const SizedBox(width: 6),
-              Text(duration, style: AppTextStyles.bodySmall),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
+

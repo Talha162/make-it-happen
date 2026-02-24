@@ -33,7 +33,7 @@ class LearnLessonDetailView extends StatelessWidget {
             : const Color(0xFF2C2C2C);
 
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -192,3 +192,4 @@ class _Bullet extends StatelessWidget {
     );
   }
 }
+

@@ -60,7 +60,7 @@ class EventsView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Column(
           children: [
@@ -230,3 +230,4 @@ class _EventCard extends StatelessWidget {
     );
   }
 }
+

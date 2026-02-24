@@ -17,7 +17,7 @@ class MatchDetailMatchedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -293,3 +293,4 @@ class _NoticeCard extends StatelessWidget {
     );
   }
 }
+

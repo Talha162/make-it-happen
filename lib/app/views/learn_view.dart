@@ -16,7 +16,7 @@ class LearnView extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabs = ['All', 'Not Started', 'In Progress', 'Completed'];
     return Scaffold(
-      backgroundColor: AppColors.screenBackground,
+      backgroundColor: AppColors.transparent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,3 +239,4 @@ class _LessonCard extends StatelessWidget {
     );
   }
 }
+
