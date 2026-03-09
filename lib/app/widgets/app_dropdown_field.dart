@@ -23,10 +23,28 @@ class AppDropdownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasRequiredMarker = label.endsWith(' *');
+    final baseLabel = hasRequiredMarker ? label.substring(0, label.length - 2) : label;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.label),
+        Text.rich(
+          TextSpan(
+            style: AppTextStyles.label.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w700,
+            ),
+            children: [
+              TextSpan(text: baseLabel),
+              if (hasRequiredMarker)
+                const TextSpan(
+                  text: ' *',
+                  style: TextStyle(color: AppColors.error),
+                ),
+            ],
+          ),
+        ),
         const SizedBox(height: AppDimens.spacing8),
         SizedBox(
           height: AppDimens.fieldHeight,
@@ -50,7 +68,10 @@ class AppDropdownField extends StatelessWidget {
                 borderSide: const BorderSide(color: AppColors.primary),
               ),
             ),
-            hint: Text(hintText, style: AppTextStyles.bodyMuted),
+            hint: Text(
+              hintText,
+              style: AppTextStyles.bodyMuted.copyWith(color: AppColors.textSecondary),
+            ),
             dropdownColor: AppColors.surface,
             style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
             items: items

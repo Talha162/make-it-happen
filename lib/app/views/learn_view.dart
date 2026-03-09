@@ -10,12 +10,69 @@ import '../routes/app_routes.dart';
 import '../routes/bottom_nav.dart';
 import '../widgets/profile_bottom_nav.dart';
 
-class LearnView extends StatelessWidget {
+class LearnView extends StatefulWidget {
   const LearnView({super.key});
 
   @override
+  State<LearnView> createState() => _LearnViewState();
+}
+
+class _LearnViewState extends State<LearnView> {
+  final List<String> _tabs = ['All', 'Not Started', 'In Progress', 'Completed'];
+  int _selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final tabs = ['All', 'Not Started', 'In Progress', 'Completed'];
+    final lessons = [
+      _LessonItem(
+        image: AppAssets.understandingRelationshipImage,
+        status: 'Not started',
+        title: 'Understanding Intentional Relationships',
+        subtitle: 'Learn the foundations of building purposeful and accountable\nconnections.',
+        type: 'Audio Lesson',
+        duration: '10 minutes',
+        progress: null,
+        route: AppRoutes.learnDetailNotStarted,
+      ),
+      _LessonItem(
+        image: AppAssets.preparingForMarriageImage,
+        status: 'In progress',
+        title: 'Preparing for Marriage Mindfully',
+        subtitle: 'Readiness and self-awareness shape healthy relationships.',
+        type: 'Video Lesson',
+        duration: '20 minutes',
+        progress: 0.1,
+        route: AppRoutes.learnDetailInProgress,
+      ),
+      _LessonItem(
+        image: AppAssets.communicationIntegrityImage,
+        status: 'In progress',
+        title: 'Communication with Integrity',
+        subtitle: 'Explore honest communication in relationships.',
+        type: 'Video Lesson',
+        duration: '25 minutes',
+        progress: 0.3,
+        route: AppRoutes.learnDetailInProgress,
+      ),
+      _LessonItem(
+        image: AppAssets.definingRelationshipImage,
+        status: 'Completed',
+        title: 'Accountability and Growth',
+        subtitle: 'Explore accountability and growth in marriage.',
+        type: 'Video Lesson',
+        duration: '30 minutes',
+        progress: 1.0,
+        route: AppRoutes.learnDetailCompleted,
+      ),
+    ];
+
+    final visibleLessons = switch (_selectedIndex) {
+      1 => lessons.where((lesson) => lesson.status == 'Not started').toList(),
+      2 => lessons.where((lesson) => lesson.status == 'In progress').toList(),
+      3 => lessons.where((lesson) => lesson.status == 'Completed').toList(),
+      _ => lessons,
+    };
+
     return Scaffold(
       backgroundColor: AppColors.transparent,
       body: SafeArea(
@@ -31,62 +88,32 @@ class LearnView extends StatelessWidget {
               ),
               child: Text('Learn', style: AppTextStyles.titleLarge),
             ),
-            _LearnTabBar(tabs: tabs, selectedIndex: 0),
+            _LearnTabBar(
+              tabs: _tabs,
+              selectedIndex: _selectedIndex,
+              onTap: (index) => setState(() => _selectedIndex = index),
+            ),
             const SizedBox(height: AppDimens.spacing12),
             Expanded(
-              child: ListView(
+              child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
-                children: [
-                  _LessonCard(
-                    image: AppAssets.understandingRelationshipImage,
-                    status: 'Not started',
-                    statusColor: const Color(0xFF2C2C2C),
-                    title: 'Understanding Intentional Relationships',
-                    subtitle:
-                        'Learn the foundations of building purposeful and accountable\nconnections.',
-                    type: 'Audio Lesson',
-                    duration: '10 minutes',
-                    progress: null,
-                    onTap: () => Get.toNamed(AppRoutes.learnDetailNotStarted),
-                  ),
-                  const SizedBox(height: AppDimens.spacing12),
-                  _LessonCard(
-                    image: AppAssets.preparingForMarriageImage,
-                    status: 'In progress',
-                    statusColor: const Color(0xFF2D2D2D),
-                    title: 'Preparing for Marriage Mindfully',
-                    subtitle: 'Readiness and self-awareness shape healthy relationships.',
-                    type: 'Video Lesson',
-                    duration: '20 minutes',
-                    progress: 0.1,
-                    onTap: () => Get.toNamed(AppRoutes.learnDetailInProgress),
-                  ),
-                  const SizedBox(height: AppDimens.spacing12),
-                  _LessonCard(
-                    image: AppAssets.communicationIntegrityImage,
-                    status: 'In progress',
-                    statusColor: const Color(0xFF2D2D2D),
-                    title: 'Communication with Integrity',
-                    subtitle: 'Explore honest communication in relationships.',
-                    type: 'Video Lesson',
-                    duration: '25 minutes',
-                    progress: 0.3,
-                    onTap: () => Get.toNamed(AppRoutes.learnDetailInProgress),
-                  ),
-                  const SizedBox(height: AppDimens.spacing12),
-                  _LessonCard(
-                    image: AppAssets.definingRelationshipImage,
-                    status: 'Completed',
-                    statusColor: const Color(0xFF36234B),
-                    title: 'Accountability and Growth',
-                    subtitle: 'Explore accountability and growth in marriage.',
-                    type: 'Video Lesson',
-                    duration: '30 minutes',
-                    progress: 1.0,
-                    onTap: () => Get.toNamed(AppRoutes.learnDetailCompleted),
-                  ),
-                  const SizedBox(height: AppDimens.spacing12),
-                ],
+                itemCount: visibleLessons.length,
+                itemBuilder: (context, index) {
+                  final lesson = visibleLessons[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: AppDimens.spacing12),
+                    child: _LessonCard(
+                      image: lesson.image,
+                      status: lesson.status,
+                      title: lesson.title,
+                      subtitle: lesson.subtitle,
+                      type: lesson.type,
+                      duration: lesson.duration,
+                      progress: lesson.progress,
+                      onTap: () => Get.toNamed(lesson.route),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -106,10 +133,15 @@ class LearnView extends StatelessWidget {
 }
 
 class _LearnTabBar extends StatelessWidget {
-  const _LearnTabBar({required this.tabs, required this.selectedIndex});
+  const _LearnTabBar({
+    required this.tabs,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
   final List<String> tabs;
   final int selectedIndex;
+  final ValueChanged<int> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -119,18 +151,22 @@ class _LearnTabBar extends StatelessWidget {
       child: Row(
         children: [
           for (var i = 0; i < tabs.length; i++) ...[
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              decoration: BoxDecoration(
-                color: i == selectedIndex ? AppColors.primaryDark : AppColors.surface,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: Text(
-                tabs[i],
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: i == selectedIndex ? AppColors.white : AppColors.textPrimary,
-                  fontWeight: FontWeight.w600,
+            InkWell(
+              onTap: () => onTap(i),
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                decoration: BoxDecoration(
+                  color: i == selectedIndex ? AppColors.primaryDark : AppColors.surface,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Text(
+                  tabs[i],
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: i == selectedIndex ? AppColors.white : AppColors.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -142,11 +178,32 @@ class _LearnTabBar extends StatelessWidget {
   }
 }
 
+class _LessonItem {
+  const _LessonItem({
+    required this.image,
+    required this.status,
+    required this.title,
+    required this.subtitle,
+    required this.type,
+    required this.duration,
+    required this.progress,
+    required this.route,
+  });
+
+  final String image;
+  final String status;
+  final String title;
+  final String subtitle;
+  final String type;
+  final String duration;
+  final double? progress;
+  final String route;
+}
+
 class _LessonCard extends StatelessWidget {
   const _LessonCard({
     required this.image,
     required this.status,
-    required this.statusColor,
     required this.title,
     required this.subtitle,
     required this.type,
@@ -157,7 +214,6 @@ class _LessonCard extends StatelessWidget {
 
   final String image;
   final String status;
-  final Color statusColor;
   final String title;
   final String subtitle;
   final String type;
@@ -167,6 +223,12 @@ class _LessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statusColor = switch (status) {
+      'Completed' => const Color(0xFF36234B),
+      'In progress' => const Color(0xFF2D2D2D),
+      _ => const Color(0xFF2C2C2C),
+    };
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -224,7 +286,11 @@ class _LessonCard extends StatelessWidget {
               ),
             Row(
               children: [
-                const Icon(LucideIcons.headphones, size: 14, color: AppColors.primaryDark),
+                Icon(
+                  type.contains('Audio') ? LucideIcons.headphones : LucideIcons.video,
+                  size: 14,
+                  color: AppColors.primaryDark,
+                ),
                 const SizedBox(width: 6),
                 Text(type, style: AppTextStyles.bodySmall),
                 const Spacer(),
@@ -239,4 +305,3 @@ class _LessonCard extends StatelessWidget {
     );
   }
 }
-

@@ -7,6 +7,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
+import '../routes/app_routes.dart';
 import '../widgets/profile_bottom_nav.dart';
 import '../widgets/profile_menu_tile.dart';
 
@@ -134,77 +135,103 @@ class ProfileView extends GetView<ProfileController> {
   void _showLogoutDialog(BuildContext context) {
     showDialog<void>(
       context: context,
-      builder: (context) => Center(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
-          padding: const EdgeInsets.all(AppDimens.spacing16),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: AppColors.border),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 28,
-                    width: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(8),
+      barrierColor: Colors.black.withOpacity(0.72),
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 520),
+          child: Container(
+            padding: const EdgeInsets.all(AppDimens.spacing20),
+            decoration: BoxDecoration(
+              color: AppColors.black,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 64,
+                      width: 64,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFD8EDFF),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(LucideIcons.logOut, size: 28, color: AppColors.primaryDark),
                     ),
-                    child: const Icon(LucideIcons.logOut, size: 16, color: AppColors.white),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: const Icon(LucideIcons.x, color: AppColors.textMuted, size: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppDimens.spacing12),
-              Text('Log Out?', style: AppTextStyles.titleMedium),
-              const SizedBox(height: AppDimens.spacing6),
-              Text("You'll need to sign in again to continue.", style: AppTextStyles.body),
-              const SizedBox(height: AppDimens.spacing16),
-              SizedBox(
-                width: double.infinity,
-                height: AppDimens.buttonHeight,
-                child: ElevatedButton(
-                  onPressed: () => Get.back(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryDark,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () => Get.back(),
+                      icon: const Icon(LucideIcons.x, color: AppColors.textPrimary, size: 28),
                     ),
-                  ),
-                  child: Text('Log Out', style: AppTextStyles.button),
+                  ],
                 ),
-              ),
-              const SizedBox(height: AppDimens.spacing10),
-              SizedBox(
-                width: double.infinity,
-                height: AppDimens.buttonHeight,
-                child: ElevatedButton(
-                  onPressed: () => Get.back(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.surface,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
-                      side: const BorderSide(color: AppColors.border),
+                const SizedBox(height: AppDimens.spacing8),
+                Text(
+                  'Log Out?',
+                  style: AppTextStyles.titleLarge.copyWith(fontSize: 24),
+                ),
+                const SizedBox(height: AppDimens.spacing8),
+                Text(
+                  'You will need to sign in again to continue.',
+                  style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
+                ),
+                const SizedBox(height: AppDimens.spacing24),
+                SizedBox(
+                  width: double.infinity,
+                  height: AppDimens.buttonHeight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.back();
+                      Get.offAllNamed(AppRoutes.welcome);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                      ),
+                    ),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [AppColors.accent, AppColors.primaryDark],
+                        ),
+                        borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                      ),
+                      child: Center(
+                        child: Text('Log Out', style: AppTextStyles.button),
+                      ),
                     ),
                   ),
-                  child: Text('Cancel', style: AppTextStyles.buttonDark),
                 ),
-              ),
-            ],
+                const SizedBox(height: AppDimens.spacing12),
+                SizedBox(
+                  width: double.infinity,
+                  height: AppDimens.buttonHeight,
+                  child: ElevatedButton(
+                    onPressed: () => Get.back(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                        side: const BorderSide(color: AppColors.border),
+                      ),
+                    ),
+                    child: Text('Cancel', style: AppTextStyles.buttonDark),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-

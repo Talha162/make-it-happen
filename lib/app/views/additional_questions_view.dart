@@ -29,7 +29,10 @@ class AdditionalQuestionsView extends GetView<AdditionalQuestionsController> {
             activeIndex: AppConstants.onboardingAdditionalIndex,
           ),
           const SizedBox(height: AppDimens.spacing20),
-          Text(AppStrings.additionalQuestions, style: AppTextStyles.titleLarge),
+          Text(
+            AppStrings.additionalQuestions,
+            style: AppTextStyles.titleLarge.copyWith(fontSize: 26, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: AppDimens.spacing6),
           Text(AppStrings.additionalSubtitle, style: AppTextStyles.body),
           const SizedBox(height: AppDimens.spacing20),

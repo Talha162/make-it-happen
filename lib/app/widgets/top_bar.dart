@@ -32,7 +32,13 @@ class TopBar extends StatelessWidget {
           if (showSkip)
             TextButton(
               onPressed: onSkip,
-              child: Text(AppStrings.skip, style: AppTextStyles.body),
+              child: Text(
+                AppStrings.skip,
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.primaryDark,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
         ],
       ),

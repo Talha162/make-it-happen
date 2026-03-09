@@ -23,6 +23,7 @@
   static const String eventDetail = '/events/detail';
   static const String eventConfirm = '/events/confirm';
   static const String eventSuccess = '/events/success';
+  static const String eventPayment = '/events/payment';
   static const String eventDetailRegistered = '/events/detail/registered';
   static const String eventDetailFull = '/events/detail/full';
   static const String editProfile = '/profile/edit';
@@ -37,6 +38,7 @@
   static const String matchDetailMatched = '/match/detail/matched';
   static const String matchDetailRequested = '/match/detail/requested';
   static const String matchDetailCancelled = '/match/detail/cancelled';
+  static const String matchFeedbackComplete = '/match/feedback-complete';
   static const String matchCongratulations = '/match/congratulations';
   static const String matchMarriageStatus = '/match/marriage-status';
   static const String home = '/home';

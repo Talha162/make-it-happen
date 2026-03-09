@@ -9,54 +9,43 @@ import '../routes/app_routes.dart';
 import '../routes/bottom_nav.dart';
 import '../widgets/profile_bottom_nav.dart';
 
-class EventsView extends StatelessWidget {
+class EventsView extends StatefulWidget {
   const EventsView({super.key});
 
   @override
+  State<EventsView> createState() => _EventsViewState();
+}
+
+class _EventsViewState extends State<EventsView> {
+  final List<String> _filters = ['Upcoming', 'This Month', 'Near Me', 'Hangouts'];
+  int _selectedFilterIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    final filters = ['Upcoming', 'This Month', 'Near Me', 'Hangouts'];
     final events = [
       _EventItem(
         title: 'Community Hangout',
-        date: 'Sat, Oct 26 - 1:00 PM',
-        location: 'Greenfield Farm',
-        price: '\$15',
+        date: 'Jun 14',
+        schedule: 'Saturday, 8:00 AM - 6:00 PM',
+        location: 'Yosemite National Park',
+        price: '\$100',
         imagePath: AppAssets.communityHangoutImage,
       ),
       _EventItem(
         title: 'Guided Group Session',
-        date: 'Sun, Nov 3 - 9:00 AM',
+        date: 'Jul 02',
+        schedule: 'Wednesday, 10:00 AM - 12:00 PM',
         location: 'Riverside Center',
         price: '\$30',
         imagePath: AppAssets.guidedGroupSessionImage,
       ),
       _EventItem(
         title: 'Ministry Teaching Night',
-        date: 'Sat, Nov 10 - 7:00 PM',
+        date: 'Jul 18',
+        schedule: 'Friday, 7:00 PM - 9:00 PM',
         location: 'Downtown Theater',
         price: '\$10',
         imagePath: AppAssets.ministryTeachingNightImage,
-      ),
-      _EventItem(
-        title: 'Weekend Camping Trip',
-        date: 'Sat, Sept 28 - 8:00 AM',
-        location: 'Community Grounds',
-        price: '\$12',
-        imagePath: AppAssets.weekendCampingImage,
-      ),
-      _EventItem(
-        title: 'Beach Clean-Up Day',
-        date: 'Sun, Oct 6 - 10:00 AM',
-        location: 'Downtown Center',
-        price: '\$12',
-        imagePath: AppAssets.beachCleanupImage,
-      ),
-      _EventItem(
-        title: 'City Art Festival',
-        date: 'Sun, Oct 20 - 7:00 AM',
-        location: 'Central Convention Hall',
-        price: '\$25',
-        imagePath: AppAssets.cityArtFestivalImage,
       ),
     ];
 
@@ -84,12 +73,13 @@ class EventsView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return _FilterChip(
-                    label: filters[index],
-                    isSelected: index == 0,
+                    label: _filters[index],
+                    isSelected: index == _selectedFilterIndex,
+                    onTap: () => setState(() => _selectedFilterIndex = index),
                   );
                 },
                 separatorBuilder: (_, __) => const SizedBox(width: AppDimens.spacing10),
-                itemCount: filters.length,
+                itemCount: _filters.length,
               ),
             ),
             const SizedBox(height: AppDimens.spacing16),
@@ -125,25 +115,36 @@ class EventsView extends StatelessWidget {
 }
 
 class _FilterChip extends StatelessWidget {
-  const _FilterChip({required this.label, required this.isSelected});
+  const _FilterChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   final String label;
   final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? AppColors.surfaceElevated : AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.eventTagBorder),
-      ),
-      child: Text(
-        label,
-        style: AppTextStyles.bodySmall.copyWith(
-          color: AppColors.textPrimary,
-          fontWeight: FontWeight.w600,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.surfaceElevated : AppColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? AppColors.primaryDark : AppColors.eventTagBorder,
+          ),
+        ),
+        child: Text(
+          label,
+          style: AppTextStyles.bodySmall.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -154,6 +155,7 @@ class _EventItem {
   _EventItem({
     required this.title,
     required this.date,
+    required this.schedule,
     required this.location,
     required this.price,
     required this.imagePath,
@@ -161,6 +163,7 @@ class _EventItem {
 
   final String title;
   final String date;
+  final String schedule;
   final String location;
   final String price;
   final String imagePath;
@@ -174,8 +177,9 @@ class _EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(AppDimens.cardRadius),
       child: Container(
         padding: const EdgeInsets.all(AppDimens.spacing14),
         decoration: BoxDecoration(
@@ -190,8 +194,8 @@ class _EventCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               child: Image.asset(
                 item.imagePath,
-                width: 48,
-                height: 48,
+                width: 58,
+                height: 58,
                 fit: BoxFit.cover,
               ),
             ),
@@ -200,13 +204,23 @@ class _EventCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    item.title,
-                    style: AppTextStyles.titleMedium.copyWith(fontSize: 15),
-                  ),
+                  Text(item.title, style: AppTextStyles.titleMedium.copyWith(fontSize: 15)),
                   const SizedBox(height: AppDimens.spacing6),
                   Text(
-                    '${item.date} - ${item.location}',
+                    item.date,
+                    style: AppTextStyles.body.copyWith(
+                      color: AppColors.textPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    item.schedule,
+                    style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    item.location,
                     style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
                   ),
                 ],
@@ -225,4 +239,3 @@ class _EventCard extends StatelessWidget {
     );
   }
 }
-

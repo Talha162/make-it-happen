@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
-import 'gradient_background.dart';
 
 class DarkScaffold extends StatelessWidget {
   final Widget child;
@@ -16,13 +16,11 @@ class DarkScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: GradientBackground(
-        child: SafeArea(
-          child: Padding(
-            padding: padding ?? const EdgeInsets.all(AppDimens.screenPadding),
-            child: child,
-          ),
+      backgroundColor: AppColors.black,
+      body: SafeArea(
+        child: Padding(
+          padding: padding ?? const EdgeInsets.all(AppDimens.screenPadding),
+          child: child,
         ),
       ),
     );

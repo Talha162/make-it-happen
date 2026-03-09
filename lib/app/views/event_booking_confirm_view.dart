@@ -67,7 +67,7 @@ class EventBookingConfirmView extends StatelessWidget {
                   _InfoRow(label: 'Event Fee', value: '\$100'),
                   const SizedBox(height: AppDimens.spacing18),
                   PrimaryButton(
-                    label: 'Accept Bid',
+                    label: 'Book Now',
                     isEnabled: true,
                     onPressed: () => Get.toNamed(AppRoutes.eventSuccess),
                   ),

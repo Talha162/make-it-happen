@@ -24,6 +24,6 @@ class ProfileController extends GetxController {
   void openSubscription() => Get.toNamed(AppRoutes.activePlan);
   void openSupport() => Get.toNamed(AppRoutes.supportSafety);
   void openAccount() => Get.toNamed(AppRoutes.accountSettings);
-  void openEditProfile() => Get.toNamed(AppRoutes.editProfile);
+  void openEditProfile() => Get.toNamed(AppRoutes.accountSettings);
   void openTerms() => Get.toNamed(AppRoutes.terms);
 }

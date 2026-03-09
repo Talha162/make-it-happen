@@ -7,6 +7,7 @@ import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
 import '../routes/bottom_nav.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/match_profile_card.dart';
 import '../widgets/match_tab_bar.dart';
 import '../widgets/profile_bottom_nav.dart';
@@ -115,7 +116,10 @@ class MatchSearchView extends StatelessWidget {
                     primaryLabel: 'Match',
                     secondaryLabel: 'Pass',
                     onPrimaryTap: () => Get.toNamed(AppRoutes.matchDetailAvailable),
-                    onSecondaryTap: () {},
+                    onSecondaryTap: () => showDemoAction(
+                      'Profile passed',
+                      'This profile was skipped locally for the demo.',
+                    ),
                   );
                 },
               ),

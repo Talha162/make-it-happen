@@ -34,11 +34,31 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasLabel = label.trim().isNotEmpty;
+    final hasRequiredMarker = label.endsWith(' *');
+    final baseLabel = hasRequiredMarker ? label.substring(0, label.length - 2) : label;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.label),
-        const SizedBox(height: AppDimens.spacing8),
+        if (hasLabel)
+          Text.rich(
+            TextSpan(
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+              children: [
+                TextSpan(text: baseLabel),
+                if (hasRequiredMarker)
+                  const TextSpan(
+                    text: ' *',
+                    style: TextStyle(color: AppColors.error),
+                  ),
+              ],
+            ),
+          ),
+        if (hasLabel) const SizedBox(height: AppDimens.spacing8),
         SizedBox(
           height: AppDimens.fieldHeight,
           child: TextFormField(

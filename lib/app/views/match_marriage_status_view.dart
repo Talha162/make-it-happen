@@ -6,10 +6,33 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
+import '../utils/demo_feedback.dart';
+import '../widgets/app_multiline_field.dart';
+import '../widgets/app_text_field.dart';
 import '../widgets/primary_button.dart';
+import '../widgets/profile_dropdown_field.dart';
 
-class MatchMarriageStatusView extends StatelessWidget {
+class MatchMarriageStatusView extends StatefulWidget {
   const MatchMarriageStatusView({super.key});
+
+  @override
+  State<MatchMarriageStatusView> createState() => _MatchMarriageStatusViewState();
+}
+
+class _MatchMarriageStatusViewState extends State<MatchMarriageStatusView> {
+  final TextEditingController _partnerName = TextEditingController(text: 'Sarah J.');
+  final TextEditingController _message = TextEditingController(
+    text: 'Share your happiness with the community',
+  );
+  String _status = 'Yes, we\'re married';
+  String _photoName = 'marriage_photo.jpg';
+
+  @override
+  void dispose() {
+    _partnerName.dispose();
+    _message.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,24 +55,46 @@ class MatchMarriageStatusView extends StatelessWidget {
                   const SizedBox(height: AppDimens.spacing8),
                   Text('Gotten Married?', style: AppTextStyles.titleLarge),
                   const SizedBox(height: AppDimens.spacing20),
-                  _DropdownField(
+                  ProfileDropdownField(
                     label: 'Marriage Status',
-                    value: 'Yes, we’re married',
+                    hintText: 'Choose status',
+                    value: _status,
+                    items: const [
+                      'Yes, we\'re married',
+                      'Marriage is planned',
+                      'Not yet',
+                    ],
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() => _status = value);
+                    },
                   ),
                   const SizedBox(height: AppDimens.spacing14),
-                  _TextField(
+                  AppTextField(
                     label: 'Partner Name',
-                    value: 'Sarah J.',
+                    controller: _partnerName,
                   ),
                   const SizedBox(height: AppDimens.spacing14),
-                  _MultilineField(
+                  AppMultilineField(
                     label: 'Short Message',
-                    value: 'Share your happiness with the community\n(optional)',
+                    controller: _message,
+                    hintText: 'Share your happiness with the community (optional)',
                   ),
                   const SizedBox(height: AppDimens.spacing16),
                   Text('Upload Photo', style: AppTextStyles.label),
                   const SizedBox(height: AppDimens.spacing10),
-                  _UploadBox(),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        _photoName = _photoName == 'marriage_photo.jpg'
+                            ? 'wedding_day.png'
+                            : 'marriage_photo.jpg';
+                      });
+                      showDemoAction('Photo selected', 'Demo upload switched to $_photoName');
+                    },
+                    borderRadius: BorderRadius.circular(14),
+                    child: _UploadBox(photoName: _photoName),
+                  ),
                   const SizedBox(height: AppDimens.spacing24),
                 ],
               ),
@@ -74,105 +119,11 @@ class MatchMarriageStatusView extends StatelessWidget {
   }
 }
 
-class _DropdownField extends StatelessWidget {
-  const _DropdownField({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: AppTextStyles.label),
-        const SizedBox(height: AppDimens.spacing8),
-        Container(
-          height: AppDimens.fieldHeight,
-          padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacing12),
-          decoration: BoxDecoration(
-            color: AppColors.fieldFill,
-            borderRadius: BorderRadius.circular(AppDimens.fieldRadius),
-            border: Border.all(color: AppColors.border),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  value,
-                  style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-                ),
-              ),
-              const Icon(Icons.keyboard_arrow_down, color: AppColors.textMuted),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _TextField extends StatelessWidget {
-  const _TextField({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: AppTextStyles.label),
-        const SizedBox(height: AppDimens.spacing8),
-        Container(
-          height: AppDimens.fieldHeight,
-          padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacing12),
-          decoration: BoxDecoration(
-            color: AppColors.fieldFill,
-            borderRadius: BorderRadius.circular(AppDimens.fieldRadius),
-            border: Border.all(color: AppColors.border),
-          ),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            value,
-            style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _MultilineField extends StatelessWidget {
-  const _MultilineField({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: AppTextStyles.label),
-        const SizedBox(height: AppDimens.spacing8),
-        Container(
-          height: 96,
-          padding: const EdgeInsets.all(AppDimens.spacing12),
-          decoration: BoxDecoration(
-            color: AppColors.fieldFill,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.border),
-          ),
-          child: Text(value, style: AppTextStyles.body),
-        ),
-      ],
-    );
-  }
-}
-
 class _UploadBox extends StatelessWidget {
+  const _UploadBox({required this.photoName});
+
+  final String photoName;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -196,14 +147,10 @@ class _UploadBox extends StatelessWidget {
               child: const Icon(LucideIcons.upload, size: 16, color: AppColors.white),
             ),
             const SizedBox(height: 6),
-            Text(
-              'Drop images or click to add',
-              style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
-            ),
+            Text(photoName, style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary)),
           ],
         ),
       ),
     );
   }
 }
-

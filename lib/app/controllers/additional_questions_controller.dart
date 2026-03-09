@@ -23,12 +23,12 @@ class AdditionalQuestionsController extends GetxController {
 
   void onDone() {
     if (canSubmit.value) {
-      Get.offAllNamed(AppRoutes.login);
+      Get.offAllNamed(AppRoutes.home);
     }
   }
 
   void onSkip() {
-    Get.offAllNamed(AppRoutes.login);
+    Get.offAllNamed(AppRoutes.home);
   }
 
   void onBack() {

@@ -5,6 +5,7 @@ import 'package:make_it_happen/app/resources/app_text_styles.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/info_card.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_scaffold.dart';
@@ -17,7 +18,7 @@ class MentorshipSessionsView extends StatelessWidget {
     return ProfileScaffold(
       showBottomButton: true,
       bottomLabel: AppStrings.saveDetails,
-      onBottomTap: () {},
+      onBottomTap: () => showDemoSaved('Mentorship session preferences were saved for demo mode.'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

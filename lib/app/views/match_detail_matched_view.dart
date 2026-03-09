@@ -38,7 +38,7 @@ class MatchDetailMatchedView extends StatelessWidget {
                       Text('Martin K.', style: AppTextStyles.titleLarge),
                       const Spacer(),
                       GestureDetector(
-                        onTap: () => Get.toNamed(AppRoutes.matchMarriageStatus),
+                        onTap: () => _showCancelDialog(context),
                         child: Text(
                           'Cancel Match',
                           style: AppTextStyles.body.copyWith(color: AppColors.error),
@@ -102,7 +102,11 @@ class MatchDetailMatchedView extends StatelessWidget {
                   PrimaryButton(
                     label: 'Chat',
                     isEnabled: true,
-                    onPressed: () {},
+                    onPressed: () => Get.snackbar(
+                      'Chat unavailable',
+                      'Chat is not connected in this frontend-only build.',
+                      snackPosition: SnackPosition.BOTTOM,
+                    ),
                   ),
                 ],
               ),

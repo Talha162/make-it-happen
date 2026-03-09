@@ -23,7 +23,13 @@ class AppMultilineField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.label),
+        Text(
+          label,
+          style: AppTextStyles.label.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: AppDimens.spacing8),
         TextField(
           controller: controller,
@@ -32,7 +38,7 @@ class AppMultilineField extends StatelessWidget {
           style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: AppTextStyles.bodyMuted,
+            hintStyle: AppTextStyles.bodyMuted.copyWith(color: AppColors.textSecondary),
             filled: true,
             fillColor: AppColors.fieldFill,
             contentPadding: const EdgeInsets.all(AppDimens.spacing16),

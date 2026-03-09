@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../controllers/intention_controller.dart';
 import '../resources/app_constants.dart';
+import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
@@ -29,11 +30,25 @@ class IntentionView extends GetView<IntentionController> {
             activeIndex: AppConstants.onboardingIntentionIndex,
           ),
           const SizedBox(height: AppDimens.spacing20),
-          Text(AppStrings.yourIntention, style: AppTextStyles.titleLarge),
+          Text(
+            AppStrings.yourIntention,
+            style: AppTextStyles.titleLarge.copyWith(fontSize: 26, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: AppDimens.spacing6),
           Text(AppStrings.intentionSubtitle, style: AppTextStyles.body),
           const SizedBox(height: AppDimens.spacing20),
-          Text(AppStrings.relationshipGoal, style: AppTextStyles.label),
+          Text.rich(
+            TextSpan(
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+              children: const [
+                TextSpan(text: AppStrings.relationshipGoal),
+                TextSpan(text: ' *', style: TextStyle(color: AppColors.error)),
+              ],
+            ),
+          ),
           const SizedBox(height: AppDimens.spacing8),
           Obx(
             () => Wrap(
@@ -55,7 +70,7 @@ class IntentionView extends GetView<IntentionController> {
           const SizedBox(height: AppDimens.spacing16),
           Obx(
             () => AppDropdownField(
-              label: AppStrings.preferredAgeRange,
+              label: '${AppStrings.preferredAgeRange} *',
               hintText: AppStrings.hintAgeRange,
               items: controller.ageRanges,
               value: controller.selectedAgeRange.value,
@@ -65,7 +80,7 @@ class IntentionView extends GetView<IntentionController> {
           const SizedBox(height: AppDimens.spacing12),
           Obx(
             () => AppDropdownField(
-              label: AppStrings.preferredLocation,
+              label: '${AppStrings.preferredLocation} *',
               hintText: AppStrings.hintLocation,
               items: controller.locations,
               value: controller.selectedLocation.value,

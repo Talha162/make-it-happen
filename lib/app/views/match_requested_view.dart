@@ -8,6 +8,7 @@ import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
 import '../routes/bottom_nav.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/match_profile_card.dart';
 import '../widgets/match_tab_bar.dart';
 import '../widgets/profile_bottom_nav.dart';
@@ -107,7 +108,10 @@ class MatchRequestedView extends StatelessWidget {
                     primaryLabel: 'View Profile',
                     secondaryLabel: 'Cancel Request',
                     onPrimaryTap: () => Get.toNamed(AppRoutes.matchDetailRequested),
-                    onSecondaryTap: () {},
+                    onSecondaryTap: () => showDemoAction(
+                      'Request cancelled',
+                      'The request was cancelled locally for this demo.',
+                    ),
                   );
                 },
               ),

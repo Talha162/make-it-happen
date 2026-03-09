@@ -5,6 +5,7 @@ import '../controllers/notifications_controller.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_scaffold.dart';
 import '../widgets/settings_switch_tile.dart';
@@ -17,11 +18,11 @@ class NotificationsView extends GetView<NotificationsController> {
     return ProfileScaffold(
       showBottomButton: true,
       bottomLabel: AppStrings.saveDetails,
-      onBottomTap: () {},
+      onBottomTap: () => showDemoSaved('Notification preferences were saved for this demo session.'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProfileAppBar(title: AppStrings.notifications,compact: true,),
+          const ProfileAppBar(title: AppStrings.notifications, compact: true),
           const SizedBox(height: AppDimens.spacing6),
           Text(AppStrings.notifications, style: AppTextStyles.titleLarge),
           const SizedBox(height: AppDimens.spacing16),

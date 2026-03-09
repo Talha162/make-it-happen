@@ -5,6 +5,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_dropdown_field.dart';
 import '../widgets/profile_scaffold.dart';
@@ -35,7 +36,7 @@ class _RelationshipViewState extends State<RelationshipView> {
     return ProfileScaffold(
       showBottomButton: true,
       bottomLabel: AppStrings.saveDetails,
-      onBottomTap: () {},
+      onBottomTap: () => showDemoSaved('Relationship preferences were saved for this demo session.'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

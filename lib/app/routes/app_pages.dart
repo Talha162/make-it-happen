@@ -7,6 +7,7 @@ import '../views/event_booking_confirm_view.dart';
 import '../views/event_booking_success_view.dart';
 import '../views/event_detail_view.dart';
 import '../views/event_empty_view.dart';
+import '../views/event_payment_webview.dart';
 import '../views/events_view.dart';
 import '../views/forgot_password_view.dart';
 import '../views/intention_view.dart';
@@ -32,6 +33,7 @@ import '../views/match_detail_available_view.dart';
 import '../views/match_detail_matched_view.dart';
 import '../views/match_detail_requested_view.dart';
 import '../views/match_detail_cancelled_view.dart';
+import '../views/match_feedback_complete_view.dart';
 import '../views/match_congratulations_view.dart';
 import '../views/match_marriage_status_view.dart';
 import '../views/home_view.dart';
@@ -191,6 +193,11 @@ class AppPages {
       binding: AppBindings(),
     ),
     GetPage(
+      name: AppRoutes.eventPayment,
+      page: () => const EventPaymentWebView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
       name: AppRoutes.matchRequested,
       page: () => const MatchRequestedView(),
       binding: AppBindings(),
@@ -238,6 +245,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.matchDetailCancelled,
       page: () => const MatchDetailCancelledView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.matchFeedbackComplete,
+      page: () => const MatchFeedbackCompleteView(),
       binding: AppBindings(),
     ),
     GetPage(

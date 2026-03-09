@@ -42,24 +42,31 @@ class ProfileBottomNav extends StatelessWidget {
             children: [
               for (var i = 0; i < items.length; i++)
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () => onTap(i),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          items[i].icon,
-                          size: 20,
-                          color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => onTap(i),
+                      borderRadius: BorderRadius.circular(14),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              items[i].icon,
+                              size: 20,
+                              color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              items[i].label,
+                              style: AppTextStyles.bodySmall.copyWith(
+                                color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          items[i].label,
-                          style: AppTextStyles.bodySmall.copyWith(
-                            color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

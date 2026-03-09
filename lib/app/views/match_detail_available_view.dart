@@ -6,6 +6,7 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
 import '../routes/app_routes.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/match_preference_chip.dart';
 import '../widgets/match_status_pill.dart';
 import '../widgets/primary_button.dart';
@@ -68,7 +69,10 @@ class MatchDetailAvailableView extends StatelessWidget {
                   const SizedBox(height: AppDimens.spacing20),
                   SecondaryButton(
                     label: 'Not Interested',
-                    onPressed: () {},
+                    onPressed: () => showDemoAction(
+                      'Preference updated',
+                      'This match was marked as not interested in demo mode.',
+                    ),
                   ),
                   const SizedBox(height: AppDimens.spacing12),
                   PrimaryButton(

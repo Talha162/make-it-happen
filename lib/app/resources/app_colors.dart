@@ -9,6 +9,9 @@ class AppColors {
   static const Color surface = Color(0xFF141414);
   static const Color surfaceElevated = Color(0xFF1C1C1C);
   static const Color screenBackground = Color(0xFF0F0F0F);
+  static const Color sheetTop = Color(0xFF000000);
+  static const Color sheetMid = Color(0xFF000000);
+  static const Color sheetBottom = Color(0xFF000000);
   static const Color card = Color(0xFF1A1A1A);
   static const Color fieldFill = Color(0xFF1F1F1F);
   static const Color border = Color(0xFF2B2B2B);

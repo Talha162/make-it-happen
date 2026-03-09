@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:make_it_happen/app/resources/app_text_styles.dart';
+import 'package:get/get.dart';
 
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
+import '../resources/app_text_styles.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_dropdown_field.dart';
 import '../widgets/profile_scaffold.dart';
 
-class PreferencesView extends StatelessWidget {
+class PreferencesView extends StatefulWidget {
   const PreferencesView({super.key});
+
+  @override
+  State<PreferencesView> createState() => _PreferencesViewState();
+}
+
+class _PreferencesViewState extends State<PreferencesView> {
+  String _ageRange = '20-30 years';
+  String _location = 'United States';
 
   @override
   Widget build(BuildContext context) {
     return ProfileScaffold(
       showBottomButton: true,
       bottomLabel: AppStrings.saveDetails,
-      onBottomTap: () {},
+      onBottomTap: () {
+        showDemoSaved('Preferences were saved for this demo session.');
+        Get.back();
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,17 +39,23 @@ class PreferencesView extends StatelessWidget {
           ProfileDropdownField(
             label: 'Preferred Age Range *',
             hintText: '20-30 years',
-            value: '20-30 years',
+            value: _ageRange,
             items: const ['20-30 years', '31-40 years', '41-50 years'],
-            onChanged: (_) {},
+            onChanged: (value) {
+              if (value == null) return;
+              setState(() => _ageRange = value);
+            },
           ),
           const SizedBox(height: AppDimens.spacing12),
           ProfileDropdownField(
             label: 'Preferred Location *',
             hintText: 'United States',
-            value: 'United States',
+            value: _location,
             items: const ['United States', 'Canada', 'United Kingdom'],
-            onChanged: (_) {},
+            onChanged: (value) {
+              if (value == null) return;
+              setState(() => _location = value);
+            },
           ),
         ],
       ),

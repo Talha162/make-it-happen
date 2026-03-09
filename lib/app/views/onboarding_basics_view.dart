@@ -32,13 +32,16 @@ class OnboardingBasicsView extends GetView<BasicsController> {
             activeIndex: AppConstants.onboardingBasicsIndex,
           ),
           const SizedBox(height: AppDimens.spacing20),
-          Text(AppStrings.startWithBasics, style: AppTextStyles.titleLarge),
+          Text(
+            AppStrings.startWithBasics,
+            style: AppTextStyles.titleLarge.copyWith(fontSize: 26, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: AppDimens.spacing6),
           Text(AppStrings.startWithBasicsSubtitle, style: AppTextStyles.body),
           const SizedBox(height: AppDimens.spacing20),
           Obx(
             () => AppDropdownField(
-              label: AppStrings.gender,
+              label: '${AppStrings.gender} *',
               hintText: AppStrings.hintGender,
               items: controller.genders,
               value: controller.selectedGender.value,
@@ -47,7 +50,7 @@ class OnboardingBasicsView extends GetView<BasicsController> {
           ),
           const SizedBox(height: AppDimens.spacing12),
           AppTextField(
-            label: AppStrings.dateOfBirth,
+            label: '${AppStrings.dateOfBirth} *',
             controller: controller.dobController,
             hintText: AppStrings.hintDob,
             readOnly: true,
@@ -57,7 +60,7 @@ class OnboardingBasicsView extends GetView<BasicsController> {
           const SizedBox(height: AppDimens.spacing12),
           Obx(
             () => AppDropdownField(
-              label: AppStrings.country,
+              label: '${AppStrings.country} *',
               hintText: AppStrings.hintCountry,
               items: controller.countries,
               value: controller.selectedCountry.value,
@@ -67,7 +70,7 @@ class OnboardingBasicsView extends GetView<BasicsController> {
           const SizedBox(height: AppDimens.spacing12),
           Obx(
             () => AppDropdownField(
-              label: AppStrings.stateCity,
+              label: '${AppStrings.stateCity} *',
               hintText: AppStrings.hintState,
               items: controller.states,
               value: controller.selectedState.value,

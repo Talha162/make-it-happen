@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
+import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
@@ -26,10 +26,16 @@ class ProfileAppBar extends StatelessWidget {
       height: AppDimens.appBarHeight,
       child: Row(
         children: [
-          IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(LucideIcons.chevronLeft, color: AppColors.white),
+          GestureDetector(
+            onTap: () => Get.back(),
+            child: Image.asset(
+              AppAssets.backButton,
+              width: 22,
+              height: 22,
+              fit: BoxFit.contain,
+            ),
           ),
+          const SizedBox(width: AppDimens.spacing8),
           if (!compact)
             Expanded(
               child: Text(title, style: AppTextStyles.titleLarge),

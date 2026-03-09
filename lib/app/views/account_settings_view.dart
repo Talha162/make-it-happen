@@ -6,29 +6,60 @@ import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
+import '../utils/demo_feedback.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_dropdown_field.dart';
 import '../widgets/profile_scaffold.dart';
 
-class AccountSettingsView extends StatelessWidget {
-  AccountSettingsView({super.key});
+class AccountSettingsView extends StatefulWidget {
+  const AccountSettingsView({super.key});
 
-  final TextEditingController _name = TextEditingController(text: 'Glahen Paul');
-  final TextEditingController _email = TextEditingController(text: 'glahenspaul@gmail.com');
-  final TextEditingController _password = TextEditingController(text: '********');
-  final TextEditingController _dob = TextEditingController(text: '12/07/2000');
+  @override
+  State<AccountSettingsView> createState() => _AccountSettingsViewState();
+}
+
+class _AccountSettingsViewState extends State<AccountSettingsView> {
+  late final TextEditingController _name;
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+  late final TextEditingController _dob;
+  String _gender = 'Male';
+  bool _isPasswordObscured = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: 'Glahen Paul');
+    _email = TextEditingController(text: 'glahenspaul@gmail.com');
+    _password = TextEditingController(text: '********');
+    _dob = TextEditingController(text: '12/07/2000');
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _email.dispose();
+    _password.dispose();
+    _dob.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ProfileScaffold(
       showBottomButton: true,
       bottomLabel: AppStrings.saveDetails,
-      onBottomTap: () {},
+      onBottomTap: () {
+        showDemoSaved('Account settings were saved for this demo session.');
+        Get.back();
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProfileAppBar(title: AppStrings.accountSettings),
+          const ProfileAppBar(title: AppStrings.accountSettings, compact: true),
+          const SizedBox(height: AppDimens.spacing6),
+          Text(AppStrings.accountSettings, style: AppTextStyles.titleLarge),
           const SizedBox(height: AppDimens.spacing12),
           Text('Upload Picture', style: AppTextStyles.label),
           const SizedBox(height: AppDimens.spacing10),
@@ -44,15 +75,18 @@ class AccountSettingsView extends StatelessWidget {
                 Positioned(
                   right: 0,
                   bottom: 0,
-                  child: Container(
-                    height: 18,
-                    width: 18,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.screenBackground, width: 2),
+                  child: InkWell(
+                    onTap: () => showDemoAction('Profile image', 'Image picker is not connected in demo mode.'),
+                    child: Container(
+                      height: 18,
+                      width: 18,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.screenBackground, width: 2),
+                      ),
+                      child: const Icon(LucideIcons.pencil, size: 10, color: AppColors.white),
                     ),
-                    child: const Icon(LucideIcons.pencil, size: 10, color: AppColors.white),
                   ),
                 ),
               ],
@@ -65,40 +99,61 @@ class AccountSettingsView extends StatelessWidget {
           const SizedBox(height: AppDimens.spacing12),
           Row(
             children: [
-              Expanded(
-                child: AppTextField(
-                  label: 'Password',
-                  controller: _password,
-                  prefixIcon: const Icon(LucideIcons.lock, size: 18),
-                  suffixIcon: const Icon(LucideIcons.eyeOff, size: 18),
-                  obscureText: true,
+              Text(
+                'Password',
+                style: AppTextStyles.label.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(width: AppDimens.spacing10),
+              const Spacer(),
               GestureDetector(
                 onTap: () => _showChangePassword(context),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: AppDimens.spacing24),
-                  child: Text('Change', style: AppTextStyles.body.copyWith(color: AppColors.primary)),
+                child: Text(
+                  'Change',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.primaryDark,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: AppDimens.spacing8),
+          AppTextField(
+            label: '',
+            controller: _password,
+            prefixIcon: const Icon(LucideIcons.lock, size: 18),
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() => _isPasswordObscured = !_isPasswordObscured);
+              },
+              icon: Icon(
+                _isPasswordObscured ? LucideIcons.eyeOff : LucideIcons.eye,
+                size: 18,
+              ),
+            ),
+            obscureText: _isPasswordObscured,
           ),
           const SizedBox(height: AppDimens.spacing12),
           ProfileDropdownField(
             label: 'Gender *',
             hintText: 'Male',
-            value: 'Male',
+            value: _gender,
             items: const ['Male', 'Female', 'Other'],
-            onChanged: (_) {},
+            onChanged: (value) {
+              if (value == null) return;
+              setState(() => _gender = value);
+            },
           ),
           const SizedBox(height: AppDimens.spacing12),
           AppTextField(
             label: 'Date of Birth *',
             controller: _dob,
             prefixIcon: const Icon(LucideIcons.calendar, size: 18),
-            suffixIcon: const Icon(LucideIcons.chevronDown, size: 18),
+            suffixIcon: const Icon(LucideIcons.calendar, size: 18),
             readOnly: true,
+            onTap: () => _pickDateOfBirth(context),
           ),
         ],
       ),
@@ -106,107 +161,197 @@ class AccountSettingsView extends StatelessWidget {
   }
 
   void _showChangePassword(BuildContext context) {
-    showModalBottomSheet<void>(
+    showDialog<void>(
       context: context,
-      backgroundColor: AppColors.card,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      barrierColor: Colors.black.withOpacity(0.72),
       builder: (context) {
         final current = TextEditingController(text: '********');
         final next = TextEditingController(text: '********');
         final confirm = TextEditingController(text: '********');
-        return Padding(
-          padding: const EdgeInsets.all(AppDimens.spacing16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 28,
-                    width: 28,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(LucideIcons.lock, size: 16, color: AppColors.white),
+        bool isCurrentObscured = true;
+        bool isNewObscured = true;
+        bool isConfirmObscured = true;
+        return StatefulBuilder(
+          builder: (context, setDialogState) => Dialog(
+            backgroundColor: Colors.transparent,
+            insetPadding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Container(
+                padding: const EdgeInsets.all(AppDimens.spacing20),
+                decoration: BoxDecoration(
+                  color: AppColors.black,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 64,
+                            width: 64,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFFD8EDFF),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(LucideIcons.lock, size: 28, color: AppColors.primaryDark),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () => Get.back(),
+                            icon: const Icon(LucideIcons.x, color: AppColors.textPrimary, size: 28),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppDimens.spacing8),
+                      Text(
+                        'Change Your Password',
+                        style: AppTextStyles.titleLarge.copyWith(fontSize: 24),
+                      ),
+                      const SizedBox(height: AppDimens.spacing8),
+                      Text(
+                        "For your account's security, enter your current\npassword and set a new one.",
+                        style: AppTextStyles.body,
+                      ),
+                      const SizedBox(height: AppDimens.spacing20),
+                      AppTextField(
+                        label: 'Current Password',
+                        controller: current,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setDialogState(() => isCurrentObscured = !isCurrentObscured);
+                          },
+                          icon: Icon(isCurrentObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                        ),
+                        obscureText: isCurrentObscured,
+                      ),
+                      const SizedBox(height: AppDimens.spacing16),
+                      AppTextField(
+                        label: 'New Password',
+                        controller: next,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setDialogState(() => isNewObscured = !isNewObscured);
+                          },
+                          icon: Icon(isNewObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                        ),
+                        obscureText: isNewObscured,
+                      ),
+                      const SizedBox(height: AppDimens.spacing16),
+                      AppTextField(
+                        label: 'Confirm Password',
+                        controller: confirm,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setDialogState(() => isConfirmObscured = !isConfirmObscured);
+                          },
+                          icon: Icon(isConfirmObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                        ),
+                        obscureText: isConfirmObscured,
+                      ),
+                      const SizedBox(height: AppDimens.spacing24),
+                      SizedBox(
+                        width: double.infinity,
+                        height: AppDimens.buttonHeight,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _password.text = next.text;
+                            Get.back();
+                            showDemoSaved('Password updated locally for demo mode.');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                            ),
+                          ),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [AppColors.accent, AppColors.primaryDark],
+                              ),
+                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                            ),
+                            child: Center(
+                              child: Text('Yes, Change', style: AppTextStyles.button),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppDimens.spacing12),
+                      SizedBox(
+                        width: double.infinity,
+                        height: AppDimens.buttonHeight,
+                        child: ElevatedButton(
+                          onPressed: () => Get.back(),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.surface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                              side: const BorderSide(color: AppColors.border),
+                            ),
+                          ),
+                          child: Text('Cancel', style: AppTextStyles.buttonDark),
+                        ),
+                      ),
+                    ],
                   ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: const Icon(LucideIcons.x, color: AppColors.textMuted, size: 18),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppDimens.spacing12),
-              Text('Change Your Password', style: AppTextStyles.titleMedium),
-              const SizedBox(height: AppDimens.spacing6),
-              Text(
-                "For your account's security, enter your current\npassword and set a new one.",
-                style: AppTextStyles.body,
-              ),
-              const SizedBox(height: AppDimens.spacing16),
-              AppTextField(
-                label: 'Current Password',
-                controller: current,
-                prefixIcon: const Icon(LucideIcons.lock, size: 18),
-                suffixIcon: const Icon(LucideIcons.eyeOff, size: 18),
-                obscureText: true,
-              ),
-              const SizedBox(height: AppDimens.spacing12),
-              AppTextField(
-                label: 'New Password',
-                controller: next,
-                prefixIcon: const Icon(LucideIcons.lock, size: 18),
-                suffixIcon: const Icon(LucideIcons.eyeOff, size: 18),
-                obscureText: true,
-              ),
-              const SizedBox(height: AppDimens.spacing12),
-              AppTextField(
-                label: 'Confirm Password',
-                controller: confirm,
-                prefixIcon: const Icon(LucideIcons.lock, size: 18),
-                suffixIcon: const Icon(LucideIcons.eyeOff, size: 18),
-                obscureText: true,
-              ),
-              const SizedBox(height: AppDimens.spacing16),
-              SizedBox(
-                width: double.infinity,
-                height: AppDimens.buttonHeight,
-                child: ElevatedButton(
-                  onPressed: () => Get.back(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryDark,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
-                    ),
-                  ),
-                  child: Text('Yes, Change', style: AppTextStyles.button),
                 ),
               ),
-              const SizedBox(height: AppDimens.spacing10),
-              SizedBox(
-                width: double.infinity,
-                height: AppDimens.buttonHeight,
-                child: ElevatedButton(
-                  onPressed: () => Get.back(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.surface,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
-                      side: const BorderSide(color: AppColors.border),
-                    ),
-                  ),
-                  child: Text('Cancel', style: AppTextStyles.buttonDark),
-                ),
-              ),
-              const SizedBox(height: AppDimens.spacing12),
-            ],
+            ),
           ),
         );
       },
     );
+  }
+
+  Future<void> _pickDateOfBirth(BuildContext context) async {
+    DateTime initialDate = DateTime(2000, 7, 12);
+    final parts = _dob.text.split('/');
+    if (parts.length == 3) {
+      final day = int.tryParse(parts[0]);
+      final month = int.tryParse(parts[1]);
+      final year = int.tryParse(parts[2]);
+      if (day != null && month != null && year != null) {
+        initialDate = DateTime(year, month, day);
+      }
+    }
+
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: AppColors.primaryDark,
+              surface: AppColors.surface,
+              onSurface: AppColors.textPrimary,
+            ),
+            dialogBackgroundColor: AppColors.black,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate == null) return;
+
+    final formattedDay = pickedDate.day.toString().padLeft(2, '0');
+    final formattedMonth = pickedDate.month.toString().padLeft(2, '0');
+    final formattedYear = pickedDate.year.toString();
+
+    setState(() {
+      _dob.text = '$formattedDay/$formattedMonth/$formattedYear';
+    });
   }
 }

@@ -24,7 +24,7 @@ class ProgressDots extends StatelessWidget {
           height: AppDimens.progressDotSize,
           margin: EdgeInsets.symmetric(horizontal: AppDimens.progressDotGap),
           decoration: BoxDecoration(
-            color: isActive ? AppColors.primary : AppColors.border,
+            color: isActive ? AppColors.primaryDark : const Color(0xFF4E6473),
             shape: BoxShape.circle,
           ),
         );

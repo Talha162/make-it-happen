@@ -7,6 +7,7 @@ class AppAssets {
   static const String suggestionsSvg = 'assets/images/suggestions_path.svg';
   static const String congratulationsSvg = 'assets/images/congradulations_path.svg';
   static const String profileImage = 'assets/images/profile_image.jpg';
+  static const String backButton = 'assets/images/back_button.png';
   static const String yourGuidedJourneyImage = 'assets/images/your_guided_journey_cardImage.png';
   static const String preparingForMarriageImage =
       'assets/images/preparing_for_marriage_midfully.jpg';

@@ -20,8 +20,9 @@ class ProfileMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
       child: Container(
         height: 52,
         padding: const EdgeInsets.symmetric(horizontal: AppDimens.spacing16),
@@ -36,10 +37,11 @@ class ProfileMenuTile extends StatelessWidget {
               height: 28,
               width: 28,
               decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(8),
+                color: AppColors.surfaceElevated,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.border),
               ),
-              child: Icon(icon, size: 16, color: AppColors.white),
+              child: Icon(icon, size: 15, color: AppColors.primaryDark),
             ),
             const SizedBox(width: AppDimens.spacing12),
             Expanded(

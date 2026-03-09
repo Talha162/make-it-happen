@@ -5,6 +5,7 @@ import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
+import '../routes/app_routes.dart';
 import '../widgets/match_preference_chip.dart';
 import '../widgets/match_status_pill.dart';
 import '../widgets/primary_button.dart';
@@ -40,7 +41,7 @@ class MatchDetailCancelledView extends StatelessWidget {
                   const SizedBox(height: AppDimens.spacing16),
                   _InfoBlock(label: 'Age', value: '28'),
                   _InfoBlock(label: 'Location', value: 'Lahore, Pakistan'),
-                  _InfoBlock(label: 'Match Duration', value: 'June 14, 2025 – June 18, 2025'),
+                  _InfoBlock(label: 'Match Duration', value: 'June 14, 2025 - June 18, 2025'),
                   Text('Status', style: AppTextStyles.label),
                   const SizedBox(height: AppDimens.spacing8),
                   const MatchStatusPill(label: 'Cancelled'),
@@ -64,7 +65,7 @@ class MatchDetailCancelledView extends StatelessWidget {
                   PrimaryButton(
                     label: 'Complete Feedback',
                     isEnabled: true,
-                    onPressed: () {},
+                    onPressed: () => Get.toNamed(AppRoutes.matchFeedbackComplete),
                   ),
                 ],
               ),
@@ -184,4 +185,3 @@ class _NoticeCard extends StatelessWidget {
     );
   }
 }
-

@@ -26,8 +26,17 @@ class BottomSheetContainer extends StatelessWidget {
     Widget sheetContent(ScrollController controller) {
       return Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          color: AppColors.surface,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.sheetTop,
+              AppColors.sheetMid,
+              AppColors.sheetBottom,
+            ],
+            stops: [0.0, 0.45, 1.0],
+          ),
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppDimens.cardRadius),
           ),
@@ -50,7 +59,9 @@ class BottomSheetContainer extends StatelessWidget {
                     child: Container(
                       width: 40,
                       height: 5,
-                      margin: const EdgeInsets.only(bottom: AppDimens.spacing16),
+                      margin: const EdgeInsets.only(
+                        bottom: AppDimens.spacing16,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.textMuted,
                         borderRadius: BorderRadius.circular(10),
@@ -70,7 +81,10 @@ class BottomSheetContainer extends StatelessWidget {
       expand: false,
       minChildSize: minHeightFactor,
       maxChildSize: maxHeightFactor,
-      initialChildSize: initialHeightFactor.clamp(minHeightFactor, maxHeightFactor),
+      initialChildSize: initialHeightFactor.clamp(
+        minHeightFactor,
+        maxHeightFactor,
+      ),
       builder: (context, controller) => sheetContent(controller),
     );
 
