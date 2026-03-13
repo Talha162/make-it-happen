@@ -37,90 +37,97 @@ class _EventDetailViewState extends State<EventDetailView> {
     _dialogShown = true;
     showDialog<void>(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.6),
+      barrierColor: Colors.black.withValues(alpha: 0.6),
       builder: (_) => const _BookingConfirmedDialog(),
     );
   }
 
-  Future<void> _handleBookNow() async {
-    final result = await Get.toNamed(AppRoutes.eventPayment);
-    if (result == true && mounted) {
-      Get.offNamed(
-        AppRoutes.eventDetailRegistered,
-        arguments: {'showBookingDialog': true},
-      );
-    }
+  void _handleBookNow() {
+    Get.toNamed(AppRoutes.eventDetailRegistered);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.transparent,
-      body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            _HeroSection(mode: widget.mode),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppDimens.screenPadding,
-                AppDimens.spacing20,
-                AppDimens.screenPadding,
-                AppDimens.spacing24,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Community Hangout', style: AppTextStyles.titleLarge),
-                  const SizedBox(height: AppDimens.spacing8),
-                  Text(
-                    'A guided in-person gathering organized by the ministry.',
-                    style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
-                  ),
-                  const SizedBox(height: AppDimens.spacing16),
-                  _InfoBlock(label: 'Date', value: 'Jun 14, 2026'),
-                  _InfoBlock(label: 'Time', value: '8:00 AM - 6:00 PM'),
-                  _InfoBlock(label: 'Location', value: 'Yosemite National Park'),
-                  if (widget.mode == EventDetailMode.available)
-                    _InfoBlock(label: 'Event Fee', value: '\$100')
-                  else ...[
-                    Text('Status', style: AppTextStyles.label),
-                    const SizedBox(height: AppDimens.spacing8),
-                    const _StatusPill(label: 'Registered', icon: LucideIcons.lightbulb, isFilled: true),
-                  ],
-                  const SizedBox(height: AppDimens.spacing16),
-                  Text('What to Expect', style: AppTextStyles.titleMedium),
-                  const SizedBox(height: AppDimens.spacing8),
-                  const _Bullet(text: 'Guided group sessions'),
-                  const _Bullet(text: 'Ministry-led teachings'),
-                  const _Bullet(text: 'Safe and respectful interactions'),
-                  const SizedBox(height: AppDimens.spacing16),
-                  Text('Cancellation Policy', style: AppTextStyles.titleMedium),
-                  const SizedBox(height: AppDimens.spacing6),
-                  Text(
-                    'Registrations are non-refundable unless the event is cancelled by the ministry.',
-                    style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
-                  ),
-                  const SizedBox(height: AppDimens.spacing24),
-                  if (widget.mode == EventDetailMode.full)
-                    const _FullNotice()
-                  else if (widget.mode == EventDetailMode.available)
-                    PrimaryButton(
-                      label: 'Book Now',
-                      isEnabled: true,
-                      onPressed: _handleBookNow,
-                    )
-                  else
-                    PrimaryButton(
-                      label: 'View Ticket',
-                      isEnabled: true,
-                      onPressed: () => Get.toNamed(AppRoutes.eventSuccess),
-                    ),
-                ],
-              ),
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          _HeroSection(mode: widget.mode),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppDimens.screenPadding,
+              AppDimens.spacing20,
+              AppDimens.screenPadding,
+              AppDimens.spacing24,
             ),
-          ],
-        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Community Hangout', style: AppTextStyles.titleLarge),
+                const SizedBox(height: AppDimens.spacing8),
+                Text(
+                  'A guided in-person gathering organized by the ministry.',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppDimens.spacing16),
+                const _InfoBlock(label: 'Date', value: 'June 14, 2025'),
+                const _InfoBlock(
+                  label: 'Time',
+                  value: 'Start: 8:00 AM | End: 6:00 PM',
+                ),
+                const _InfoBlock(
+                  label: 'Location',
+                  value: 'Yosemite National Park',
+                ),
+                if (widget.mode == EventDetailMode.available)
+                  const _InfoBlock(label: 'Event Fee', value: '4100')
+                else ...[
+                  Text('Status', style: AppTextStyles.label),
+                  const SizedBox(height: AppDimens.spacing8),
+                  const _StatusPill(
+                    label: 'Registered',
+                    icon: LucideIcons.tag,
+                    isFilled: true,
+                  ),
+                  const SizedBox(height: AppDimens.spacing12),
+                ],
+                const SizedBox(height: AppDimens.spacing8),
+                Text('What to Expect', style: AppTextStyles.titleMedium),
+                const SizedBox(height: AppDimens.spacing8),
+                const _Bullet(text: 'Guided group sessions'),
+                const _Bullet(text: 'Ministry-led teachings'),
+                const _Bullet(text: 'Safe and respectful interactions'),
+                const SizedBox(height: AppDimens.spacing16),
+                Text('Cancellation Policy', style: AppTextStyles.titleMedium),
+                const SizedBox(height: AppDimens.spacing6),
+                Text(
+                  'Registrations are non-refundable unless the event is cancelled by the ministry.',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: AppDimens.spacing24),
+                if (widget.mode == EventDetailMode.full)
+                  const _FullNotice()
+                else if (widget.mode == EventDetailMode.available)
+                  PrimaryButton(
+                    label: 'Book Now',
+                    isEnabled: true,
+                    onPressed: _handleBookNow,
+                  )
+                else
+                  PrimaryButton(
+                    label: 'View Ticket',
+                    isEnabled: true,
+                    onPressed: () => Get.toNamed(AppRoutes.eventSuccess),
+                  ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -135,14 +142,12 @@ class _HeroSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final heroPath = mode == EventDetailMode.available
         ? AppAssets.communityHangoutRegPayImage
-        : AppAssets.communityHangoutImage;
+        : AppAssets.weekendCampingImage;
     return SizedBox(
       height: 260,
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(heroPath, fit: BoxFit.cover),
-          ),
+          Positioned.fill(child: Image.asset(heroPath, fit: BoxFit.cover)),
           Positioned(
             top: AppDimens.spacing12,
             left: AppDimens.spacing12,
@@ -152,7 +157,11 @@ class _HeroSection extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.white, size: 20),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.white,
+                  size: 20,
+                ),
                 onPressed: () => Navigator.of(context).maybePop(),
               ),
             ),
@@ -188,7 +197,9 @@ class _Dot extends StatelessWidget {
       height: 6,
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        color: isActive ? AppColors.primaryDark : AppColors.white.withOpacity(0.4),
+        color: isActive
+            ? AppColors.primaryDark
+            : AppColors.white.withValues(alpha: 0.4),
         shape: BoxShape.circle,
       ),
     );
@@ -210,7 +221,10 @@ class _InfoBlock extends StatelessWidget {
         children: [
           Text(label, style: AppTextStyles.label),
           const SizedBox(height: AppDimens.spacing6),
-          Text(value, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+          Text(
+            value,
+            style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+          ),
         ],
       ),
     );
@@ -229,7 +243,7 @@ class _Bullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('• ', style: TextStyle(color: AppColors.textPrimary)),
+          const Text('\u2022 ', style: TextStyle(color: AppColors.textPrimary)),
           Expanded(
             child: Text(
               text,
@@ -287,7 +301,7 @@ class _FullNotice extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(LucideIcons.badgeAlert, color: AppColors.accent, size: 16),
+          const Icon(LucideIcons.lightbulb, color: AppColors.accent, size: 16),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -321,27 +335,33 @@ class _BookingConfirmedDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Booking Confirmed!', style: AppTextStyles.titleMedium),
                 const SizedBox(width: 6),
-                const Icon(LucideIcons.badgeCheck, size: 16, color: AppColors.primaryDark),
-                const Spacer(),
-                IconButton(
-                  onPressed: () => Navigator.of(context).maybePop(),
-                  icon: const Icon(Icons.close, color: AppColors.textMuted, size: 20),
+                const Icon(
+                  LucideIcons.badgeCheck,
+                  size: 16,
+                  color: AppColors.primaryDark,
                 ),
               ],
             ),
             const SizedBox(height: AppDimens.spacing12),
             const _DialogInfoRow(label: 'Event', value: 'Community Hangout'),
-            const _DialogInfoRow(label: 'Date', value: 'Jun 14, 2026'),
+            const _DialogInfoRow(label: 'Date', value: 'June 14, 2025'),
             const _DialogInfoRow(label: 'Time', value: '8:00 AM - 6:00 PM'),
-            const _DialogInfoRow(label: 'Location', value: 'Yosemite National Park'),
+            const _DialogInfoRow(
+              label: 'Location',
+              value: 'Yosemite National Park',
+            ),
             Row(
               children: [
-                Text('Total Price', style: AppTextStyles.bodySmall),
+                Text('Total Price:', style: AppTextStyles.bodySmall),
                 const Spacer(),
-                Text('\$100', style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+                Text(
+                  '1,120 Rs',
+                  style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+                ),
                 const SizedBox(width: 8),
                 const _TagPill(label: 'Paid'),
               ],
@@ -366,9 +386,15 @@ class _DialogInfoRow extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted)),
+          Text(
+            label,
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted),
+          ),
           const SizedBox(height: 4),
-          Text(value, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+          Text(
+            value,
+            style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+          ),
           const SizedBox(height: 8),
           const Divider(height: 1, color: AppColors.divider),
         ],
@@ -400,3 +426,4 @@ class _TagPill extends StatelessWidget {
     );
   }
 }
+

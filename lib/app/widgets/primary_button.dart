@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
@@ -24,18 +24,15 @@ class PrimaryButton extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
-          gradient: isEnabled
-              ? const LinearGradient(
-                  colors: [
-                    AppColors.accent,
-                    AppColors.primaryDark,
-                  ],
-                )
-              : null,
-          color: isEnabled ? null : AppColors.disabled,
+          gradient: const LinearGradient(
+            colors: [
+              AppColors.accent,
+              AppColors.primaryDark,
+            ],
+          ),
         ),
         child: TextButton(
-          onPressed: isEnabled ? onPressed : null,
+          onPressed: onPressed,
           style: TextButton.styleFrom(
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(

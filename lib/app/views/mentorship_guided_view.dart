@@ -27,10 +27,26 @@ class MentorshipGuidedView extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.screenPadding,
+                ),
                 children: [
                   const SizedBox(height: AppDimens.spacing6),
-                  Text('Guided Mentorship', style: AppTextStyles.titleLarge),
+                  Row(
+                    children: [
+                      Text(
+                        'Guided Mentorship',
+                        style: AppTextStyles.titleLarge,
+                      ),
+                      const Spacer(),
+                      Text(
+                        '\$40',
+                        style: AppTextStyles.titleLarge.copyWith(
+                          color: AppColors.accent,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: AppDimens.spacing20),
                   Text('Choose a Topic', style: AppTextStyles.titleMedium),
                   const SizedBox(height: AppDimens.spacing12),
@@ -52,23 +68,34 @@ class MentorshipGuidedView extends StatelessWidget {
                   const SizedBox(height: AppDimens.spacing20),
                   Text('Choose Date', style: AppTextStyles.titleMedium),
                   const SizedBox(height: AppDimens.spacing10),
-                  _Field(
+                  const _Field(
                     value: '17 Feb, 2026',
-                    trailing: const Icon(LucideIcons.calendar, size: 18, color: AppColors.textMuted),
+                    trailing: Icon(
+                      LucideIcons.calendar,
+                      size: 18,
+                      color: AppColors.textMuted,
+                    ),
                   ),
                   const SizedBox(height: AppDimens.spacing16),
                   Text('Choose Time', style: AppTextStyles.titleMedium),
                   const SizedBox(height: AppDimens.spacing10),
-                  _Field(
+                  const _Field(
                     value: '10:00 AM',
-                    trailing: const Icon(LucideIcons.clock, size: 18, color: AppColors.textMuted),
+                    trailing: Icon(
+                      LucideIcons.clock,
+                      size: 18,
+                      color: AppColors.textMuted,
+                    ),
                   ),
                   const SizedBox(height: AppDimens.spacing16),
                   Text('Session Type', style: AppTextStyles.titleMedium),
                   const SizedBox(height: AppDimens.spacing10),
-                  _Field(
+                  const _Field(
                     value: 'Remote',
-                    trailing: const Icon(Icons.keyboard_arrow_down, color: AppColors.textMuted),
+                    trailing: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColors.textMuted,
+                    ),
                   ),
                 ],
               ),
@@ -81,7 +108,7 @@ class MentorshipGuidedView extends StatelessWidget {
                 AppDimens.spacing24,
               ),
               child: PrimaryButton(
-                label: 'Confirm Mentorship',
+                label: 'Book & Pay',
                 isEnabled: true,
                 onPressed: () => Get.toNamed(AppRoutes.mentorshipConfirmed),
               ),
@@ -119,7 +146,11 @@ class _TopicChip extends StatelessWidget {
           if (showCheck)
             const Icon(Icons.check, size: 16, color: AppColors.white)
           else
-            Icon(Icons.add, size: 16, color: isSelected ? AppColors.white : AppColors.textMuted),
+            Icon(
+              Icons.add,
+              size: 16,
+              color: isSelected ? AppColors.white : AppColors.textMuted,
+            ),
           const SizedBox(width: 6),
           Text(
             label,
@@ -153,7 +184,10 @@ class _Field extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(value, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+            child: Text(
+              value,
+              style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+            ),
           ),
           trailing,
         ],
@@ -161,4 +195,3 @@ class _Field extends StatelessWidget {
     );
   }
 }
-

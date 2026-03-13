@@ -56,19 +56,26 @@ class MatchSuggestionsBlockedView extends StatelessWidget {
             ),
             const SizedBox(height: AppDimens.spacing16),
             Center(
-              child: Text('You’re Currently Matched', style: AppTextStyles.titleLarge),
+              child: Text(
+                "You're Currently Matched",
+                style: AppTextStyles.titleLarge,
+              ),
             ),
             const SizedBox(height: AppDimens.spacing8),
             Center(
               child: Text(
                 'You have an active match. To stay fair, chat with\none match at a time.',
                 textAlign: TextAlign.center,
-                style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
             ),
             const SizedBox(height: AppDimens.spacing20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
+              ),
               child: PrimaryButton(
                 label: 'View Matched Profile',
                 isEnabled: true,
@@ -91,4 +98,3 @@ class MatchSuggestionsBlockedView extends StatelessWidget {
     );
   }
 }
-

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -10,7 +10,7 @@ class SignupController extends GetxController {
   final phoneController = TextEditingController(text: '+93343828233');
   final passwordController = TextEditingController(text: 'password');
   final isPasswordHidden = true.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -27,7 +27,7 @@ class SignupController extends GetxController {
   }
 
   void _evaluateForm() {
-    canSubmit.value = formKey.currentState?.validate() ?? false;
+    canSubmit.value = true;
   }
 
   String? validateName(String? value) {
@@ -65,9 +65,7 @@ class SignupController extends GetxController {
   }
 
   void onCreateAccount() {
-    if (formKey.currentState?.validate() ?? false) {
-      Get.toNamed(AppRoutes.verify);
-    }
+    Get.toNamed(AppRoutes.verify);
   }
 
   void onLogin() {

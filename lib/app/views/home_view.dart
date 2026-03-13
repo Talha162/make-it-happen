@@ -219,7 +219,7 @@ class _EventTile extends StatelessWidget {
         border: Border.all(color: AppColors.border),
       ),
       child: InkWell(
-        onTap: ()=>Get.toNamed(AppRoutes.eventDetail),
+        onTap: ()=>Get.toNamed(AppRoutes.events),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -339,4 +339,5 @@ class _LessonCard extends StatelessWidget {
     );
   }
 }
+
 

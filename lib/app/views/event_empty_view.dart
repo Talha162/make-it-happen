@@ -10,7 +10,6 @@ import '../routes/bottom_nav.dart';
 import '../widgets/fade_scale_in.dart';
 import '../widgets/floating_svg.dart';
 import '../widgets/primary_button.dart';
-import '../widgets/secondary_button.dart';
 import '../widgets/profile_bottom_nav.dart';
 
 class EventEmptyView extends StatelessWidget {
@@ -43,23 +42,19 @@ class EventEmptyView extends StatelessWidget {
             Text(
               'There are currently no events scheduled in your\nlocation.',
               textAlign: TextAlign.center,
-              style: AppTextStyles.body.copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.body.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
             const SizedBox(height: AppDimens.spacing24),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
+              ),
               child: PrimaryButton(
                 label: 'Back To Home',
                 isEnabled: true,
                 onPressed: () => Get.offNamed(AppRoutes.home),
-              ),
-            ),
-            const SizedBox(height: AppDimens.spacing12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
-              child: SecondaryButton(
-                label: 'View Events',
-                onPressed: () => Get.toNamed(AppRoutes.events),
               ),
             ),
             const Spacer(),
@@ -78,4 +73,3 @@ class EventEmptyView extends StatelessWidget {
     );
   }
 }
-

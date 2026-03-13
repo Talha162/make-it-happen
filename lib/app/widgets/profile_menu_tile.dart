@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_colors.dart';
@@ -9,12 +8,20 @@ import '../resources/app_text_styles.dart';
 class ProfileMenuTile extends StatelessWidget {
   const ProfileMenuTile({
     super.key,
-    required this.icon,
+    this.icon,
+    this.assetIconPath,
+    this.iconBackgroundColor,
+    this.iconSize = 15,
+    this.assetTintColor = AppColors.white,
     required this.label,
     required this.onTap,
-  });
+  }) : assert(icon != null || assetIconPath != null);
 
-  final IconData icon;
+  final IconData? icon;
+  final String? assetIconPath;
+  final Color? iconBackgroundColor;
+  final double iconSize;
+  final Color assetTintColor;
   final String label;
   final VoidCallback onTap;
 
@@ -37,17 +44,39 @@ class ProfileMenuTile extends StatelessWidget {
               height: 28,
               width: 28,
               decoration: BoxDecoration(
-                color: AppColors.surfaceElevated,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.border),
+                color: iconBackgroundColor,
+                gradient: iconBackgroundColor == null
+                    ? const LinearGradient(
+                        colors: [AppColors.accent, AppColors.primaryDark],
+                      )
+                    : null,
               ),
-              child: Icon(icon, size: 15, color: AppColors.primaryDark),
+              child: Center(
+                child: assetIconPath != null
+                    ? Image.asset(
+                        assetIconPath!,
+                        width: iconSize,
+                        height: iconSize,
+                        fit: BoxFit.contain,
+                        color: assetTintColor,
+                        colorBlendMode: BlendMode.srcIn,
+                      )
+                    : Icon(icon, size: iconSize, color: AppColors.white),
+              ),
             ),
             const SizedBox(width: AppDimens.spacing12),
             Expanded(
-              child: Text(label, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+              child: Text(
+                label,
+                style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+              ),
             ),
-            const Icon(LucideIcons.chevronRight, color: AppColors.textMuted, size: 18),
+            const Icon(
+              LucideIcons.chevronRight,
+              color: AppColors.textMuted,
+              size: 18,
+            ),
           ],
         ),
       ),

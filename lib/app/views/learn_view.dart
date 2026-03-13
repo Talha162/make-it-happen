@@ -28,11 +28,12 @@ class _LearnViewState extends State<LearnView> {
         image: AppAssets.understandingRelationshipImage,
         status: 'Not started',
         title: 'Understanding Intentional Relationships',
-        subtitle: 'Learn the foundations of building purposeful and accountable\nconnections.',
+        subtitle:
+            'Learn the foundations of building purposeful and accountable\nconnections.',
         type: 'Audio Lesson',
         duration: '10 minutes',
         progress: null,
-        route: AppRoutes.learnDetailNotStarted,
+        route: AppRoutes.learnVideoNotStarted,
       ),
       _LessonItem(
         image: AppAssets.preparingForMarriageImage,
@@ -42,7 +43,7 @@ class _LearnViewState extends State<LearnView> {
         type: 'Video Lesson',
         duration: '20 minutes',
         progress: 0.1,
-        route: AppRoutes.learnDetailInProgress,
+        route: AppRoutes.learnVideoInProgress,
       ),
       _LessonItem(
         image: AppAssets.communicationIntegrityImage,
@@ -52,7 +53,7 @@ class _LearnViewState extends State<LearnView> {
         type: 'Video Lesson',
         duration: '25 minutes',
         progress: 0.3,
-        route: AppRoutes.learnDetailInProgress,
+        route: AppRoutes.learnVideoInProgress,
       ),
       _LessonItem(
         image: AppAssets.definingRelationshipImage,
@@ -62,7 +63,7 @@ class _LearnViewState extends State<LearnView> {
         type: 'Video Lesson',
         duration: '30 minutes',
         progress: 1.0,
-        route: AppRoutes.learnDetailCompleted,
+        route: AppRoutes.learnVideoCompleted,
       ),
     ];
 
@@ -96,7 +97,9 @@ class _LearnViewState extends State<LearnView> {
             const SizedBox(height: AppDimens.spacing12),
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.screenPadding,
+                ),
                 itemCount: visibleLessons.length,
                 itemBuilder: (context, index) {
                   final lesson = visibleLessons[index];
@@ -155,16 +158,23 @@ class _LearnTabBar extends StatelessWidget {
               onTap: () => onTap(i),
               borderRadius: BorderRadius.circular(20),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
-                  color: i == selectedIndex ? AppColors.primaryDark : AppColors.surface,
+                  color: i == selectedIndex
+                      ? AppColors.primaryDark
+                      : AppColors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: AppColors.border),
                 ),
                 child: Text(
                   tabs[i],
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: i == selectedIndex ? AppColors.white : AppColors.textPrimary,
+                    color: i == selectedIndex
+                        ? AppColors.white
+                        : AppColors.textPrimary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -223,16 +233,16 @@ class _LessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = switch (status) {
-      'Completed' => const Color(0xFF36234B),
-      'In progress' => const Color(0xFF2D2D2D),
-      _ => const Color(0xFF2C2C2C),
-    };
+    final chipColor = status == 'Completed'
+        ? const Color(0xFF9B8AD8)
+        : status == 'In progress'
+        ? const Color(0xFFB39AE3)
+        : const Color(0xFF9B8AD8);
 
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(AppDimens.spacing12),
+        padding: const EdgeInsets.all(AppDimens.spacing10),
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
@@ -241,62 +251,87 @@ class _LessonCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                image,
-                height: 120,
-                width: double.infinity,
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.center,
-              ),
-            ),
-            const SizedBox(height: AppDimens.spacing8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: statusColor,
+            Stack(
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    image,
+                    height: 118,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Text(status, style: AppTextStyles.bodySmall.copyWith(color: AppColors.white)),
-              ),
-            ),
-            const SizedBox(height: AppDimens.spacing6),
-            Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
-            const SizedBox(height: 4),
-            Text(subtitle, style: AppTextStyles.bodySmall),
-            const SizedBox(height: AppDimens.spacing8),
-            if (progress != null && progress! > 0)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: AppColors.surfaceElevated,
-                      valueColor: const AlwaysStoppedAnimation(AppColors.primaryDark),
-                      minHeight: 6,
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: chipColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      status,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 6),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppDimens.spacing8),
+            Text(title, style: AppTextStyles.titleMedium),
+            const SizedBox(height: 2),
+            Text(subtitle, style: AppTextStyles.body),
+            const SizedBox(height: AppDimens.spacing8),
+            if (progress != null)
+              Row(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: const Color(0xFFD8EEF9),
+                        valueColor: const AlwaysStoppedAnimation(
+                          AppColors.primaryDark,
+                        ),
+                        minHeight: 5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${(progress! * 100).round()}%',
+                    style: AppTextStyles.bodySmall,
+                  ),
                 ],
               ),
+            if (progress != null) const SizedBox(height: 8),
             Row(
               children: [
                 Icon(
-                  type.contains('Audio') ? LucideIcons.headphones : LucideIcons.video,
+                  type.contains('Audio')
+                      ? LucideIcons.headphones
+                      : LucideIcons.video,
                   size: 14,
                   color: AppColors.primaryDark,
                 ),
                 const SizedBox(width: 6),
-                Text(type, style: AppTextStyles.bodySmall),
+                Text(type, style: AppTextStyles.body),
                 const Spacer(),
-                const Icon(LucideIcons.clock, size: 14, color: AppColors.primaryDark),
+                const Icon(
+                  LucideIcons.clock,
+                  size: 14,
+                  color: AppColors.primaryDark,
+                ),
                 const SizedBox(width: 6),
-                Text(duration, style: AppTextStyles.bodySmall),
+                Text(duration, style: AppTextStyles.body),
               ],
             ),
           ],

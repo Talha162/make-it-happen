@@ -1,7 +1,8 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
+import '../resources/responsive.dart';
 import 'gradient_background.dart';
 
 class GradientScaffold extends StatelessWidget {
@@ -19,16 +20,27 @@ class GradientScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.of(context).padding.bottom;
+    final horizontalPadding = Responsive.horizontalPadding(context);
     return Scaffold(
       backgroundColor: AppColors.black,
       body: Stack(
         children: [
           GradientBackground(
             child: SafeArea(
-              child: Padding(
-                padding:
-                    padding ?? const EdgeInsets.all(AppDimens.screenPadding),
-                child: child,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: Responsive.maxContentWidth(context),
+                  ),
+                  child: Padding(
+                    padding: padding ??
+                        EdgeInsets.symmetric(
+                          horizontal: horizontalPadding,
+                          vertical: AppDimens.screenPadding,
+                        ),
+                    child: child,
+                  ),
+                ),
               ),
             ),
           ),

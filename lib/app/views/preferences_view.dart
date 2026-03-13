@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
@@ -27,7 +26,6 @@ class _PreferencesViewState extends State<PreferencesView> {
       bottomLabel: AppStrings.saveDetails,
       onBottomTap: () {
         showDemoSaved('Preferences were saved for this demo session.');
-        Get.back();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,3 +60,5 @@ class _PreferencesViewState extends State<PreferencesView> {
     );
   }
 }
+
+

@@ -1,4 +1,4 @@
-﻿import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 import '../data/models/selection_option.dart';
 import '../routes/app_routes.dart';
@@ -12,7 +12,7 @@ class IntentionController extends GetxController {
   final locations = ['United States', 'Canada', 'United Kingdom'].obs;
   final selectedAgeRange = ''.obs;
   final selectedLocation = ''.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -40,15 +40,11 @@ class IntentionController extends GetxController {
   }
 
   void _evaluate() {
-    final hasGoal = relationshipGoals.any((goal) => goal.selected);
-    final filled = hasGoal && selectedAgeRange.isNotEmpty && selectedLocation.isNotEmpty;
-    canSubmit.value = filled;
+    canSubmit.value = true;
   }
 
   void onNext() {
-    if (canSubmit.value) {
-      Get.toNamed(AppRoutes.additional);
-    }
+    Get.toNamed(AppRoutes.additional);
   }
 
   void onSkip() {

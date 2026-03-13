@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
 import '../resources/app_text_styles.dart';
 import '../utils/demo_feedback.dart';
-import '../widgets/app_text_field.dart';
 import '../widgets/profile_app_bar.dart';
 import '../widgets/profile_dropdown_field.dart';
 import '../widgets/profile_scaffold.dart';
@@ -19,16 +17,9 @@ class LocationDetailsView extends StatefulWidget {
 }
 
 class _LocationDetailsViewState extends State<LocationDetailsView> {
-  final TextEditingController _locationController =
-      TextEditingController(text: 'Street 21, House 14');
   String _country = 'United States';
   String _state = 'California';
-
-  @override
-  void dispose() {
-    _locationController.dispose();
-    super.dispose();
-  }
+  String _location = 'Street 21, House 14';
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +28,6 @@ class _LocationDetailsViewState extends State<LocationDetailsView> {
       bottomLabel: AppStrings.saveDetails,
       onBottomTap: () {
         showDemoSaved('Location details were saved for this demo session.');
-        Get.back();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,21 +53,32 @@ class _LocationDetailsViewState extends State<LocationDetailsView> {
             hintText: 'California',
             value: _state,
             items: const ['California', 'Texas', 'Florida'],
-            prefixIcon: LucideIcons.building2,
+            prefixIcon: LucideIcons.map,
             onChanged: (value) {
               if (value == null) return;
               setState(() => _state = value);
             },
           ),
           const SizedBox(height: AppDimens.spacing12),
-          AppTextField(
+          ProfileDropdownField(
             label: 'Location',
-            controller: _locationController,
             hintText: 'Street 21, House 14',
-            prefixIcon: const Icon(LucideIcons.mapPin, size: 18),
+            value: _location,
+            items: const [
+              'Street 21, House 14',
+              'Street 8, House 42',
+              'Apt 12, Main Avenue',
+            ],
+            prefixIcon: LucideIcons.mapPin,
+            onChanged: (value) {
+              if (value == null) return;
+              setState(() => _location = value);
+            },
           ),
         ],
       ),
     );
   }
 }
+
+

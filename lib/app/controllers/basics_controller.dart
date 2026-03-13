@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -11,7 +11,7 @@ class BasicsController extends GetxController {
   final selectedCountry = ''.obs;
   final selectedState = ''.obs;
   final dobController = TextEditingController(text: '');
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -40,11 +40,7 @@ class BasicsController extends GetxController {
   }
 
   void _evaluate() {
-    final filled = selectedGender.isNotEmpty &&
-        dobController.text.isNotEmpty &&
-        selectedCountry.isNotEmpty &&
-        selectedState.isNotEmpty;
-    canSubmit.value = filled;
+    canSubmit.value = true;
   }
 
   void onPickDate() {
@@ -52,9 +48,7 @@ class BasicsController extends GetxController {
   }
 
   void onNext() {
-    if (canSubmit.value) {
-      Get.toNamed(AppRoutes.intention);
-    }
+    Get.toNamed(AppRoutes.intention);
   }
 
   void onSkip() {

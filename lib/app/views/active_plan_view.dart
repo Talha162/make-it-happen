@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import '../resources/app_assets.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
@@ -33,16 +33,18 @@ class ActivePlanView extends StatelessWidget {
               height: 28,
               width: 28,
               decoration: BoxDecoration(
-                color: AppColors.surfaceElevated,
+                color: Color(0xFFD6F2FF),
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.border),
               ),
-              child: const Icon(LucideIcons.shieldCheck, size: 15, color: AppColors.primaryDark),
+              child: Center(
+                child: Image.asset(AppAssets.dollarSignIcon, width: 12, height: 12, fit: BoxFit.contain),
+              ),
             ),
             trailing: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: const [
-                Text('\$89.99/Month', style: TextStyle(color: AppColors.textPrimary, fontSize: 12)),
+                Text('\$89.99/Month', style: TextStyle(color: AppColors.blue, fontSize: 12)),
                 SizedBox(height: 4),
                 Text('24 Feb, 2026', style: TextStyle(color: AppColors.textMuted, fontSize: 11)),
               ],
@@ -61,17 +63,19 @@ class ActivePlanView extends StatelessWidget {
                 title: item.title,
                 subtitle: item.subtitle,
                 chipText: 'Paid',
-                chipColor: AppColors.statusCompletedText,
+                chipColor: AppColors.success,
                 chipBackground: AppColors.statusCompletedBg,
                 leading: Container(
                   height: 28,
                   width: 28,
                   decoration: BoxDecoration(
-                    color: AppColors.surfaceElevated,
+                    color: Color(0xFFD6F2FF),
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.border),
                   ),
-                  child: const Icon(LucideIcons.badgeDollarSign, size: 15, color: AppColors.primaryDark),
+                  child: Center(
+                    child: Image.asset(AppAssets.paymentIcon, width: 12, height: 12, fit: BoxFit.contain),
+                  ),
                 ),
                 trailing: Text(item.amount, style: const TextStyle(color: AppColors.textPrimary, fontSize: 12)),
               ),
@@ -113,3 +117,6 @@ final _payments = <_PaymentItem>[
     amount: '\$19',
   ),
 ];
+
+
+

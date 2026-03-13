@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_colors.dart';
@@ -48,7 +47,6 @@ class _SupportSafetyViewState extends State<SupportSafetyView> {
       bottomLabel: AppStrings.saveDetails,
       onBottomTap: () {
         showDemoSaved('Support request saved locally for APK review.');
-        Get.back();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,3 +130,5 @@ class _SupportSafetyViewState extends State<SupportSafetyView> {
     );
   }
 }
+
+

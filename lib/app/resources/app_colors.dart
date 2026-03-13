@@ -20,7 +20,7 @@ class AppColors {
   static const Color textMuted = Color(0xFF8A8A8A);
   static const Color disabled = Color(0xFF3A3A3A);
   static const Color error = Color(0xFFFF5B5B);
-  static const Color success = Color(0xFF4CD964);
+  static const Color success = Color(0xFF00C3D0);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
   static const Color divider = Color(0xFF2A2A2A);
@@ -34,4 +34,5 @@ class AppColors {
   static const Color statusPaidText = Color(0xFFB991FF);
   static const Color eventTagBorder = Color(0xFF3A3A3A);
   static const Color transparent = Color(0x00000000);
+  static const Color blue = Color(0xFF068EFF);
 }

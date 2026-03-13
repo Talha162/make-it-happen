@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -8,7 +8,7 @@ class LoginController extends GetxController {
   final emailController = TextEditingController(text: 'glahenspaul@gmail.com');
   final passwordController = TextEditingController(text: 'password');
   final isPasswordHidden = true.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -25,7 +25,7 @@ class LoginController extends GetxController {
   }
 
   void _evaluateForm() {
-    canSubmit.value = formKey.currentState?.validate() ?? false;
+    canSubmit.value = true;
   }
 
   String? validateEmail(String? value) {
@@ -49,9 +49,7 @@ class LoginController extends GetxController {
   }
 
   void onLogin() {
-    if (formKey.currentState?.validate() ?? false) {
-      Get.offAllNamed(AppRoutes.home);
-    }
+    Get.offAllNamed(AppRoutes.home);
   }
 
   void onForgotPassword() {

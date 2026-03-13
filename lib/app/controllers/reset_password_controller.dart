@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -9,7 +9,7 @@ class ResetPasswordController extends GetxController {
   final confirmPasswordController = TextEditingController(text: 'password');
   final isNewHidden = true.obs;
   final isConfirmHidden = true.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -30,7 +30,7 @@ class ResetPasswordController extends GetxController {
   }
 
   void _evaluateForm() {
-    canSubmit.value = formKey.currentState?.validate() ?? false;
+    canSubmit.value = true;
   }
 
   String? validatePassword(String? value) {
@@ -54,9 +54,7 @@ class ResetPasswordController extends GetxController {
   }
 
   void onReset() {
-    if (formKey.currentState?.validate() ?? false) {
-      Get.toNamed(AppRoutes.login);
-    }
+    Get.toNamed(AppRoutes.login);
   }
 
   void onBack() {

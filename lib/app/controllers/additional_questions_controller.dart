@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -6,7 +6,7 @@ import '../routes/app_routes.dart';
 class AdditionalQuestionsController extends GetxController {
   final guidanceController = TextEditingController();
   final mentorshipSelection = ''.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   void setMentorship(String value) {
     mentorshipSelection.value = value;
@@ -18,13 +18,11 @@ class AdditionalQuestionsController extends GetxController {
   }
 
   void _evaluate() {
-    canSubmit.value = mentorshipSelection.isNotEmpty;
+    canSubmit.value = true;
   }
 
   void onDone() {
-    if (canSubmit.value) {
-      Get.offAllNamed(AppRoutes.home);
-    }
+    Get.offAllNamed(AppRoutes.home);
   }
 
   void onSkip() {

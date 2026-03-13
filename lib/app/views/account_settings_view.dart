@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_strings.dart';
@@ -52,7 +53,6 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
       bottomLabel: AppStrings.saveDetails,
       onBottomTap: () {
         showDemoSaved('Account settings were saved for this demo session.');
-        Get.back();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,24 +68,32 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
               children: [
                 const CircleAvatar(
                   radius: 30,
-                  backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=200&q=80',
-                  ),
+                  backgroundImage: AssetImage(AppAssets.profileImage),
                 ),
                 Positioned(
                   right: 0,
                   bottom: 0,
                   child: InkWell(
-                    onTap: () => showDemoAction('Profile image', 'Image picker is not connected in demo mode.'),
+                    onTap: () => showDemoAction(
+                      'Profile image',
+                      'Image picker is not connected in demo mode.',
+                    ),
                     child: Container(
                       height: 18,
                       width: 18,
                       decoration: BoxDecoration(
                         color: AppColors.primary,
                         shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.screenBackground, width: 2),
+                        border: Border.all(
+                          color: AppColors.screenBackground,
+                          width: 2,
+                        ),
                       ),
-                      child: const Icon(LucideIcons.pencil, size: 10, color: AppColors.white),
+                      child: const Icon(
+                        LucideIcons.pencil,
+                        size: 10,
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -93,9 +101,17 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
             ),
           ),
           const SizedBox(height: AppDimens.spacing16),
-          AppTextField(label: 'Name', controller: _name, prefixIcon: const Icon(LucideIcons.user, size: 18)),
+          AppTextField(
+            label: 'Name',
+            controller: _name,
+            prefixIcon: const Icon(LucideIcons.user, size: 18),
+          ),
           const SizedBox(height: AppDimens.spacing12),
-          AppTextField(label: 'Email', controller: _email, prefixIcon: const Icon(LucideIcons.mail, size: 18)),
+          AppTextField(
+            label: 'Email',
+            controller: _email,
+            prefixIcon: const Icon(LucideIcons.mail, size: 18),
+          ),
           const SizedBox(height: AppDimens.spacing12),
           Row(
             children: [
@@ -163,7 +179,7 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
   void _showChangePassword(BuildContext context) {
     showDialog<void>(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.72),
+      barrierColor: Colors.black.withValues(alpha: 0.72),
       builder: (context) {
         final current = TextEditingController(text: '********');
         final next = TextEditingController(text: '********');
@@ -174,7 +190,9 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
         return StatefulBuilder(
           builder: (context, setDialogState) => Dialog(
             backgroundColor: Colors.transparent,
-            insetPadding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+            insetPadding: const EdgeInsets.symmetric(
+              horizontal: AppDimens.screenPadding,
+            ),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 520),
               child: Container(
@@ -199,12 +217,20 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                               color: Color(0xFFD8EDFF),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(LucideIcons.lock, size: 28, color: AppColors.primaryDark),
+                            child: const Icon(
+                              LucideIcons.lock,
+                              size: 28,
+                              color: AppColors.primaryDark,
+                            ),
                           ),
                           const Spacer(),
                           IconButton(
                             onPressed: () => Get.back(),
-                            icon: const Icon(LucideIcons.x, color: AppColors.textPrimary, size: 28),
+                            icon: const Icon(
+                              LucideIcons.x,
+                              color: AppColors.textPrimary,
+                              size: 28,
+                            ),
                           ),
                         ],
                       ),
@@ -224,9 +250,16 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                         controller: current,
                         suffixIcon: IconButton(
                           onPressed: () {
-                            setDialogState(() => isCurrentObscured = !isCurrentObscured);
+                            setDialogState(
+                              () => isCurrentObscured = !isCurrentObscured,
+                            );
                           },
-                          icon: Icon(isCurrentObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                          icon: Icon(
+                            isCurrentObscured
+                                ? LucideIcons.eyeOff
+                                : LucideIcons.eye,
+                            size: 18,
+                          ),
                         ),
                         obscureText: isCurrentObscured,
                       ),
@@ -236,9 +269,16 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                         controller: next,
                         suffixIcon: IconButton(
                           onPressed: () {
-                            setDialogState(() => isNewObscured = !isNewObscured);
+                            setDialogState(
+                              () => isNewObscured = !isNewObscured,
+                            );
                           },
-                          icon: Icon(isNewObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                          icon: Icon(
+                            isNewObscured
+                                ? LucideIcons.eyeOff
+                                : LucideIcons.eye,
+                            size: 18,
+                          ),
                         ),
                         obscureText: isNewObscured,
                       ),
@@ -248,9 +288,16 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                         controller: confirm,
                         suffixIcon: IconButton(
                           onPressed: () {
-                            setDialogState(() => isConfirmObscured = !isConfirmObscured);
+                            setDialogState(
+                              () => isConfirmObscured = !isConfirmObscured,
+                            );
                           },
-                          icon: Icon(isConfirmObscured ? LucideIcons.eyeOff : LucideIcons.eye, size: 18),
+                          icon: Icon(
+                            isConfirmObscured
+                                ? LucideIcons.eyeOff
+                                : LucideIcons.eye,
+                            size: 18,
+                          ),
                         ),
                         obscureText: isConfirmObscured,
                       ),
@@ -262,25 +309,37 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                           onPressed: () {
                             _password.text = next.text;
                             Get.back();
-                            showDemoSaved('Password updated locally for demo mode.');
+                            showDemoSaved(
+                              'Password updated locally for demo mode.',
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                              borderRadius: BorderRadius.circular(
+                                AppDimens.buttonRadius,
+                              ),
                             ),
                           ),
                           child: Ink(
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [AppColors.accent, AppColors.primaryDark],
+                                colors: [
+                                  AppColors.accent,
+                                  AppColors.primaryDark,
+                                ],
                               ),
-                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                              borderRadius: BorderRadius.circular(
+                                AppDimens.buttonRadius,
+                              ),
                             ),
                             child: Center(
-                              child: Text('Yes, Change', style: AppTextStyles.button),
+                              child: Text(
+                                'Yes, Change',
+                                style: AppTextStyles.button,
+                              ),
                             ),
                           ),
                         ),
@@ -294,11 +353,16 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.surface,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
+                              borderRadius: BorderRadius.circular(
+                                AppDimens.buttonRadius,
+                              ),
                               side: const BorderSide(color: AppColors.border),
                             ),
                           ),
-                          child: Text('Cancel', style: AppTextStyles.buttonDark),
+                          child: Text(
+                            'Cancel',
+                            style: AppTextStyles.buttonDark,
+                          ),
                         ),
                       ),
                     ],
@@ -355,3 +419,5 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
     });
   }
 }
+
+

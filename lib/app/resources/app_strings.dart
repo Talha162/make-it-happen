@@ -1,4 +1,4 @@
-﻿class AppStrings {
+class AppStrings {
   static const String appName = 'Make It Happen';
   static const String guidedTitle = 'A Guided Path';
   static const String guidedBody =
@@ -6,7 +6,8 @@
   static const String login = 'Login';
   static const String createAccount = 'Create Account';
   static const String loginToContinue = 'Login to Continue';
-  static const String loginSubtitle = 'Sign in to continue your guided journey.';
+  static const String loginSubtitle =
+      'Sign in to continue your guided journey.';
   static const String email = 'Email';
   static const String password = 'Password';
   static const String forgotPassword = 'Forgot Password?';
@@ -28,7 +29,8 @@
   static const String resendCode = 'Resend Code';
   static const String wrongCode = 'Wrong Code, Try Again';
   static const String getBackTitle = "Let's Get You Back";
-  static const String getBackSubtitle = 'Enter your email to reset your password.';
+  static const String getBackSubtitle =
+      'Enter your email to reset your password.';
   static const String sendResetLink = 'Send Reset Link';
   static const String rememberAccount = 'Remember your account?';
   static const String setNewKeyTitle = 'Set a New Key';
@@ -38,7 +40,8 @@
   static const String confirmPassword = 'Confirm Password';
   static const String reset = 'Reset';
   static const String startWithBasics = 'Start With the Basics';
-  static const String startWithBasicsSubtitle = 'Tell us a little about yourself.';
+  static const String startWithBasicsSubtitle =
+      'Tell us a little about yourself.';
   static const String gender = 'Gender';
   static const String dateOfBirth = 'Date of Birth';
   static const String country = 'Country';
@@ -55,7 +58,8 @@
   static const String mentorshipQuestion = 'Are you open to mentorship';
   static const String yes = 'Yes';
   static const String no = 'No';
-  static const String guidanceSeeking = 'Any guidance you are currently seeking';
+  static const String guidanceSeeking =
+      'Any guidance you are currently seeking';
   static const String guidancePlaceholder = 'Briefly share if applicable';
   static const String next = 'Next';
   static const String done = 'Done';
@@ -77,7 +81,7 @@
   static const String locationDetails = 'Location Details';
   static const String mentorshipSessions = 'Mentorship Sessions';
   static const String notifications = 'Notifications';
-  static const String supportSafety = 'Support & Safety';
+  static const String supportSafety = 'Help & Support';
   static const String relationship = 'Relationship';
   static const String activePlan = 'Active Plan';
   static const String preferences = 'Preferences';

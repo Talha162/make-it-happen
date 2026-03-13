@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
+import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
@@ -60,11 +60,18 @@ class MatchProfileCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+                    Text(
+                      name,
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -75,9 +82,9 @@ class MatchProfileCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _InfoPill(icon: LucideIcons.cake, label: age),
+              _InfoPill(assetPath: AppAssets.calendarIcon, label: age),
               const SizedBox(width: AppDimens.spacing8),
-              _InfoPill(icon: LucideIcons.mapPin, label: location),
+              _InfoPill(assetPath: AppAssets.locationIcon, label: location),
             ],
           ),
           const SizedBox(height: AppDimens.spacing12),
@@ -113,9 +120,9 @@ class MatchProfileCard extends StatelessWidget {
 }
 
 class _InfoPill extends StatelessWidget {
-  const _InfoPill({required this.icon, required this.label});
+  const _InfoPill({required this.assetPath, required this.label});
 
-  final IconData icon;
+  final String assetPath;
   final String label;
 
   @override
@@ -129,7 +136,24 @@ class _InfoPill extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 14, color: AppColors.primaryDark),
+          Container(
+            width: 16,
+            height: 16,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.textPrimary,
+            ),
+            child: Center(
+              child: Image.asset(
+                assetPath,
+                width: 10,
+                height: 10,
+                fit: BoxFit.contain,
+                color: AppColors.primaryDark,
+                colorBlendMode: BlendMode.srcIn,
+              ),
+            ),
+          ),
           const SizedBox(width: 6),
           Text(
             label,

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes/app_routes.dart';
@@ -6,7 +6,7 @@ import '../routes/app_routes.dart';
 class ForgotPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController(text: 'glahenspaul@gmail.com');
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
 
   @override
   void onInit() {
@@ -19,7 +19,7 @@ class ForgotPasswordController extends GetxController {
   }
 
   void _evaluateForm() {
-    canSubmit.value = formKey.currentState?.validate() ?? false;
+    canSubmit.value = true;
   }
 
   String? validateEmail(String? value) {
@@ -33,9 +33,7 @@ class ForgotPasswordController extends GetxController {
   }
 
   void onSendReset() {
-    if (formKey.currentState?.validate() ?? false) {
-      Get.toNamed(AppRoutes.resetPassword);
-    }
+    Get.toNamed(AppRoutes.resetPassword);
   }
 
   void onLogin() {

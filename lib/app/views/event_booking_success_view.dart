@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
 import '../resources/app_text_styles.dart';
-import 'package:get/get.dart';
-
 import '../routes/app_routes.dart';
 import '../widgets/primary_button.dart';
-import '../widgets/secondary_button.dart';
 
 class EventBookingSuccessView extends StatelessWidget {
   const EventBookingSuccessView({super.key});
@@ -18,79 +16,92 @@ class EventBookingSuccessView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.transparent,
       body: SafeArea(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Navigator.of(context).maybePop(),
-                icon: const Icon(Icons.arrow_back, color: AppColors.white),
-              ),
-            ),
-            const SizedBox(height: AppDimens.spacing8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
-              child: Container(
-                padding: const EdgeInsets.all(AppDimens.spacing20),
-                decoration: BoxDecoration(
-                  color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: AppColors.border),
-                ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Booking Confirmed!',
-                          style: AppTextStyles.titleMedium,
-                        ),
-                        const SizedBox(width: 6),
-                        const Icon(LucideIcons.badgeCheck, size: 16, color: AppColors.primaryDark),
-                      ],
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () => Navigator.of(context).maybePop(),
+                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
+                      ),
                     ),
-                    const SizedBox(height: AppDimens.spacing12),
-                    _InfoRow(label: 'Event', value: 'Community Hangout'),
-                    _InfoRow(label: 'Date', value: 'June 14, 2025'),
-                    _InfoRow(label: 'Time', value: '8:00 AM - 6:00 PM'),
-                    _InfoRow(label: 'Location', value: 'Yosemite National Park'),
-                    Row(
-                      children: [
-                        Text('Total Price', style: AppTextStyles.bodySmall),
-                        const Spacer(),
-                        Text('1,120 Rs', style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
-                        const SizedBox(width: 8),
-                        _TagPill(label: 'Paid'),
-                      ],
+                    const SizedBox(height: AppDimens.spacing8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimens.screenPadding,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(AppDimens.spacing20),
+                        decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Booking Confirmed!', style: AppTextStyles.titleMedium),
+                                const SizedBox(width: 6),
+                                const Icon(
+                                  LucideIcons.badgeCheck,
+                                  size: 16,
+                                  color: AppColors.primaryDark,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: AppDimens.spacing12),
+                            const _InfoRow(label: 'Event', value: 'Community Hangout'),
+                            const _InfoRow(label: 'Date', value: 'June 14, 2025'),
+                            const _InfoRow(label: 'Time', value: '8:00 AM - 6:00 PM'),
+                            const _InfoRow(
+                              label: 'Location',
+                              value: 'Yosemite National Park',
+                            ),
+                            Row(
+                              children: [
+                                Text('Total Price:', style: AppTextStyles.bodySmall),
+                                const Spacer(),
+                                Text(
+                                  '1,120 Rs',
+                                  style: AppTextStyles.body.copyWith(
+                                    color: AppColors.textPrimary,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const _TagPill(label: 'Paid'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppDimens.spacing24),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        AppDimens.screenPadding,
+                        0,
+                        AppDimens.screenPadding,
+                        AppDimens.spacing24,
+                      ),
+                      child: PrimaryButton(
+                        label: 'Continue',
+                        isEnabled: true,
+                        onPressed: () => Get.offAllNamed(AppRoutes.home),
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
-              child: SecondaryButton(
-                label: 'View Ticket',
-                onPressed: () => Get.toNamed(AppRoutes.eventDetailRegistered),
-              ),
-            ),
-            const SizedBox(height: AppDimens.spacing12),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                AppDimens.screenPadding,
-                0,
-                AppDimens.screenPadding,
-                AppDimens.spacing24,
-              ),
-              child: PrimaryButton(
-                label: 'View Bookings',
-                isEnabled: true,
-                onPressed: () => Get.toNamed(AppRoutes.events),
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -110,9 +121,15 @@ class _InfoRow extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted)),
+          Text(
+            label,
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted),
+          ),
           const SizedBox(height: 4),
-          Text(value, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+          Text(
+            value,
+            style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+          ),
           const SizedBox(height: 8),
           const Divider(height: 1, color: AppColors.divider),
         ],
@@ -144,4 +161,3 @@ class _TagPill extends StatelessWidget {
     );
   }
 }
-

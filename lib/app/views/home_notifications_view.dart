@@ -42,7 +42,7 @@ class HomeNotificationsView extends StatelessWidget {
       ),
       _NotificationItem(
         title: 'Mentorship Invitation',
-        body: 'You’ve been invited to join a mentorship se...',
+        body: "You've been invited to join a mentorship se...",
       ),
     ];
 
@@ -58,16 +58,22 @@ class HomeNotificationsView extends StatelessWidget {
             ),
             const SizedBox(height: AppDimens.spacing6),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
+              ),
               child: Text('Notifications', style: AppTextStyles.titleLarge),
             ),
             const SizedBox(height: AppDimens.spacing12),
             Expanded(
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimens.screenPadding,
+                ),
                 itemCount: items.length,
-                separatorBuilder: (_, __) => const SizedBox(height: AppDimens.spacing10),
-                itemBuilder: (context, index) => _NotificationTile(item: items[index]),
+                separatorBuilder: (_, _) =>
+                    const SizedBox(height: AppDimens.spacing10),
+                itemBuilder: (context, index) =>
+                    _NotificationTile(item: items[index]),
               ),
             ),
           ],
@@ -106,16 +112,27 @@ class _NotificationTile extends StatelessWidget {
             decoration: const BoxDecoration(
               color: AppColors.transparent,
               shape: BoxShape.circle,
-              border: Border.fromBorderSide(BorderSide(color: AppColors.border)),
+              border: Border.fromBorderSide(
+                BorderSide(color: AppColors.border),
+              ),
             ),
-            child: const Icon(LucideIcons.bell, color: AppColors.primaryDark, size: 18),
+            child: const Icon(
+              LucideIcons.bell,
+              color: AppColors.primaryDark,
+              size: 18,
+            ),
           ),
           const SizedBox(width: AppDimens.spacing10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item.title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+                Text(
+                  item.title,
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(item.body, style: AppTextStyles.bodySmall),
               ],

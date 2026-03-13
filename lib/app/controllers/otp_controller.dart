@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import '../routes/app_routes.dart';
 
 class OtpController extends GetxController {
-  final int otpLength = 6;
+  final int otpLength = 5;
   final otpValues = <String>[].obs;
   final showError = false.obs;
-  final canSubmit = false.obs;
+  final canSubmit = true.obs;
   final timerLabel = '00:30 Sec'.obs;
 
   @override
@@ -21,12 +21,14 @@ class OtpController extends GetxController {
       return;
     }
     otpValues[index] = value;
+    if (showError.value) {
+      showError.value = false;
+    }
     _evaluate();
   }
 
   void _evaluate() {
-    final filled = otpValues.every((digit) => digit.isNotEmpty);
-    canSubmit.value = filled;
+    canSubmit.value = true;
   }
 
   void onVerify() {

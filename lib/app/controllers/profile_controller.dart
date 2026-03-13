@@ -19,7 +19,8 @@ class ProfileController extends GetxController {
   void openLocation() => Get.toNamed(AppRoutes.locationDetails);
   void openRelationship() => Get.toNamed(AppRoutes.relationship);
   void openPreferences() => Get.toNamed(AppRoutes.preferences);
-  void openMentorship() => Get.toNamed(AppRoutes.mentorshipSessions);
+  void openMentorship() =>
+      Get.toNamed(AppRoutes.mentorshipSessions, preventDuplicates: false);
   void openNotifications() => Get.toNamed(AppRoutes.notifications);
   void openSubscription() => Get.toNamed(AppRoutes.activePlan);
   void openSupport() => Get.toNamed(AppRoutes.supportSafety);

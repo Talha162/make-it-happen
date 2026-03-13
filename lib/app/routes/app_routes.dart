@@ -1,4 +1,4 @@
-﻿abstract class AppRoutes {
+abstract class AppRoutes {
   static const String splash = '/';
   static const String welcome = '/welcome';
   static const String login = '/login';
@@ -45,6 +45,7 @@
   static const String homeNotifications = '/home/notifications';
   static const String mentorshipGuided = '/mentorship/guided';
   static const String mentorshipConfirmed = '/mentorship/confirmed';
+  static const String mentorshipChat = '/mentorship/chat';
   static const String learn = '/learn';
   static const String learnDetailNotStarted = '/learn/detail/not-started';
   static const String learnDetailInProgress = '/learn/detail/in-progress';

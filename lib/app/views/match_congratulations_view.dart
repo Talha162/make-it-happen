@@ -38,13 +38,15 @@ class MatchCongratulationsView extends StatelessWidget {
             Text('Congratulations', style: AppTextStyles.titleLarge),
             const SizedBox(height: AppDimens.spacing8),
             Text(
-              'We’re honored to have been part of your journey.\nWishing you both a meaningful and blessed\nfuture together.',
+              "We're honored to have been part of your journey.\nWishing you both a meaningful and blessed\nfuture together.",
               textAlign: TextAlign.center,
               style: AppTextStyles.body,
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppDimens.screenPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
+              ),
               child: PrimaryButton(
                 label: 'Continue',
                 isEnabled: true,
@@ -58,4 +60,3 @@ class MatchCongratulationsView extends StatelessWidget {
     );
   }
 }
-

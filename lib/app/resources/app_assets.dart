@@ -33,4 +33,18 @@ class AppAssets {
   static const String oliverTImage = 'assets/images/oliverT_image.jpg';
   static const String communicationWithIntegrity = 'assets/images/communication_with_integrity.jpg';
   static const String definningRelationship = 'assets/images/definning_relationship.jpg';
+
+  static const String preferenceIcon = 'assets/images/prefrence.png';
+  static const String mentorBookingIcon = 'assets/images/mentor booking.png';
+  static const String subscriptionIcon = 'assets/images/subscribtion.png';
+  static const String helpSupportIcon = 'assets/images/help and support.png';
+  static const String termsIcon = 'assets/images/terms.png';
+  static const String logoutIcon = 'assets/images/logout.png';
+  static const String paymentIcon = 'assets/images/payment.png';
+  static const String dollarSignIcon = 'assets/images/dollar-sign.png';
+  static const String messageIcon = 'assets/images/message.png';
+  static const String calendarIcon = 'assets/images/calender.png';
+  static const String locationIcon = 'assets/images/location.png';
 }
+
+

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/otp_controller.dart';
@@ -30,50 +30,57 @@ class VerifyView extends GetView<OtpController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text(AppStrings.verifyTitle, style: AppTextStyles.titleLarge),
-                const SizedBox(height: AppDimens.spacing6),
-                Text(AppStrings.verifyBody, style: AppTextStyles.body),
-                const SizedBox(height: AppDimens.spacing20),
-                Obx(
-                  () => OtpInputRow(
-                    length: controller.otpLength,
-                    values: controller.otpValues,
-                    onChanged: (entry) => controller.setDigit(entry.key, entry.value),
-                    showError: controller.showError.value,
+                  Text(AppStrings.verifyTitle, style: AppTextStyles.titleLarge),
+                  const SizedBox(height: AppDimens.spacing6),
+                  Text(AppStrings.verifyBody, style: AppTextStyles.body),
+                  const SizedBox(height: AppDimens.spacing20),
+                  Obx(
+                    () => OtpInputRow(
+                      length: controller.otpLength,
+                      values: controller.otpValues,
+                      onChanged: (entry) =>
+                          controller.setDigit(entry.key, entry.value),
+                      showError: controller.showError.value,
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppDimens.spacing12),
-                Obx(
-                  () => Align(
-                    alignment: Alignment.centerRight,
-                    child: controller.showError.value
-                        ? Text(
-                            AppStrings.wrongCode,
-                            style: AppTextStyles.bodySmall.copyWith(color: AppColors.error),
-                          )
-                        : const SizedBox.shrink(),
+                  const SizedBox(height: AppDimens.spacing12),
+                  Obx(
+                    () => Align(
+                      alignment: Alignment.centerRight,
+                      child: controller.showError.value
+                          ? Text(
+                              AppStrings.wrongCode,
+                              style: AppTextStyles.bodySmall.copyWith(
+                                color: AppColors.error,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppDimens.spacing20),
-                Obx(
-                  () => PrimaryButton(
-                    label: AppStrings.verifyAction,
-                    onPressed: controller.onVerify,
-                    isEnabled: controller.canSubmit.value,
+                  const SizedBox(height: AppDimens.spacing20),
+                  Obx(
+                    () => PrimaryButton(
+                      label: AppStrings.verifyAction,
+                      onPressed: controller.onVerify,
+                      isEnabled: controller.canSubmit.value,
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppDimens.spacing12),
-                Center(
-                  child: Obx(
-                    () => GestureDetector(
-                      onTap: controller.onResend,
-                      child: Text(
-                        '${controller.timerLabel.value} - ${AppStrings.resendCode}',
-                        style: AppTextStyles.bodySmall.copyWith(color: AppColors.success),
+                  const SizedBox(height: AppDimens.spacing12),
+                  Center(
+                    child: Obx(
+                      () => GestureDetector(
+                        onTap: controller.onResend,
+                        child: Text(
+                          '${controller.timerLabel.value} - ${AppStrings.resendCode}',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: controller.showError.value
+                                ? AppColors.primary
+                                : AppColors.success,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
                 ],
               ),
             ),
