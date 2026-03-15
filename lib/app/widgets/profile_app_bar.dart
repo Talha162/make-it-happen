@@ -37,9 +37,7 @@ class ProfileAppBar extends StatelessWidget {
           ),
           const SizedBox(width: AppDimens.spacing8),
           if (!compact)
-            Expanded(
-              child: Text(title, style: AppTextStyles.titleLarge),
-            )
+            Expanded(child: Text(title, style: AppTextStyles.titleLarge))
           else
             const Spacer(),
           if (trailingText != null)

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_colors.dart';
@@ -24,7 +24,9 @@ class AppDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasRequiredMarker = label.endsWith(' *');
-    final baseLabel = hasRequiredMarker ? label.substring(0, label.length - 2) : label;
+    final baseLabel = hasRequiredMarker
+        ? label.substring(0, label.length - 2)
+        : label;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +53,10 @@ class AppDropdownField extends StatelessWidget {
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             onChanged: onChanged,
-            icon: const Icon(LucideIcons.chevronDown, color: AppColors.textSecondary),
+            icon: const Icon(
+              LucideIcons.chevronDown,
+              color: AppColors.textSecondary,
+            ),
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.fieldFill,
@@ -70,7 +75,9 @@ class AppDropdownField extends StatelessWidget {
             ),
             hint: Text(
               hintText,
-              style: AppTextStyles.bodyMuted.copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyMuted.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
             dropdownColor: AppColors.surface,
             style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),

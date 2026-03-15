@@ -44,13 +44,21 @@ class InfoCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+                Text(
+                  title,
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
                 const SizedBox(height: AppDimens.spacing4),
                 Text(subtitle, style: AppTextStyles.bodySmall),
                 if (chipText != null) ...[
                   const SizedBox(height: AppDimens.spacing6),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: chipBackground ?? chipColor.withOpacity(0.18),
                       borderRadius: BorderRadius.circular(8),

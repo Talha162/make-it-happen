@@ -35,7 +35,10 @@ class ProfileDropdownField extends StatelessWidget {
           child: DropdownButtonFormField<String>(
             value: value.isEmpty ? null : value,
             onChanged: onChanged,
-            icon: const Icon(LucideIcons.chevronDown, color: AppColors.textSecondary),
+            icon: const Icon(
+              LucideIcons.chevronDown,
+              color: AppColors.textSecondary,
+            ),
             decoration: InputDecoration(
               filled: true,
               fillColor: AppColors.fieldFill,

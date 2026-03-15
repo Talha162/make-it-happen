@@ -25,10 +25,7 @@ class PrimaryButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.buttonRadius),
           gradient: const LinearGradient(
-            colors: [
-              AppColors.accent,
-              AppColors.primaryDark,
-            ],
+            colors: [AppColors.accent, AppColors.primaryDark],
           ),
         ),
         child: TextButton(

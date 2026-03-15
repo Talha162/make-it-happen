@@ -1,17 +1,17 @@
-﻿import 'package:get/get.dart';
+import 'package:get/get.dart';
 
-import '../controllers/additional_questions_controller.dart';
-import '../controllers/basics_controller.dart';
-import '../controllers/forgot_password_controller.dart';
-import '../controllers/intention_controller.dart';
-import '../controllers/login_controller.dart';
-import '../controllers/notifications_controller.dart';
-import '../controllers/otp_controller.dart';
-import '../controllers/profile_controller.dart';
-import '../controllers/reset_password_controller.dart';
-import '../controllers/signup_controller.dart';
-import '../controllers/splash_controller.dart';
-import '../controllers/welcome_controller.dart';
+import 'package:make_it_happen/app/controllers/onboarding/additional_questions_controller.dart';
+import 'package:make_it_happen/app/controllers/onboarding/basics_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/forgot_password_controller.dart';
+import 'package:make_it_happen/app/controllers/onboarding/intention_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/login_controller.dart';
+import 'package:make_it_happen/app/controllers/profile/notifications_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/otp_controller.dart';
+import 'package:make_it_happen/app/controllers/profile/profile_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/reset_password_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/signup_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/splash_controller.dart';
+import 'package:make_it_happen/app/controllers/auth/welcome_controller.dart';
 
 class AppBindings extends Bindings {
   @override

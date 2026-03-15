@@ -157,7 +157,9 @@ class _InfoPill extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary),
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.textPrimary,
+            ),
           ),
         ],
       ),

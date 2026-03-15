@@ -29,9 +29,10 @@ class _FloatingSvgState extends State<FloatingSvg>
     super.initState();
     _controller = AnimationController(duration: widget.duration, vsync: this)
       ..repeat(reverse: true);
-    _offset = Tween<double>(begin: 0, end: -widget.floatY).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _offset = Tween<double>(
+      begin: 0,
+      end: -widget.floatY,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -44,10 +45,8 @@ class _FloatingSvgState extends State<FloatingSvg>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _offset,
-      builder: (context, child) => Transform.translate(
-        offset: Offset(0, _offset.value),
-        child: child,
-      ),
+      builder: (context, child) =>
+          Transform.translate(offset: Offset(0, _offset.value), child: child),
       child: SvgPicture.asset(
         widget.assetPath,
         height: widget.height,

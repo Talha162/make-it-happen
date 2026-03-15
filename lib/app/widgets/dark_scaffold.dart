@@ -8,11 +8,7 @@ class DarkScaffold extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
 
-  const DarkScaffold({
-    super.key,
-    required this.child,
-    this.padding,
-  });
+  const DarkScaffold({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +22,8 @@ class DarkScaffold extends StatelessWidget {
               maxWidth: Responsive.maxContentWidth(context),
             ),
             child: Padding(
-              padding: padding ??
+              padding:
+                  padding ??
                   EdgeInsets.symmetric(
                     horizontal: horizontalPadding,
                     vertical: AppDimens.screenPadding,

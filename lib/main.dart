@@ -29,10 +29,7 @@ class MakeItHappenApp extends StatelessWidget {
         final constrainedWidth = width >= 700 ? math.min(500.0, width) : width;
         return Align(
           alignment: Alignment.topCenter,
-          child: SizedBox(
-            width: constrainedWidth,
-            child: child,
-          ),
+          child: SizedBox(width: constrainedWidth, child: child),
         );
       },
     );

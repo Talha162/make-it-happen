@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
@@ -38,7 +38,9 @@ class AppMultilineField extends StatelessWidget {
           style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: AppTextStyles.bodyMuted.copyWith(color: AppColors.textSecondary),
+            hintStyle: AppTextStyles.bodyMuted.copyWith(
+              color: AppColors.textSecondary,
+            ),
             filled: true,
             fillColor: AppColors.fieldFill,
             contentPadding: const EdgeInsets.all(AppDimens.spacing16),

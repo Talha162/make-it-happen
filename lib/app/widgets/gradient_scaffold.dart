@@ -33,7 +33,8 @@ class GradientScaffold extends StatelessWidget {
                     maxWidth: Responsive.maxContentWidth(context),
                   ),
                   child: Padding(
-                    padding: padding ??
+                    padding:
+                        padding ??
                         EdgeInsets.symmetric(
                           horizontal: horizontalPadding,
                           vertical: AppDimens.screenPadding,

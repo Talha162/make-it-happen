@@ -55,13 +55,17 @@ class ProfileBottomNav extends StatelessWidget {
                             Icon(
                               items[i].icon,
                               size: 20,
-                              color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                              color: i == currentIndex
+                                  ? AppColors.primaryDark
+                                  : AppColors.textMuted,
                             ),
                             const SizedBox(height: 4),
                             Text(
                               items[i].label,
                               style: AppTextStyles.bodySmall.copyWith(
-                                color: i == currentIndex ? AppColors.primaryDark : AppColors.textMuted,
+                                color: i == currentIndex
+                                    ? AppColors.primaryDark
+                                    : AppColors.textMuted,
                               ),
                             ),
                           ],

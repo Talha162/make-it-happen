@@ -1,4 +1,4 @@
-﻿import 'package:animations/animations.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 
 class FadeScaleIn extends StatefulWidget {
@@ -51,9 +51,6 @@ class _FadeScaleInState extends State<FadeScaleIn>
 
   @override
   Widget build(BuildContext context) {
-    return FadeScaleTransition(
-      animation: _animation,
-      child: widget.child,
-    );
+    return FadeScaleTransition(animation: _animation, child: widget.child);
   }
 }

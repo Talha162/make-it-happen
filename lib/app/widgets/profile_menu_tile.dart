@@ -69,7 +69,9 @@ class ProfileMenuTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.textPrimary,
+                ),
               ),
             ),
             const Icon(

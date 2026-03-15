@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../resources/app_assets.dart';
 import '../resources/app_colors.dart';
@@ -9,11 +9,7 @@ class SocialButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
-  const SocialButton({
-    super.key,
-    required this.label,
-    this.onPressed,
-  });
+  const SocialButton({super.key, required this.label, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

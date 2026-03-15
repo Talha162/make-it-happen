@@ -51,9 +51,7 @@ class ProfileScaffold extends StatelessWidget {
                       top: padding.top,
                       bottom: padding.bottom + bottomInset,
                     ),
-                    child: SingleChildScrollView(
-                      child: child,
-                    ),
+                    child: SingleChildScrollView(child: child),
                   ),
                 ),
                 if (showBottomButton && bottomLabel != null)

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../resources/app_colors.dart';
 import '../resources/app_dimens.dart';
@@ -36,7 +36,9 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasLabel = label.trim().isNotEmpty;
     final hasRequiredMarker = label.endsWith(' *');
-    final baseLabel = hasRequiredMarker ? label.substring(0, label.length - 2) : label;
+    final baseLabel = hasRequiredMarker
+        ? label.substring(0, label.length - 2)
+        : label;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +98,9 @@ class AppTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppDimens.fieldRadius),
                 borderSide: const BorderSide(color: AppColors.error),
               ),
-              errorStyle: AppTextStyles.bodySmall.copyWith(color: AppColors.error),
+              errorStyle: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.error,
+              ),
             ),
           ),
         ),

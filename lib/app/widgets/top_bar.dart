@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../resources/app_colors.dart';
@@ -11,12 +11,7 @@ class TopBar extends StatelessWidget {
   final VoidCallback? onSkip;
   final bool showSkip;
 
-  const TopBar({
-    super.key,
-    this.onBack,
-    this.onSkip,
-    this.showSkip = false,
-  });
+  const TopBar({super.key, this.onBack, this.onSkip, this.showSkip = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +21,10 @@ class TopBar extends StatelessWidget {
         children: [
           IconButton(
             onPressed: onBack,
-            icon: const Icon(LucideIcons.chevronLeft, color: AppColors.textPrimary),
+            icon: const Icon(
+              LucideIcons.chevronLeft,
+              color: AppColors.textPrimary,
+            ),
           ),
           const Spacer(),
           if (showSkip)

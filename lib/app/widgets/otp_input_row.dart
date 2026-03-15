@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../resources/app_colors.dart';
@@ -69,7 +69,8 @@ class _OtpInputRowState extends State<OtpInputRow> {
   }
 
   void _handleBackspace(int index, RawKeyEvent event) {
-    if (event is RawKeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
+    if (event is RawKeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.backspace) {
       if (_controllers[index].text.isEmpty && index > 0) {
         _nodes[index - 1].requestFocus();
       }
@@ -105,13 +106,17 @@ class _OtpInputRowState extends State<OtpInputRow> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppDimens.otpRadius),
                   borderSide: BorderSide(
-                    color: widget.showError ? AppColors.error : AppColors.border,
+                    color: widget.showError
+                        ? AppColors.error
+                        : AppColors.border,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppDimens.otpRadius),
                   borderSide: BorderSide(
-                    color: widget.showError ? AppColors.error : AppColors.primary,
+                    color: widget.showError
+                        ? AppColors.error
+                        : AppColors.primary,
                   ),
                 ),
               ),

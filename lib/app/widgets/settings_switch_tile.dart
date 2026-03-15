@@ -29,7 +29,10 @@ class SettingsSwitchTile extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(label, style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+            child: Text(
+              label,
+              style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+            ),
           ),
           Switch(
             value: value,
