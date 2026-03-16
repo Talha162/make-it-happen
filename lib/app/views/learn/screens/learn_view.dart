@@ -321,6 +321,7 @@ class _LessonCard extends StatelessWidget {
                       : LucideIcons.video,
                   size: 14,
                   color: AppColors.primaryDark,
+
                 ),
                 const SizedBox(width: 6),
                 Text(type, style: AppTextStyles.body),

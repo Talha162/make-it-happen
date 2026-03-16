@@ -38,7 +38,8 @@ abstract class AppRoutes {
   static const String matchDetailMatched = '/match/detail/matched';
   static const String matchDetailRequested = '/match/detail/requested';
   static const String matchDetailCancelled = '/match/detail/cancelled';
-  static const String matchFeedbackComplete = '/match/feedback-complete';
+  static const String feedbackComplete = '/match/feedback-complete';
+
   static const String matchCongratulations = '/match/congratulations';
   static const String matchMarriageStatus = '/match/marriage-status';
   static const String home = '/home';

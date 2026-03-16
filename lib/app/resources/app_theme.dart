@@ -1,5 +1,4 @@
-﻿import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
@@ -8,9 +7,8 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.black,
-      textTheme: GoogleFonts.plusJakartaSansTextTheme(
-        ThemeData.dark().textTheme,
-      ),
+      fontFamily: 'GeneralSans',
+      textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'GeneralSans'),
       useMaterial3: true,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,

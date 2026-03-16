@@ -27,7 +27,7 @@ class MatchDetailRequestedView extends StatelessWidget {
               AppDimens.screenPadding,
               AppDimens.spacing16,
               AppDimens.screenPadding,
-              AppDimens.spacing24,
+              AppDimens.spacing64,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,16 +66,27 @@ class MatchDetailRequestedView extends StatelessWidget {
                   'Aligned relationship intention and compatible\npreferences based on your profile.',
                   style: AppTextStyles.body,
                 ),
-                const SizedBox(height: AppDimens.spacing20),
-                PrimaryButton(
-                  label: 'Cancel Request',
-                  isEnabled: true,
-                  onPressed: () => Get.toNamed(AppRoutes.matchCancelled),
-                ),
               ],
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(
+            AppDimens.screenPadding,
+            AppDimens.spacing12,
+            AppDimens.screenPadding,
+            AppDimens.spacing16,
+          ),
+          color: AppColors.screenBackground,
+          child: PrimaryButton(
+            label: 'Cancel Request',
+            isEnabled: true,
+            onPressed: () => Get.toNamed(AppRoutes.matchCancelled),
+          ),
+        ),
       ),
     );
   }

@@ -73,7 +73,7 @@ class MatchDetailCancelledView extends StatelessWidget {
                 PrimaryButton(
                   label: 'Complete Feedback',
                   isEnabled: true,
-                  onPressed: () => Get.toNamed(AppRoutes.matchFeedbackComplete),
+                  onPressed: () => Get.toNamed(AppRoutes.feedbackComplete),
                 ),
               ],
             ),

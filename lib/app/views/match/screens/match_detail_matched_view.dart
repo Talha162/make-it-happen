@@ -115,11 +115,7 @@ class MatchDetailMatchedView extends StatelessWidget {
                 PrimaryButton(
                   label: 'Chat',
                   isEnabled: true,
-                  onPressed: () => Get.snackbar(
-                    'Chat unavailable',
-                    'Chat is not connected in this frontend-only build.',
-                    snackPosition: SnackPosition.BOTTOM,
-                  ),
+                  onPressed: () => Get.toNamed(AppRoutes.mentorshipChat),
                 ),
               ],
             ),

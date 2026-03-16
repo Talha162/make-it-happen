@@ -27,47 +27,8 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
     super.dispose();
   }
 
-  void _showSubmittedPopup() {
-    showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.black.withValues(alpha: 0.6),
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.symmetric(
-          horizontal: AppDimens.screenPadding,
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(AppDimens.spacing20),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.border),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Feedback submitted', style: AppTextStyles.titleLarge),
-              const SizedBox(height: AppDimens.spacing8),
-              Text(
-                'Your profile has been reactivated for new match suggestions.',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.body,
-              ),
-              const SizedBox(height: AppDimens.spacing20),
-              PrimaryButton(
-                label: 'View Suggestions',
-                isEnabled: true,
-                onPressed: () {
-                  Get.back();
-                  Get.offAllNamed(AppRoutes.matchSuggestions);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void _submitFeedback() {
+    Get.offAllNamed(AppRoutes.matchSuggestions);
   }
 
   @override
@@ -102,6 +63,9 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
                       'Complete Feedback',
                       style: AppTextStyles.titleLarge.copyWith(
                         fontSize: 52 / 2,
+                        fontWeight: FontWeight.bold,
+
+                        fontFamily: 'GeneralSans',
                       ),
                     ),
                     const SizedBox(height: AppDimens.spacing32),
@@ -109,20 +73,23 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
                       'Reason for cancellation',
                       style: AppTextStyles.titleLarge.copyWith(
                         fontSize: 28 / 2,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'GeneralSans',
                       ),
                     ),
                     const SizedBox(height: AppDimens.spacing12),
                     _FeedbackArea(
                       controller: _reasonController,
                       hintText: 'Briefly share your reason',
+
                     ),
                     const SizedBox(height: AppDimens.spacing20),
                     Text(
                       'Anything we can improve',
                       style: AppTextStyles.titleLarge.copyWith(
                         fontSize: 28 / 2,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'GeneralSans',
                       ),
                     ),
                     const SizedBox(height: AppDimens.spacing12),
@@ -135,7 +102,8 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
                       'Would you like mentorship support?',
                       style: AppTextStyles.titleLarge.copyWith(
                         fontSize: 28 / 2,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'GeneralSans',
                       ),
                     ),
                     const SizedBox(height: AppDimens.spacing12),
@@ -172,7 +140,7 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
                   PrimaryButton(
                     label: 'Submit Feedback',
                     isEnabled: true,
-                    onPressed: _showSubmittedPopup,
+                    onPressed: _submitFeedback,
                   ),
                 ],
               ),
@@ -193,7 +161,7 @@ class _FeedbackArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 120,
       padding: const EdgeInsets.all(AppDimens.spacing12),
       decoration: BoxDecoration(
         color: AppColors.fieldFill,
@@ -204,11 +172,18 @@ class _FeedbackArea extends StatelessWidget {
         controller: controller,
         expands: true,
         maxLines: null,
-        style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+        style: AppTextStyles.body.copyWith(
+          color: AppColors.textPrimary,
+          fontFamily: 'GeneralSans',
+
+        ),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hintText,
-          hintStyle: AppTextStyles.body.copyWith(color: AppColors.textMuted),
+          hintStyle: AppTextStyles.body.copyWith(
+            color: AppColors.textSecondary,
+            fontFamily: 'GeneralSans',
+          ),
         ),
       ),
     );
@@ -230,13 +205,13 @@ class _Choice extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(22),
+      borderRadius: BorderRadius.circular(18),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 34,
-            height: 34,
+            width: 20,
+            height: 20,
             decoration: BoxDecoration(
               color: selected ? AppColors.primaryDark : AppColors.transparent,
               shape: BoxShape.circle,
@@ -246,11 +221,19 @@ class _Choice extends StatelessWidget {
               ),
             ),
             child: selected
-                ? const Icon(Icons.check, color: AppColors.black, size: 20)
+                ? const Icon(Icons.check, color: AppColors.black, size: 16)
                 : null,
           ),
           const SizedBox(width: AppDimens.spacing8),
-          Text(label, style: AppTextStyles.titleMedium),
+          Text(
+            label,
+            style: AppTextStyles.body.copyWith(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: AppColors.textPrimary,
+              fontFamily: 'GeneralSans',
+            ),
+          ),
         ],
       ),
     );

@@ -16,7 +16,6 @@ import 'package:make_it_happen/app/views/onboarding/screens/onboarding_basics_vi
 import 'package:make_it_happen/app/views/profile/screens/account_settings_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/active_plan_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/location_details_view.dart';
-import 'package:make_it_happen/app/views/mentorship/screens/mentorship_sessions_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/notifications_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/preferences_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/profile_view.dart';
@@ -33,13 +32,14 @@ import 'package:make_it_happen/app/views/match/screens/match_detail_available_vi
 import 'package:make_it_happen/app/views/match/screens/match_detail_matched_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_detail_requested_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_detail_cancelled_view.dart';
-import 'package:make_it_happen/app/views/match/screens/match_feedback_complete_view.dart';
+import 'package:make_it_happen/app/views/match/screens/complete_feedback_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_congratulations_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_marriage_status_view.dart';
 import 'package:make_it_happen/app/views/home/screens/home_view.dart';
 import 'package:make_it_happen/app/views/home/screens/home_notifications_view.dart';
 import 'package:make_it_happen/app/views/mentorship/screens/mentorship_guided_view.dart';
 import 'package:make_it_happen/app/views/mentorship/screens/mentorship_confirmed_view.dart';
+import 'package:make_it_happen/app/views/mentorship/screens/mentorship_chat_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_lesson_detail_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_video_lesson_view.dart';
@@ -112,11 +112,7 @@ class AppPages {
       page: () => LocationDetailsView(),
       binding: AppBindings(),
     ),
-    GetPage(
-      name: AppRoutes.mentorshipSessions,
-      page: () => const MentorshipSessionsView(),
-      binding: AppBindings(),
-    ),
+
     GetPage(
       name: AppRoutes.accountSettings,
       page: () => AccountSettingsView(),
@@ -247,9 +243,10 @@ class AppPages {
       page: () => const MatchDetailCancelledView(),
       binding: AppBindings(),
     ),
+
     GetPage(
-      name: AppRoutes.matchFeedbackComplete,
-      page: () => const MatchFeedbackCompleteView(),
+      name: AppRoutes.feedbackComplete,
+      page: () => const CompleteFeedbackView(),
       binding: AppBindings(),
     ),
     GetPage(
@@ -280,6 +277,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.mentorshipConfirmed,
       page: () => const MentorshipConfirmedView(),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.mentorshipChat,
+      page: () => const MentorshipChatView(),
       binding: AppBindings(),
     ),
     GetPage(

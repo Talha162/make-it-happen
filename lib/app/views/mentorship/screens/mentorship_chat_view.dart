@@ -9,8 +9,81 @@ import 'package:make_it_happen/app/widgets/floating_chat_button.dart';
 import 'package:make_it_happen/app/widgets/mentorship_chat_bubble.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
 
-class MentorshipChatView extends StatelessWidget {
+class MentorshipChatView extends StatefulWidget {
   const MentorshipChatView({super.key});
+
+  @override
+  State<MentorshipChatView> createState() => _MentorshipChatViewState();
+}
+
+class _MentorshipChatViewState extends State<MentorshipChatView> {
+  final TextEditingController _messageController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+
+  final List<_ChatMessage> _messages = [
+    const _ChatMessage(
+      text:
+          'Hello, thank you for booking a mentorship session. I\'m looking forward to our conversation.',
+      isFromMentor: true,
+      time: '12:26 PM',
+    ),
+    const _ChatMessage(
+      text: 'Hi Peace,',
+      isFromMentor: false,
+      showAvatar: true,
+    ),
+    const _ChatMessage(
+      text:
+          'Thank you for confirming. I\'m really looking forward to getting some guidance.',
+      isFromMentor: false,
+      showAvatar: true,
+      time: '12:27 PM',
+    ),
+    const _ChatMessage(
+      text:
+          'Great. I see that you selected communication in relationships as the topic.',
+      isFromMentor: true,
+    ),
+    const _ChatMessage(
+      text:
+          'Is there anything specific you would like us to focus on during the session?',
+      isFromMentor: true,
+      time: '12:26 PM',
+    ),
+  ];
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _sendMessage() {
+    final value = _messageController.text.trim();
+    if (value.isEmpty) return;
+
+    setState(() {
+      _messages.add(
+        _ChatMessage(
+          text: value,
+          isFromMentor: false,
+          showAvatar: true,
+          time: TimeOfDay.now().format(context),
+        ),
+      );
+      _messageController.clear();
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOut,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,43 +130,21 @@ class MentorshipChatView extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: ListView(
+                        child: ListView.separated(
+                          controller: _scrollController,
                           padding: const EdgeInsets.all(AppDimens.spacing12),
-                          children: const [
-                            MentorshipChatBubble(
-                              text:
-                                  'Hello, thank you for booking a mentorship session. I\'m looking forward to our conversation.',
-                              isFromMentor: true,
-                              time: '12:26 PM',
-                            ),
-                            SizedBox(height: AppDimens.spacing12),
-                            MentorshipChatBubble(
-                              text: 'Hi Peace,',
-                              isFromMentor: false,
-                              showAvatar: true,
-                            ),
-                            SizedBox(height: AppDimens.spacing8),
-                            MentorshipChatBubble(
-                              text:
-                                  'Thank you for confirming. I\'m really looking forward to getting some guidance.',
-                              isFromMentor: false,
-                              showAvatar: true,
-                              time: '12:27 PM',
-                            ),
-                            SizedBox(height: AppDimens.spacing12),
-                            MentorshipChatBubble(
-                              text:
-                                  'Great. I see that you selected communication in relationships as the topic.',
-                              isFromMentor: true,
-                            ),
-                            SizedBox(height: AppDimens.spacing8),
-                            MentorshipChatBubble(
-                              text:
-                                  'Is there anything specific you would like us to focus on during the session?',
-                              isFromMentor: true,
-                              time: '12:26 PM',
-                            ),
-                          ],
+                          itemCount: _messages.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: AppDimens.spacing10),
+                          itemBuilder: (context, index) {
+                            final message = _messages[index];
+                            return MentorshipChatBubble(
+                              text: message.text,
+                              isFromMentor: message.isFromMentor,
+                              showAvatar: message.showAvatar,
+                              time: message.time,
+                            );
+                          },
                         ),
                       ),
                       Padding(
@@ -115,29 +166,42 @@ class MentorshipChatView extends StatelessWidget {
                           child: Row(
                             children: [
                               Expanded(
-                                child: Text(
-                                  'Type what you have in mind...',
+                                child: TextField(
+                                  controller: _messageController,
+                                  textInputAction: TextInputAction.send,
+                                  onSubmitted: (_) => _sendMessage(),
                                   style: AppTextStyles.body.copyWith(
-                                    color: AppColors.textMuted,
+                                    color: AppColors.textPrimary,
+                                  ),
+                                  decoration: InputDecoration(
+                                    isCollapsed: true,
+                                    border: InputBorder.none,
+                                    hintText: 'Type what you have in mind...',
+                                    hintStyle: AppTextStyles.body.copyWith(
+                                      color: AppColors.textMuted,
+                                    ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: 32,
-                                height: 32,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      AppColors.accent,
-                                      AppColors.primaryDark,
-                                    ],
+                              GestureDetector(
+                                onTap: _sendMessage,
+                                child: Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        AppColors.accent,
+                                        AppColors.primaryDark,
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                child: const Icon(
-                                  LucideIcons.send,
-                                  size: 16,
-                                  color: AppColors.white,
+                                  child: const Icon(
+                                    LucideIcons.send,
+                                    size: 16,
+                                    color: AppColors.white,
+                                  ),
                                 ),
                               ),
                             ],
@@ -181,4 +245,18 @@ class MentorshipChatView extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ChatMessage {
+  const _ChatMessage({
+    required this.text,
+    required this.isFromMentor,
+    this.showAvatar = false,
+    this.time,
+  });
+
+  final String text;
+  final bool isFromMentor;
+  final bool showAvatar;
+  final String? time;
 }
