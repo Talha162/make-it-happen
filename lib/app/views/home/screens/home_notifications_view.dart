@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import 'package:make_it_happen/app/resources/app_colors.dart';
 import 'package:make_it_happen/app/resources/app_dimens.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
+import 'package:make_it_happen/app/widgets/profile_app_bar.dart';
 
 class HomeNotificationsView extends StatelessWidget {
   const HomeNotificationsView({super.key});
@@ -52,9 +52,11 @@ class HomeNotificationsView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(Icons.arrow_back, color: AppColors.white),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
+              ),
+              child: ProfileAppBar(title: 'Notifications', compact: true),
             ),
             const SizedBox(height: AppDimens.spacing6),
             Padding(

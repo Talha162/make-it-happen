@@ -6,7 +6,9 @@ import 'package:make_it_happen/app/resources/app_dimens.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
 import 'package:make_it_happen/app/routes/app_routes.dart';
 import 'package:make_it_happen/app/widgets/floating_chat_button.dart';
+import 'package:make_it_happen/app/widgets/message_popup.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
+import 'package:make_it_happen/app/widgets/profile_app_bar.dart';
 
 class MentorshipConfirmedView extends StatelessWidget {
   const MentorshipConfirmedView({super.key});
@@ -23,14 +25,13 @@ class MentorshipConfirmedView extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: AppDimens.spacing16),
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        onPressed: () => Get.back(),
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.white,
-                        ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimens.screenPadding,
+                      ),
+                      child: ProfileAppBar(
+                        title: 'Booking Confirmed',
+                        compact: true,
                       ),
                     ),
                     const SizedBox(height: AppDimens.spacing12),
@@ -72,7 +73,7 @@ class MentorshipConfirmedView extends StatelessWidget {
                               label: 'Topic',
                               value: 'General Mentorship',
                             ),
-                            const _Row(label: 'Price:', value: '40'),
+                            const _Row(label: 'Price:', value: '\$40'),
                             const _Row(label: 'Date', value: 'June 14, 2025'),
                             const _Row(label: 'Time', value: '10:00 AM'),
                             const _Row(
@@ -96,7 +97,11 @@ class MentorshipConfirmedView extends StatelessWidget {
                 children: [
                   const Spacer(),
                   FloatingChatButton(
-                    onTap: () => Get.toNamed(AppRoutes.mentorshipChat),
+                    onTap: () => showMessagePopup(
+                      participantName: 'Peace',
+                      onContinue: () =>
+                          Get.toNamed(AppRoutes.mentorshipSessions),
+                    ),
                   ),
                 ],
               ),
@@ -112,7 +117,7 @@ class MentorshipConfirmedView extends StatelessWidget {
               child: PrimaryButton(
                 label: 'Continue',
                 isEnabled: true,
-                onPressed: () => Get.toNamed(AppRoutes.mentorshipChat),
+                onPressed: () => Get.toNamed(AppRoutes.matchDetailMatched),
               ),
             ),
           ],

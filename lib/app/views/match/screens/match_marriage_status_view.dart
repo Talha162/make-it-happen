@@ -10,6 +10,7 @@ import 'package:make_it_happen/app/utils/demo_feedback.dart';
 import 'package:make_it_happen/app/widgets/app_multiline_field.dart';
 import 'package:make_it_happen/app/widgets/app_text_field.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
+import 'package:make_it_happen/app/widgets/profile_app_bar.dart';
 import 'package:make_it_happen/app/widgets/profile_dropdown_field.dart';
 
 class MatchMarriageStatusView extends StatefulWidget {
@@ -44,12 +45,11 @@ class _MatchMarriageStatusViewState extends State<MatchMarriageStatusView> {
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Get.back(),
-                icon: const Icon(Icons.arrow_back, color: AppColors.white),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
               ),
+              child: ProfileAppBar(title: 'Gotten Married?', compact: true),
             ),
             Expanded(
               child: ListView(

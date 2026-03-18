@@ -23,6 +23,9 @@ class MakeItHappenApp extends StatelessWidget {
       theme: AppTheme.darkTheme,
       initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
+      defaultTransition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 220),
+      popGesture: true,
       builder: (context, child) {
         if (child == null) return const SizedBox.shrink();
         final width = MediaQuery.of(context).size.width;

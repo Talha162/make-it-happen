@@ -6,6 +6,7 @@ import 'package:make_it_happen/app/resources/app_dimens.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
 import 'package:make_it_happen/app/routes/app_routes.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
+import 'package:make_it_happen/app/widgets/profile_app_bar.dart';
 import 'package:make_it_happen/app/widgets/secondary_button.dart';
 
 class CompleteFeedbackView extends StatefulWidget {
@@ -28,6 +29,7 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
   }
 
   void _submitFeedback() {
+    FocusManager.instance.primaryFocus?.unfocus();
     Get.offAllNamed(AppRoutes.matchSuggestions);
   }
 
@@ -37,115 +39,123 @@ class _CompleteFeedbackViewState extends State<CompleteFeedbackView> {
 
     return Scaffold(
       backgroundColor: AppColors.black,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                  AppDimens.screenPadding,
-                  AppDimens.spacing12,
-                  AppDimens.screenPadding,
-                  bottomInset,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  padding: const EdgeInsets.fromLTRB(
+                    AppDimens.screenPadding,
+                    AppDimens.spacing12,
+                    AppDimens.screenPadding,
+                    bottomInset,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const ProfileAppBar(
+                        title: 'Complete Feedback',
+                        compact: true,
+                      ),
+                      const SizedBox(height: AppDimens.spacing6),
+                      Text(
+                        'Complete Feedback',
+                        style: AppTextStyles.titleLarge.copyWith(
+                          fontSize: 52 / 2,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'GeneralSans',
+                        ),
+                      ),
+                      const SizedBox(height: AppDimens.spacing32),
+                      Text(
+                        'Reason for cancellation',
+                        style: AppTextStyles.titleLarge.copyWith(
+                          fontSize: 28 / 2,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'GeneralSans',
+                        ),
+                      ),
+                      const SizedBox(height: AppDimens.spacing12),
+                      _FeedbackArea(
+                        controller: _reasonController,
+                        hintText: 'Briefly share your reason',
+                      ),
+                      const SizedBox(height: AppDimens.spacing20),
+                      Text(
+                        'Anything we can improve',
+                        style: AppTextStyles.titleLarge.copyWith(
+                          fontSize: 28 / 2,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'GeneralSans',
+                        ),
+                      ),
+                      const SizedBox(height: AppDimens.spacing12),
+                      _FeedbackArea(
+                        controller: _improveController,
+                        hintText: 'Share any helpful feedback',
+                      ),
+                      const SizedBox(height: AppDimens.spacing20),
+                      Text(
+                        'Would you like mentorship support?',
+                        style: AppTextStyles.titleLarge.copyWith(
+                          fontSize: 28 / 2,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'GeneralSans',
+                        ),
+                      ),
+                      const SizedBox(height: AppDimens.spacing12),
+                      Row(
+                        children: [
+                          _Choice(
+                            label: 'Yes',
+                            selected: _mentorshipSupport,
+                            onTap: () =>
+                                setState(() => _mentorshipSupport = true),
+                          ),
+                          const SizedBox(width: AppDimens.spacing20),
+                          _Choice(
+                            label: 'No',
+                            selected: !_mentorshipSupport,
+                            onTap: () =>
+                                setState(() => _mentorshipSupport = false),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+              ),
+              Positioned(
+                left: AppDimens.screenPadding,
+                right: AppDimens.screenPadding,
+                bottom: AppDimens.spacing16,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      onPressed: () => Get.back(),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: AppColors.white,
-                      ),
-                    ),
-                    const SizedBox(height: AppDimens.spacing28),
-                    Text(
-                      'Complete Feedback',
-                      style: AppTextStyles.titleLarge.copyWith(
-                        fontSize: 52 / 2,
-                        fontWeight: FontWeight.bold,
-
-                        fontFamily: 'GeneralSans',
-                      ),
-                    ),
-                    const SizedBox(height: AppDimens.spacing32),
-                    Text(
-                      'Reason for cancellation',
-                      style: AppTextStyles.titleLarge.copyWith(
-                        fontSize: 28 / 2,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'GeneralSans',
-                      ),
+                    SecondaryButton(
+                      label: 'Cancel',
+                      onPressed: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Get.back();
+                      },
                     ),
                     const SizedBox(height: AppDimens.spacing12),
-                    _FeedbackArea(
-                      controller: _reasonController,
-                      hintText: 'Briefly share your reason',
-
-                    ),
-                    const SizedBox(height: AppDimens.spacing20),
-                    Text(
-                      'Anything we can improve',
-                      style: AppTextStyles.titleLarge.copyWith(
-                        fontSize: 28 / 2,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'GeneralSans',
-                      ),
-                    ),
-                    const SizedBox(height: AppDimens.spacing12),
-                    _FeedbackArea(
-                      controller: _improveController,
-                      hintText: 'Share any helpful feedback',
-                    ),
-                    const SizedBox(height: AppDimens.spacing20),
-                    Text(
-                      'Would you like mentorship support?',
-                      style: AppTextStyles.titleLarge.copyWith(
-                        fontSize: 28 / 2,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'GeneralSans',
-                      ),
-                    ),
-                    const SizedBox(height: AppDimens.spacing12),
-                    Row(
-                      children: [
-                        _Choice(
-                          label: 'Yes',
-                          selected: _mentorshipSupport,
-                          onTap: () =>
-                              setState(() => _mentorshipSupport = true),
-                        ),
-                        const SizedBox(width: AppDimens.spacing20),
-                        _Choice(
-                          label: 'No',
-                          selected: !_mentorshipSupport,
-                          onTap: () =>
-                              setState(() => _mentorshipSupport = false),
-                        ),
-                      ],
+                    PrimaryButton(
+                      label: 'Submit Feedback',
+                      isEnabled: true,
+                      onPressed: _submitFeedback,
                     ),
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              left: AppDimens.screenPadding,
-              right: AppDimens.screenPadding,
-              bottom: AppDimens.spacing16,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SecondaryButton(label: 'Cancel', onPressed: () => Get.back()),
-                  const SizedBox(height: AppDimens.spacing12),
-                  PrimaryButton(
-                    label: 'Submit Feedback',
-                    isEnabled: true,
-                    onPressed: _submitFeedback,
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -172,10 +182,12 @@ class _FeedbackArea extends StatelessWidget {
         controller: controller,
         expands: true,
         maxLines: null,
+        textInputAction: TextInputAction.done,
+        onEditingComplete: () => FocusManager.instance.primaryFocus?.unfocus(),
+        onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
         style: AppTextStyles.body.copyWith(
           color: AppColors.textPrimary,
           fontFamily: 'GeneralSans',
-
         ),
         decoration: InputDecoration(
           border: InputBorder.none,

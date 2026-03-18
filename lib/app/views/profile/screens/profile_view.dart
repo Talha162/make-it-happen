@@ -65,7 +65,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: controller.openEditProfile,
+                    onTap: controller.openAccount,
                     child: Text(
                       'Edit',
                       style: AppTextStyles.body.copyWith(

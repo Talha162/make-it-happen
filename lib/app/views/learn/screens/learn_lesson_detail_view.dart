@@ -117,7 +117,15 @@ class LearnLessonDetailView extends StatelessWidget {
                 PrimaryButton(
                   label: actionLabel,
                   isEnabled: true,
-                  onPressed: () => Get.toNamed(AppRoutes.learnVideoInProgress),
+                  onPressed: () => Get.toNamed(
+                    AppRoutes.learnLessonAction,
+                    arguments: {
+                      'actionLabel': actionLabel,
+                      'lessonTitle': 'Defining Relationships',
+                      'duration': '4 minutes',
+                      'imagePath': AppAssets.definingRelationshipImage,
+                    },
+                  ),
                 ),
               ],
             ),

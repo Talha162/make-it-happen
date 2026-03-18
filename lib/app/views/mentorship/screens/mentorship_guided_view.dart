@@ -7,6 +7,7 @@ import 'package:make_it_happen/app/resources/app_dimens.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
 import 'package:make_it_happen/app/routes/app_routes.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
+import 'package:make_it_happen/app/widgets/profile_app_bar.dart';
 
 class MentorshipGuidedView extends StatefulWidget {
   const MentorshipGuidedView({super.key});
@@ -148,12 +149,11 @@ class _MentorshipGuidedViewState extends State<MentorshipGuidedView> {
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Get.back(),
-                icon: const Icon(Icons.arrow_back, color: AppColors.white),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimens.screenPadding,
               ),
+              child: ProfileAppBar(title: 'Guided Mentorship', compact: true),
             ),
             Expanded(
               child: ListView(

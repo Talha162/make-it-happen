@@ -11,6 +11,8 @@ import 'package:make_it_happen/app/widgets/match_preference_chip.dart';
 import 'package:make_it_happen/app/widgets/match_status_pill.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
 
+import 'cancel_dialog.dart';
+
 class MatchDetailRequestedView extends StatelessWidget {
   const MatchDetailRequestedView({super.key});
 
@@ -84,7 +86,9 @@ class MatchDetailRequestedView extends StatelessWidget {
           child: PrimaryButton(
             label: 'Cancel Request',
             isEnabled: true,
-            onPressed: () => Get.toNamed(AppRoutes.matchCancelled),
+            onPressed: () {
+              CancelDialog.show(context: context);
+            },
           ),
         ),
       ),

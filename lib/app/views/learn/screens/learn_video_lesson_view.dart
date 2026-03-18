@@ -5,6 +5,7 @@ import 'package:make_it_happen/app/resources/app_assets.dart';
 import 'package:make_it_happen/app/resources/app_colors.dart';
 import 'package:make_it_happen/app/resources/app_dimens.dart';
 import 'package:make_it_happen/app/resources/app_text_styles.dart';
+import 'package:make_it_happen/app/routes/app_routes.dart';
 import 'package:make_it_happen/app/widgets/learn_detail_sections.dart';
 import 'package:make_it_happen/app/widgets/primary_button.dart';
 
@@ -138,7 +139,15 @@ class LearnVideoLessonView extends StatelessWidget {
                 PrimaryButton(
                   label: actionLabel,
                   isEnabled: true,
-                  onPressed: () => Get.back(),
+                  onPressed: () => Get.toNamed(
+                    AppRoutes.learnLessonAction,
+                    arguments: {
+                      'actionLabel': actionLabel,
+                      'lessonTitle': 'Understanding Intentional Relationships',
+                      'duration': '10 minutes',
+                      'imagePath': AppAssets.understandingRelationshipImage,
+                    },
+                  ),
                 ),
               ],
             ),

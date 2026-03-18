@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:make_it_happen/app/views/profile/screens/mentorship_session.dart';
 
 import '../bindings/app_bindings.dart';
 import '../routes/app_routes.dart';
@@ -20,7 +21,6 @@ import 'package:make_it_happen/app/views/profile/screens/notifications_view.dart
 import 'package:make_it_happen/app/views/profile/screens/preferences_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/profile_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/relationship_view.dart';
-import 'package:make_it_happen/app/views/profile/screens/edit_profile_view.dart';
 import 'package:make_it_happen/app/views/profile/screens/terms_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_requested_view.dart';
 import 'package:make_it_happen/app/views/match/screens/match_cancelled_view.dart';
@@ -39,9 +39,9 @@ import 'package:make_it_happen/app/views/home/screens/home_view.dart';
 import 'package:make_it_happen/app/views/home/screens/home_notifications_view.dart';
 import 'package:make_it_happen/app/views/mentorship/screens/mentorship_guided_view.dart';
 import 'package:make_it_happen/app/views/mentorship/screens/mentorship_confirmed_view.dart';
-import 'package:make_it_happen/app/views/mentorship/screens/mentorship_chat_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_lesson_detail_view.dart';
+import 'package:make_it_happen/app/views/learn/screens/learn_lesson_action_view.dart';
 import 'package:make_it_happen/app/views/learn/screens/learn_video_lesson_view.dart';
 import 'package:make_it_happen/app/views/auth/screens/reset_password_view.dart';
 import 'package:make_it_happen/app/views/auth/screens/signup_view.dart';
@@ -144,8 +144,8 @@ class AppPages {
       binding: AppBindings(),
     ),
     GetPage(
-      name: AppRoutes.editProfile,
-      page: () => const EditProfileView(),
+      name: AppRoutes.mentorshipSessions,
+      page: () => const MentorshipSessionsView(),
       binding: AppBindings(),
     ),
     GetPage(
@@ -279,11 +279,11 @@ class AppPages {
       page: () => const MentorshipConfirmedView(),
       binding: AppBindings(),
     ),
-    GetPage(
-      name: AppRoutes.mentorshipChat,
-      page: () => const MentorshipChatView(),
-      binding: AppBindings(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.mentorshipChat,
+    //   page: () => const MentorshipChatView(),
+    //   binding: AppBindings(),
+    // ),
     GetPage(
       name: AppRoutes.learn,
       page: () => const LearnView(),
@@ -347,6 +347,11 @@ class AppPages {
         actionLabel: 'Continue Learning',
         completionLabel: 'You have completed this lesson item.',
       ),
+      binding: AppBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.learnLessonAction,
+      page: () => const LearnLessonActionView(),
       binding: AppBindings(),
     ),
   ];

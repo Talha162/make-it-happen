@@ -13,6 +13,8 @@ import 'package:make_it_happen/app/widgets/match_profile_card.dart';
 import 'package:make_it_happen/app/widgets/match_tab_bar.dart';
 import 'package:make_it_happen/app/widgets/profile_bottom_nav.dart';
 
+import 'cancel_dialog.dart';
+
 class MatchRequestedView extends StatelessWidget {
   const MatchRequestedView({super.key});
 
@@ -116,10 +118,17 @@ class MatchRequestedView extends StatelessWidget {
                     secondaryLabel: 'Cancel Request',
                     onPrimaryTap: () =>
                         Get.toNamed(AppRoutes.matchDetailRequested),
-                    onSecondaryTap: () => showDemoAction(
-                      'Request cancelled',
-                      'The request was cancelled locally for this demo.',
-                    ),
+                    onSecondaryTap: () {
+                      CancelDialog.show(
+                        context: context,
+                        onConfirm: () {
+                          showDemoAction(
+                            'Request cancelled',
+                            'The request was cancelled locally for this demo.',
+                          );
+                        },
+                      );
+                    },
                   );
                 },
               ),

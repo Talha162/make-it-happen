@@ -54,4 +54,5 @@ abstract class AppRoutes {
   static const String learnVideoNotStarted = '/learn/video/not-started';
   static const String learnVideoInProgress = '/learn/video/in-progress';
   static const String learnVideoCompleted = '/learn/video/completed';
+  static const String learnLessonAction = '/learn/lesson-action';
 }
