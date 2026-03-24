@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:make_it_happen/app/resources/app_assets.dart';
 import 'package:make_it_happen/app/resources/app_colors.dart';
@@ -10,8 +11,44 @@ import 'package:make_it_happen/app/routes/app_routes.dart';
 import 'package:make_it_happen/app/routes/bottom_nav.dart';
 import 'package:make_it_happen/app/widgets/profile_bottom_nav.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  static final Uri _interviewsUri = Uri.parse(
+    'https://youtube.com/playlist?list=PLWzZf6NFIkpjIVtjIlXQXb2ePI2Ru6ZSI&si=q3KV2qIwU6omW8F0',
+  );
+
+  late final List<_HomeMatchItem> _matches = [
+    _HomeMatchItem(
+      imagePath: AppAssets.martinKImage,
+      name: 'Martin K.',
+      subtitle: 'Preparing for marriage, Serious\nrelationship with guidance',
+      age: '21 years',
+      location: 'California, US',
+    ),
+    _HomeMatchItem(
+      imagePath: AppAssets.danielRImage,
+      name: 'Daniel R.',
+      subtitle: 'Focused on career, Open to relationships\nwith depth',
+      age: '30 years',
+      location: 'Texas, US',
+    ),
+  ];
+
+  Future<void> _openInterviews() async {
+    final launched = await launchUrl(
+      _interviewsUri,
+      mode: LaunchMode.externalApplication,
+    );
+    if (!launched && mounted) {
+      Get.snackbar('Link error', 'Unable to open the interview playlist.');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,71 +80,39 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: AppDimens.spacing8),
             const _GuidedJourneyBanner(),
             const SizedBox(height: AppDimens.spacing24),
-            const _SectionTitle(title: 'Top Matches For You'),
-            const SizedBox(height: AppDimens.spacing14),
-            _MatchCard(
-              imagePath: AppAssets.martinKImage,
-              name: 'Martin K.',
-              subtitle:
-                  'Preparing for marriage, Serious\nrelationship with guidance',
-              age: '21 years',
-              location: 'California, US',
-              onMatchTap: () => Get.toNamed(AppRoutes.matchDetailAvailable),
-            ),
-            const SizedBox(height: AppDimens.spacing18),
-            _MatchCard(
-              imagePath: AppAssets.danielRImage,
-              name: 'Daniel R.',
-              subtitle: 'Focused on career, Open to relationships\nwith depth',
-              age: '30 years',
-              location: 'Texas, US',
-              onMatchTap: () => Get.toNamed(AppRoutes.matchDetailAvailable),
-            ),
-            const SizedBox(height: AppDimens.spacing24),
-            const _SectionTitle(title: 'Upcoming Events'),
-            const SizedBox(height: AppDimens.spacing14),
-            _EventCard(
-              imagePath: AppAssets.communityHangoutImage,
-              title: 'Community Hangout',
-              details: 'Sat, Oct 26 - 1:00 PM - Greenfield\nFarm',
-              price: '\$15',
-              onTap: () => Get.toNamed(AppRoutes.eventDetail),
+            if (_matches.isNotEmpty) ...[
+              const _SectionTitle(title: 'Top Matches For You'),
+              const SizedBox(height: AppDimens.spacing14),
+              for (var i = 0; i < _matches.length; i++) ...[
+                _MatchCard(
+                  imagePath: _matches[i].imagePath,
+                  name: _matches[i].name,
+                  subtitle: _matches[i].subtitle,
+                  age: _matches[i].age,
+                  location: _matches[i].location,
+                  onMatchTap: () => Get.toNamed(AppRoutes.matchDetailAvailable),
+                  onPassTap: () {
+                    setState(() {
+                      _matches.removeAt(i);
+                    });
+                  },
+                ),
+                if (i != _matches.length - 1)
+                  const SizedBox(height: AppDimens.spacing18),
+              ],
+              const SizedBox(height: AppDimens.spacing24),
+            ],
+            _SectionTitle(
+              title: 'Upcoming Events',
+              onTap: () => Get.toNamed(AppRoutes.events),
             ),
             const SizedBox(height: AppDimens.spacing14),
-            _EventCard(
-              imagePath: AppAssets.guidedGroupSessionImage,
-              title: 'Guided Group Session',
-              details: 'Sun, Nov 3 - 9:00 AM - Riverside\nCenter',
-              price: '\$30',
-              onTap: () => Get.toNamed(AppRoutes.eventDetail),
-            ),
-            const SizedBox(height: AppDimens.spacing14),
-            _EventCard(
-              imagePath: AppAssets.ministryTeachingNightImage,
-              title: 'Ministry Teaching Night',
-              details: 'Sat, Nov 10 - 7:00 PM - Downtown\nTheater',
-              price: '\$10',
-              onTap: () => Get.toNamed(AppRoutes.eventDetail),
-            ),
-            const SizedBox(height: AppDimens.spacing24),
-            const _SectionTitle(title: 'Interviews'),
-            const SizedBox(height: AppDimens.spacing14),
-            _InterviewCard(
-              title: 'Effective Conflict Resolution',
-              duration: 'Duration: 04:15s',
-              onTap: () => Get.toNamed(AppRoutes.learnVideoNotStarted),
-            ),
-            const SizedBox(height: AppDimens.spacing14),
-            _InterviewCard(
-              title: 'Building Trust and Intimacy',
-              duration: 'Duration: 02:48s',
-              onTap: () => Get.toNamed(AppRoutes.learnVideoInProgress),
-            ),
-            const SizedBox(height: AppDimens.spacing14),
-            _InterviewCard(
-              title: 'Healthy Communication in Marriage',
-              duration: 'Duration: 03:23s',
-              onTap: () => Get.toNamed(AppRoutes.learnVideoCompleted),
+            _SectionTitle(
+              title: 'Interviews',
+              onTap: _openInterviews,
+              trailingIcon: Icons.ondemand_video_rounded,
+              trailingIconColor: const Color(0xFFFF1515),
+              trailingIconBackgroundColor: AppColors.white,
             ),
             const SizedBox(height: AppDimens.spacing24),
             const _SectionTitle(title: 'Pricing Plans'),
@@ -149,7 +154,7 @@ class HomeView extends StatelessWidget {
           index: index,
           currentRoute: AppRoutes.home,
           matchRoute: AppRoutes.matchSuggestionsBlocked,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );
@@ -164,7 +169,7 @@ class _GuidedJourneyBanner extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.toNamed(AppRoutes.matchSuggestionsBlocked),
       child: Container(
-        height: 176,
+        height: 150,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           gradient: const LinearGradient(
@@ -179,10 +184,10 @@ class _GuidedJourneyBanner extends StatelessWidget {
             children: [
               Positioned(
                 left: 16,
-                top: 14,
-                bottom: 14,
+                top: 16,
+                bottom: 16,
                 child: SizedBox(
-                  width: 150,
+                  width: 168,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -198,10 +203,10 @@ class _GuidedJourneyBanner extends StatelessWidget {
                       const SizedBox(height: 4),
                       Expanded(
                         child: Text(
-                        'Learn, connect, and grow with\nintention through structured\nsupport.',
+                          'Learn, connect, and grow with\nintention through structured\nsupport.',
                           style: AppTextStyles.bodySmall.copyWith(
                             color: AppColors.white.withOpacity(0.94),
-                            height: 1.2,
+                            height: 1.25,
                           ),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
@@ -245,15 +250,15 @@ class _GuidedJourneyBanner extends StatelessWidget {
                 ),
               ),
               Positioned(
-                right: -26,
+                right: -8,
                 top: 0,
                 bottom: 0,
                 child: SizedBox(
-                  width: 250,
+                  width: 192,
                   child: Image.asset(
                     AppAssets.yourGuidedJourneyImage,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.bottomRight,
                   ),
                 ),
               ),
@@ -266,17 +271,73 @@ class _GuidedJourneyBanner extends StatelessWidget {
 }
 
 class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title});
+  const _SectionTitle({
+    required this.title,
+    this.onTap,
+    this.leadingIcon,
+    this.leadingIconColor,
+    this.trailingIcon,
+    this.trailingIconColor,
+    this.trailingIconBackgroundColor,
+  });
 
   final String title;
+  final VoidCallback? onTap;
+  final IconData? leadingIcon;
+  final Color? leadingIconColor;
+  final IconData? trailingIcon;
+  final Color? trailingIconColor;
+  final Color? trailingIconBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: AppTextStyles.titleLarge.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
+    final content = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (leadingIcon != null) ...[
+          Icon(
+            leadingIcon,
+            size: 20,
+            color: leadingIconColor ?? AppColors.textPrimary,
+          ),
+          const SizedBox(width: 6),
+        ],
+        Text(
+          title,
+          style: AppTextStyles.titleLarge.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        if (trailingIcon != null) ...[
+          const SizedBox(width: 8),
+          Container(
+            width: 22,
+            height: 22,
+            decoration: BoxDecoration(
+              color: trailingIconBackgroundColor ?? AppColors.white,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Icon(
+              trailingIcon,
+              size: 16,
+              color: trailingIconColor ?? AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ],
+    );
+
+    if (onTap == null) {
+      return content;
+    }
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: content,
       ),
     );
   }
@@ -290,6 +351,7 @@ class _MatchCard extends StatelessWidget {
     required this.age,
     required this.location,
     required this.onMatchTap,
+    required this.onPassTap,
   });
 
   final String imagePath;
@@ -298,6 +360,7 @@ class _MatchCard extends StatelessWidget {
   final String age;
   final String location;
   final VoidCallback onMatchTap;
+  final VoidCallback onPassTap;
 
   @override
   Widget build(BuildContext context) {
@@ -382,7 +445,7 @@ class _MatchCard extends StatelessWidget {
               Expanded(
                 child: _SecondaryActionButton(
                   label: 'Pass',
-                  onTap: () {},
+                  onTap: onPassTap,
                 ),
               ),
             ],
@@ -391,6 +454,22 @@ class _MatchCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _HomeMatchItem {
+  const _HomeMatchItem({
+    required this.imagePath,
+    required this.name,
+    required this.subtitle,
+    required this.age,
+    required this.location,
+  });
+
+  final String imagePath;
+  final String name;
+  final String subtitle;
+  final String age;
+  final String location;
 }
 
 class _InfoRow extends StatelessWidget {
@@ -489,170 +568,6 @@ class _SecondaryActionButton extends StatelessWidget {
               label,
               style: AppTextStyles.button.copyWith(fontWeight: FontWeight.w700),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _EventCard extends StatelessWidget {
-  const _EventCard({
-    required this.imagePath,
-    required this.title,
-    required this.details,
-    required this.price,
-    required this.onTap,
-  });
-
-  final String imagePath;
-  final String title;
-  final String details;
-  final String price;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(15),
-        child: Ink(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1C1C1C),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: const Color(0xFF363636)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  imagePath,
-                  width: 44,
-                  height: 44,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: AppTextStyles.titleMedium.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      details,
-                      style: AppTextStyles.body.copyWith(
-                        color: Colors.white.withOpacity(0.82),
-                        height: 1.25,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                price,
-                style: AppTextStyles.titleMedium.copyWith(
-                  color: AppColors.accent,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _InterviewCard extends StatelessWidget {
-  const _InterviewCard({
-    required this.title,
-    required this.duration,
-    required this.onTap,
-  });
-
-  final String title;
-  final String duration;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(15),
-        child: Ink(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1C1C1C),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: const Color(0xFF363636)),
-          ),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(999),
-                child: Image.asset(
-                  AppAssets.profileImage,
-                  width: 42,
-                  height: 42,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      duration,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 26,
-                height: 18,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFF1515),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: const Icon(
-                  Icons.play_arrow_rounded,
-                  size: 16,
-                  color: AppColors.white,
-                ),
-              ),
-            ],
           ),
         ),
       ),

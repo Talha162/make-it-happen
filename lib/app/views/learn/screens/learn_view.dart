@@ -75,7 +75,7 @@ class _LearnViewState extends State<LearnView> {
     };
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +128,7 @@ class _LearnViewState extends State<LearnView> {
           index: index,
           currentRoute: AppRoutes.learn,
           matchRoute: AppRoutes.matchSuggestionsBlocked,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

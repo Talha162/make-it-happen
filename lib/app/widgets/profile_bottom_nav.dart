@@ -19,10 +19,10 @@ class ProfileBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final items = [
       _NavItem(label: 'Home', icon: LucideIcons.home),
-      _NavItem(label: 'Learn', icon: LucideIcons.bookOpen),
-      _NavItem(label: 'Match', icon: LucideIcons.users),
-      _NavItem(label: 'Events', icon: LucideIcons.calendar),
       _NavItem(label: 'Profile', icon: LucideIcons.user),
+      _NavItem(label: 'Match', icon: LucideIcons.users),
+      _NavItem(label: 'Learn', icon: LucideIcons.bookOpen),
+      _NavItem(label: 'Events', icon: LucideIcons.calendar),
     ];
 
     return Container(

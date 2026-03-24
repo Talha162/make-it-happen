@@ -62,7 +62,7 @@ class _EventsViewState extends State<EventsView> {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -108,7 +108,7 @@ class _EventsViewState extends State<EventsView> {
                 ),
                 itemBuilder: (context, index) => _EventCard(
                   item: events[index],
-                  onTap: () => Get.toNamed(AppRoutes.eventConfirm),
+                  onTap: () => Get.toNamed(AppRoutes.eventDetail),
                 ),
                 separatorBuilder: (_, _) =>
                     const SizedBox(height: AppDimens.spacing14),

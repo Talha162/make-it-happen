@@ -12,7 +12,7 @@ class ProfileController extends GetxController {
       index: index,
       currentRoute: AppRoutes.profile,
       matchRoute: AppRoutes.matchSuggestionsBlocked,
-      eventsRoute: AppRoutes.eventEmpty,
+      eventsRoute: AppRoutes.events,
     );
   }
 

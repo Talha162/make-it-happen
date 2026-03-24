@@ -14,7 +14,7 @@ class EventBookingSuccessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -112,7 +112,8 @@ class EventBookingSuccessView extends StatelessWidget {
                       child: PrimaryButton(
                         label: 'Continue',
                         isEnabled: true,
-                        onPressed: () => Get.offAllNamed(AppRoutes.home),
+                        onPressed: () =>
+                            Get.offAllNamed(AppRoutes.events),
                       ),
                     ),
                   ],

@@ -4,10 +4,10 @@ import 'app_routes.dart';
 
 abstract class BottomNav {
   static const int homeIndex = 0;
-  static const int learnIndex = 1;
+  static const int profileIndex = 1;
   static const int matchIndex = 2;
-  static const int eventsIndex = 3;
-  static const int profileIndex = 4;
+  static const int learnIndex = 3;
+  static const int eventsIndex = 4;
 
   static void onTap({
     required int index,

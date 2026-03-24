@@ -21,29 +21,6 @@ class EventDetailView extends StatefulWidget {
 }
 
 class _EventDetailViewState extends State<EventDetailView> {
-  bool _dialogShown = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => _maybeShowBookingDialog(),
-    );
-  }
-
-  void _maybeShowBookingDialog() {
-    if (_dialogShown || widget.mode != EventDetailMode.registered) return;
-    final args = Get.arguments;
-    final shouldShow = args is Map && args['showBookingDialog'] == true;
-    if (!shouldShow) return;
-    _dialogShown = true;
-    showDialog<void>(
-      context: context,
-      barrierColor: Colors.black.withValues(alpha: 0.6),
-      builder: (_) => const _BookingConfirmedDialog(),
-    );
-  }
-
   void _handleBookNow() {
     Get.toNamed(AppRoutes.eventDetailRegistered);
   }
@@ -51,7 +28,7 @@ class _EventDetailViewState extends State<EventDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -85,8 +62,15 @@ class _EventDetailViewState extends State<EventDetailView> {
                   value: 'Yosemite National Park',
                 ),
                 if (widget.mode == EventDetailMode.available)
-                  const _InfoBlock(label: 'Event Fee', value: '4100')
-                else ...[
+                  const _InfoBlock(label: 'Event Fee', value: '\$100'),
+                const SizedBox(height: AppDimens.spacing8),
+                Text('What to Expect', style: AppTextStyles.titleMedium),
+                const SizedBox(height: AppDimens.spacing8),
+                const _Bullet(text: 'Guided group sessions'),
+                const _Bullet(text: 'Ministry-led teachings'),
+                const _Bullet(text: 'Safe and respectful interactions'),
+                if (widget.mode != EventDetailMode.available) ...[
+                  const SizedBox(height: AppDimens.spacing16),
                   Text('Status', style: AppTextStyles.label),
                   const SizedBox(height: AppDimens.spacing8),
                   const _StatusPill(
@@ -94,14 +78,7 @@ class _EventDetailViewState extends State<EventDetailView> {
                     icon: LucideIcons.tag,
                     isFilled: true,
                   ),
-                  const SizedBox(height: AppDimens.spacing12),
                 ],
-                const SizedBox(height: AppDimens.spacing8),
-                Text('What to Expect', style: AppTextStyles.titleMedium),
-                const SizedBox(height: AppDimens.spacing8),
-                const _Bullet(text: 'Guided group sessions'),
-                const _Bullet(text: 'Ministry-led teachings'),
-                const _Bullet(text: 'Safe and respectful interactions'),
                 const SizedBox(height: AppDimens.spacing16),
                 Text('Cancellation Policy', style: AppTextStyles.titleMedium),
                 const SizedBox(height: AppDimens.spacing6),
@@ -142,9 +119,7 @@ class _HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heroPath = mode == EventDetailMode.available
-        ? AppAssets.communityHangoutRegPayImage
-        : AppAssets.weekendCampingImage;
+    final heroPath = AppAssets.communityHangoutRegPayImage;
     return SizedBox(
       height: 260,
       child: Stack(
@@ -316,122 +291,6 @@ class _FullNotice extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _BookingConfirmedDialog extends StatelessWidget {
-  const _BookingConfirmedDialog();
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(
-        horizontal: AppDimens.screenPadding,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(AppDimens.spacing20),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppColors.border),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Booking Confirmed!', style: AppTextStyles.titleMedium),
-                const SizedBox(width: 6),
-                const Icon(
-                  LucideIcons.badgeCheck,
-                  size: 16,
-                  color: AppColors.primaryDark,
-                ),
-              ],
-            ),
-            const SizedBox(height: AppDimens.spacing12),
-            const _DialogInfoRow(label: 'Event', value: 'Community Hangout'),
-            const _DialogInfoRow(label: 'Date', value: 'June 14, 2025'),
-            const _DialogInfoRow(label: 'Time', value: '8:00 AM - 6:00 PM'),
-            const _DialogInfoRow(
-              label: 'Location',
-              value: 'Yosemite National Park',
-            ),
-            Row(
-              children: [
-                Text('Total Price:', style: AppTextStyles.bodySmall),
-                const Spacer(),
-                Text(
-                  '1,120 Rs',
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const _TagPill(label: 'Paid'),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DialogInfoRow extends StatelessWidget {
-  const _DialogInfoRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimens.spacing10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textMuted),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-          ),
-          const SizedBox(height: 8),
-          const Divider(height: 1, color: AppColors.divider),
-        ],
-      ),
-    );
-  }
-}
-
-class _TagPill extends StatelessWidget {
-  const _TagPill({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.statusPaidBg,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        label,
-        style: AppTextStyles.bodySmall.copyWith(
-          color: AppColors.statusPaidText,
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }

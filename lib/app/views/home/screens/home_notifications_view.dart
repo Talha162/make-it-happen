@@ -47,7 +47,7 @@ class HomeNotificationsView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

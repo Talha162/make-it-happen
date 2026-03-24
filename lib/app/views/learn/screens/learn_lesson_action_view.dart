@@ -19,7 +19,7 @@ class LearnLessonActionView extends StatelessWidget {
     final flow = LearnLessonActionFlow.fromArguments(Get.arguments);
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {

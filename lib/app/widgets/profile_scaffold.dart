@@ -34,7 +34,7 @@ class ProfileScaffold extends StatelessWidget {
         : 0.0;
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(

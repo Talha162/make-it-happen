@@ -52,7 +52,7 @@ class MatchSuggestionsView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +125,7 @@ class MatchSuggestionsView extends StatelessWidget {
         onTap: (index) => BottomNav.onTap(
           index: index,
           currentRoute: AppRoutes.matchSuggestions,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

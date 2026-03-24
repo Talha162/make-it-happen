@@ -51,7 +51,7 @@ class MatchSearchView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class MatchSearchView extends StatelessWidget {
           index: index,
           currentRoute: AppRoutes.matchSearch,
           matchRoute: AppRoutes.matchSearch,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

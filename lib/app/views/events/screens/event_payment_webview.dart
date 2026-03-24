@@ -11,9 +11,9 @@ class EventPaymentWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       appBar: AppBar(
-        backgroundColor: AppColors.transparent,
+        backgroundColor: AppColors.black,
         elevation: 0,
         title: Text('Payment', style: AppTextStyles.titleMedium),
       ),

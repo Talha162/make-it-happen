@@ -20,7 +20,7 @@ class MatchSuggestionsBlockedView extends StatelessWidget {
   Widget build(BuildContext context) {
     final tabs = ['Suggestions', 'Matched', 'Requested', 'Cancelled'];
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +92,7 @@ class MatchSuggestionsBlockedView extends StatelessWidget {
           index: index,
           currentRoute: AppRoutes.matchSuggestionsBlocked,
           matchRoute: AppRoutes.matchSuggestionsBlocked,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

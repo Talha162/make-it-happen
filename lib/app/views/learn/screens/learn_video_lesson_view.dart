@@ -32,7 +32,7 @@ class LearnVideoLessonView extends StatelessWidget {
         : const ['In Progress', 'Not Started', 'Not Started'];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [

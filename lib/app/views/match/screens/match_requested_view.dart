@@ -61,7 +61,7 @@ class MatchRequestedView extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class MatchRequestedView extends StatelessWidget {
           index: index,
           currentRoute: AppRoutes.matchRequested,
           matchRoute: AppRoutes.matchRequested,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

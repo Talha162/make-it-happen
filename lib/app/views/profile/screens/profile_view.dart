@@ -18,7 +18,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       bottomNavigationBar: Obx(
         () => ProfileBottomNav(
           currentIndex: controller.navIndex.value,

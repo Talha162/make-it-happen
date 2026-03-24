@@ -16,7 +16,7 @@ class MentorshipConfirmedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -117,7 +117,7 @@ class MentorshipConfirmedView extends StatelessWidget {
               child: PrimaryButton(
                 label: 'Continue',
                 isEnabled: true,
-                onPressed: () => Get.toNamed(AppRoutes.matchDetailMatched),
+                onPressed: () => Get.offNamed(AppRoutes.matchMatched),
               ),
             ),
           ],

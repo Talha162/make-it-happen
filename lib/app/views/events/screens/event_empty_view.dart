@@ -18,7 +18,7 @@ class EventEmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -67,7 +67,7 @@ class EventEmptyView extends StatelessWidget {
           index: index,
           currentRoute: AppRoutes.eventEmpty,
           matchRoute: AppRoutes.matchSuggestionsBlocked,
-          eventsRoute: AppRoutes.eventEmpty,
+          eventsRoute: AppRoutes.events,
         ),
       ),
     );

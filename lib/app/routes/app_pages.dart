@@ -4,7 +4,6 @@ import 'package:make_it_happen/app/views/profile/screens/mentorship_session.dart
 import '../bindings/app_bindings.dart';
 import '../routes/app_routes.dart';
 import 'package:make_it_happen/app/views/onboarding/screens/additional_questions_view.dart';
-import 'package:make_it_happen/app/views/events/screens/event_booking_confirm_view.dart';
 import 'package:make_it_happen/app/views/events/screens/event_booking_success_view.dart';
 import 'package:make_it_happen/app/views/events/screens/event_detail_view.dart';
 import 'package:make_it_happen/app/views/events/screens/event_empty_view.dart';
@@ -178,11 +177,7 @@ class AppPages {
       page: () => const EventDetailView(mode: EventDetailMode.full),
       binding: AppBindings(),
     ),
-    GetPage(
-      name: AppRoutes.eventConfirm,
-      page: () => const EventBookingConfirmView(),
-      binding: AppBindings(),
-    ),
+
     GetPage(
       name: AppRoutes.eventSuccess,
       page: () => const EventBookingSuccessView(),

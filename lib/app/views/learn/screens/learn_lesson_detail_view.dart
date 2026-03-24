@@ -29,7 +29,7 @@ class LearnLessonDetailView extends StatelessWidget {
     final hasProgress = progress > 0;
 
     return Scaffold(
-      backgroundColor: AppColors.transparent,
+      backgroundColor: AppColors.black,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
