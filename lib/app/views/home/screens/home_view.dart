@@ -105,6 +105,9 @@ class _HomeViewState extends State<HomeView> {
             _SectionTitle(
               title: 'Upcoming Events',
               onTap: () => Get.toNamed(AppRoutes.events),
+              trailingIcon: Icons.event_available_rounded,
+              trailingIconColor: AppColors.primaryDark,
+              trailingIconBackgroundColor: AppColors.white,
             ),
             const SizedBox(height: AppDimens.spacing14),
             _SectionTitle(
@@ -178,16 +181,20 @@ class _GuidedJourneyBanner extends StatelessWidget {
             colors: [Color(0xFF7A3CFF), Color(0xFF157DFF)],
           ),
         ),
-        child: ClipRRect(
+         child: ClipRRect(
           borderRadius: BorderRadius.circular(18),
-          child: Stack(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final width = constraints.maxWidth;
+
+          return Stack(
             children: [
               Positioned(
                 left: 16,
                 top: 16,
                 bottom: 16,
                 child: SizedBox(
-                  width: 168,
+                  width: width * 0.5, // 50% for text
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -203,7 +210,7 @@ class _GuidedJourneyBanner extends StatelessWidget {
                       const SizedBox(height: 4),
                       Expanded(
                         child: Text(
-                          'Learn, connect, and grow with\nintention through structured\nsupport.',
+                          'Learn, connect, and grow with intention through structured support.',
                           style: AppTextStyles.bodySmall.copyWith(
                             color: AppColors.white.withOpacity(0.94),
                             height: 1.25,
@@ -250,11 +257,11 @@ class _GuidedJourneyBanner extends StatelessWidget {
                 ),
               ),
               Positioned(
-                right: -8,
+                right: 0,
                 top: 0,
                 bottom: 0,
                 child: SizedBox(
-                  width: 192,
+                  width: width * 0.55, // 55% for image
                   child: Image.asset(
                     AppAssets.yourGuidedJourneyImage,
                     fit: BoxFit.contain,
@@ -263,8 +270,10 @@ class _GuidedJourneyBanner extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
+          );
+        },
+      ),
+    ),
       ),
     );
   }
@@ -291,53 +300,92 @@ class _SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (leadingIcon != null) ...[
-          Icon(
-            leadingIcon,
-            size: 20,
-            color: leadingIconColor ?? AppColors.textPrimary,
-          ),
-          const SizedBox(width: 6),
-        ],
-        Text(
-          title,
-          style: AppTextStyles.titleLarge.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        if (trailingIcon != null) ...[
-          const SizedBox(width: 8),
-          Container(
-            width: 22,
-            height: 22,
-            decoration: BoxDecoration(
-              color: trailingIconBackgroundColor ?? AppColors.white,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Icon(
-              trailingIcon,
-              size: 16,
-              color: trailingIconColor ?? AppColors.textPrimary,
-            ),
-          ),
-        ],
-      ],
-    );
-
     if (onTap == null) {
-      return content;
+      return Text(
+        title,
+        style: AppTextStyles.titleLarge.copyWith(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
+      );
     }
 
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
-        child: content,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceElevated,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.border),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x22000000),
+                blurRadius: 18,
+                offset: Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              if (leadingIcon != null) ...[
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF202733),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    leadingIcon,
+                    size: 18,
+                    color: leadingIconColor ?? AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
+              Expanded(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        title,
+                        style: AppTextStyles.titleMedium.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    if (trailingIcon != null) ...[
+                      const SizedBox(width: 8),
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: trailingIconBackgroundColor ?? AppColors.white,
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        child: Icon(
+                          trailingIcon,
+                          size: 16,
+                          color: trailingIconColor ?? AppColors.textPrimary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 16,
+                color: AppColors.textMuted,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
