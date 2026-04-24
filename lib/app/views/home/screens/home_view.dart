@@ -105,6 +105,7 @@ class _HomeViewState extends State<HomeView> {
             _SectionTitle(
               title: 'Upcoming Events',
               onTap: () => Get.toNamed(AppRoutes.events),
+              titleColor: const Color(0xFFFFAA00),
               trailingIcon: Icons.event_available_rounded,
               trailingIconColor: AppColors.primaryDark,
               trailingIconBackgroundColor: AppColors.white,
@@ -113,6 +114,7 @@ class _HomeViewState extends State<HomeView> {
             _SectionTitle(
               title: 'Interviews',
               onTap: _openInterviews,
+              titleColor: const Color(0xFFFFAA00),
               trailingIcon: Icons.ondemand_video_rounded,
               trailingIconColor: const Color(0xFFFF1515),
               trailingIconBackgroundColor: AppColors.white,
@@ -283,6 +285,7 @@ class _SectionTitle extends StatelessWidget {
   const _SectionTitle({
     required this.title,
     this.onTap,
+    this.titleColor,
     this.leadingIcon,
     this.leadingIconColor,
     this.trailingIcon,
@@ -292,6 +295,7 @@ class _SectionTitle extends StatelessWidget {
 
   final String title;
   final VoidCallback? onTap;
+  final Color? titleColor;
   final IconData? leadingIcon;
   final Color? leadingIconColor;
   final IconData? trailingIcon;
@@ -354,6 +358,7 @@ class _SectionTitle extends StatelessWidget {
                       child: Text(
                         title,
                         style: AppTextStyles.titleMedium.copyWith(
+                          color: titleColor,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
