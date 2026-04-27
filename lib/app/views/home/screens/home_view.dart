@@ -103,21 +103,27 @@ class _HomeViewState extends State<HomeView> {
               const SizedBox(height: AppDimens.spacing24),
             ],
             _SectionTitle(
-              title: 'Upcoming Events',
+              title: 'Upcoming interviews',
               onTap: () => Get.toNamed(AppRoutes.events),
-              titleColor: const Color(0xFFFFAA00),
+              titleColor: AppColors.black,
+              tileBackgroundColor: const Color(0xFFFFDE00),
+              borderColor: const Color(0xFFFFDE00),
               trailingIcon: Icons.event_available_rounded,
-              trailingIconColor: AppColors.primaryDark,
-              trailingIconBackgroundColor: AppColors.white,
+              trailingIconColor: const Color(0xFFFFDE00),
+              trailingIconBackgroundColor: AppColors.black,
+              arrowColor: AppColors.black,
             ),
             const SizedBox(height: AppDimens.spacing14),
             _SectionTitle(
               title: 'Interviews',
               onTap: _openInterviews,
-              titleColor: const Color(0xFFFFAA00),
+              titleColor: AppColors.white,
+              tileBackgroundColor: const Color(0xFFF01616),
+              borderColor: const Color(0xFFF01616),
               trailingIcon: Icons.ondemand_video_rounded,
               trailingIconColor: const Color(0xFFFF1515),
               trailingIconBackgroundColor: AppColors.white,
+              arrowColor: AppColors.white,
             ),
             const SizedBox(height: AppDimens.spacing24),
             const _SectionTitle(title: 'Pricing Plans'),
@@ -291,6 +297,9 @@ class _SectionTitle extends StatelessWidget {
     this.trailingIcon,
     this.trailingIconColor,
     this.trailingIconBackgroundColor,
+    this.tileBackgroundColor,
+    this.borderColor,
+    this.arrowColor,
   });
 
   final String title;
@@ -301,6 +310,9 @@ class _SectionTitle extends StatelessWidget {
   final IconData? trailingIcon;
   final Color? trailingIconColor;
   final Color? trailingIconBackgroundColor;
+  final Color? tileBackgroundColor;
+  final Color? borderColor;
+  final Color? arrowColor;
 
   @override
   Widget build(BuildContext context) {
@@ -322,9 +334,9 @@ class _SectionTitle extends StatelessWidget {
         child: Ink(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            color: AppColors.surfaceElevated,
+            color: tileBackgroundColor ?? AppColors.surfaceElevated,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: borderColor ?? AppColors.border),
             boxShadow: const [
               BoxShadow(
                 color: Color(0x22000000),
@@ -358,7 +370,7 @@ class _SectionTitle extends StatelessWidget {
                       child: Text(
                         title,
                         style: AppTextStyles.titleMedium.copyWith(
-                          color: titleColor,
+                          color: titleColor ?? AppColors.textPrimary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -383,10 +395,10 @@ class _SectionTitle extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              const Icon(
+              Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 16,
-                color: AppColors.textMuted,
+                color: arrowColor ?? AppColors.textMuted,
               ),
             ],
           ),
