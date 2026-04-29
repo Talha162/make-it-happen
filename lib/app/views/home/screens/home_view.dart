@@ -102,28 +102,36 @@ class _HomeViewState extends State<HomeView> {
               ],
               const SizedBox(height: AppDimens.spacing24),
             ],
-            _SectionTitle(
-              title: 'Upcoming interviews',
-              onTap: () => Get.toNamed(AppRoutes.events),
-              titleColor: AppColors.black,
-              tileBackgroundColor: const Color(0xFFFFDE00),
-              borderColor: const Color(0xFFFFDE00),
-              trailingIcon: Icons.event_available_rounded,
-              trailingIconColor: const Color(0xFFFFDE00),
-              trailingIconBackgroundColor: AppColors.black,
-              arrowColor: AppColors.black,
-            ),
-            const SizedBox(height: AppDimens.spacing14),
-            _SectionTitle(
-              title: 'Interviews',
-              onTap: _openInterviews,
-              titleColor: AppColors.white,
-              tileBackgroundColor: const Color(0xFFF01616),
-              borderColor: const Color(0xFFF01616),
-              trailingIcon: Icons.ondemand_video_rounded,
-              trailingIconColor: const Color(0xFFFF1515),
-              trailingIconBackgroundColor: AppColors.white,
-              arrowColor: AppColors.white,
+            Row(
+              children: [
+                Expanded(
+                  child: _SectionTitle(
+                    title: 'Upcoming interviews',
+                    onTap: () => Get.toNamed(AppRoutes.events),
+                    titleColor: AppColors.black,
+                    tileBackgroundColor: const Color(0xFFFFDE00),
+                    borderColor: const Color(0xFFFFDE00),
+                    trailingIcon: Icons.event_available_rounded,
+                    trailingIconColor: const Color(0xFFFFDE00),
+                    trailingIconBackgroundColor: AppColors.black,
+                    arrowColor: AppColors.black,
+                  ),
+                ),
+                const SizedBox(width: AppDimens.spacing10),
+                Expanded(
+                  child: _SectionTitle(
+                    title: 'Interviews',
+                    onTap: _openInterviews,
+                    titleColor: AppColors.white,
+                    tileBackgroundColor: const Color(0xFFF01616),
+                    borderColor: const Color(0xFFF01616),
+                    trailingIcon: Icons.ondemand_video_rounded,
+                    trailingIconColor: const Color(0xFFFF1515),
+                    trailingIconBackgroundColor: AppColors.white,
+                    arrowColor: AppColors.white,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: AppDimens.spacing24),
             const _SectionTitle(title: 'Pricing Plans'),
@@ -345,62 +353,76 @@ class _SectionTitle extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            children: [
-              if (leadingIcon != null) ...[
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF202733),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    leadingIcon,
-                    size: 18,
-                    color: leadingIconColor ?? AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(width: 12),
-              ],
-              Expanded(
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        title,
-                        style: AppTextStyles.titleMedium.copyWith(
-                          color: titleColor ?? AppColors.textPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isCompact = constraints.maxWidth < 190;
+              final titleSize = isCompact ? 14.0 : 18.0;
+              final trailingSize = isCompact ? 20.0 : 24.0;
+              final trailingIconSize = isCompact ? 13.0 : 16.0;
+              final arrowSize = isCompact ? 13.0 : 16.0;
+              final gap = isCompact ? 6.0 : 8.0;
+
+              return Row(
+                children: [
+                  if (leadingIcon != null) ...[
+                    Container(
+                      width: isCompact ? 28 : 34,
+                      height: isCompact ? 28 : 34,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF202733),
+                        borderRadius: BorderRadius.circular(isCompact ? 8 : 10),
+                      ),
+                      child: Icon(
+                        leadingIcon,
+                        size: isCompact ? 15 : 18,
+                        color: leadingIconColor ?? AppColors.textPrimary,
                       ),
                     ),
-                    if (trailingIcon != null) ...[
-                      const SizedBox(width: 8),
-                      Container(
-                        width: 24,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: trailingIconBackgroundColor ?? AppColors.white,
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Icon(
-                          trailingIcon,
-                          size: 16,
-                          color: trailingIconColor ?? AppColors.textPrimary,
-                        ),
-                      ),
-                    ],
+                    SizedBox(width: isCompact ? 8 : 12),
                   ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 16,
-                color: arrowColor ?? AppColors.textMuted,
-              ),
-            ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.titleMedium.copyWith(
+                              color: titleColor ?? AppColors.textPrimary,
+                              fontWeight: FontWeight.w700,
+                              fontSize: titleSize,
+                            ),
+                          ),
+                        ),
+                        if (trailingIcon != null) ...[
+                          SizedBox(width: gap),
+                          Container(
+                            width: trailingSize,
+                            height: trailingSize,
+                            decoration: BoxDecoration(
+                              color: trailingIconBackgroundColor ?? AppColors.white,
+                              borderRadius: BorderRadius.circular(isCompact ? 6 : 7),
+                            ),
+                            child: Icon(
+                              trailingIcon,
+                              size: trailingIconSize,
+                              color: trailingIconColor ?? AppColors.textPrimary,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: isCompact ? 8 : 12),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: arrowSize,
+                    color: arrowColor ?? AppColors.textMuted,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
